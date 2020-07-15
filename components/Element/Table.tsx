@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faList } from '@fortawesome/free-solid-svg-icons'
+
 type Props = {
   row?: any[]
   header?: any[]
@@ -7,7 +10,7 @@ const Table = ({ row = [], header = [] }: Props) => {
   return (
     <div className="w-full mt-12">
       <p className="text-xl pb-3 flex items-center">
-        <i className="fas fa-list mr-3"></i> Latest Reports
+        <FontAwesomeIcon icon={faList} className="mr-3" /> Latest Reports
       </p>
       <div className="bg-white overflow-auto">
         <table className="min-w-full bg-white">
@@ -15,11 +18,17 @@ const Table = ({ row = [], header = [] }: Props) => {
             <tr>
               {header.map((item, index) => {
                 return index <= 1 ? (
-                  <th className="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">
+                  <th
+                    key={index}
+                    className="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm"
+                  >
                     {item}
                   </th>
                 ) : (
-                  <th className="text-left py-3 px-4 uppercase font-semibold text-sm">
+                  <th
+                    key={index}
+                    className="text-left py-3 px-4 uppercase font-semibold text-sm"
+                  >
                     {item}
                   </th>
                 )
@@ -28,7 +37,7 @@ const Table = ({ row = [], header = [] }: Props) => {
           </thead>
           <tbody className="text-gray-700">
             {row.map((item, index) => (
-              <tr className={index % 2 == 1 ? 'bg-gray-200' : ''}>
+              <tr key={index} className={index % 2 == 1 ? 'bg-gray-200' : ''}>
                 <td className="w-1/3 text-left py-3 px-4">{item[0]}</td>
                 <td className="w-1/3 text-left py-3 px-4">{item[1]}</td>
                 <td className="text-left py-3 px-4">

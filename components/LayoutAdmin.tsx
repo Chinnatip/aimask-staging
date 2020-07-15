@@ -1,6 +1,8 @@
+import Head from 'next/head'
 import React, { ReactNode, useState } from 'react'
 import { navList, hoverList } from './static/LayoutAdminData'
-import Head from 'next/head'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   children?: ReactNode
@@ -15,7 +17,7 @@ const LinkHomeAside = () => {
       href="/"
       className="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4"
     >
-      <i className="fas fa-arrow-circle-up mr-3"></i>
+      <FontAwesomeIcon icon={faArrowAltCircleUp} className="mr-3" />
       Home page
     </a>
   )
@@ -42,20 +44,22 @@ const Layout = ({ children, title = '' }: Props) => {
             Admin
           </a>
           <button className="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-            <i className="fas fa-plus mr-3"></i> New Report
+            <FontAwesomeIcon icon={faPlus} className="mr-3" />
+            New Report
           </button>
         </div>
         <nav className="text-white text-base font-semibold pt-3">
-          {navList.map(({ path, text, link_to, fa_icon }) => {
+          {navList.map(({ path, text, link_to, fa_icon }, index) => {
             return (
               <a
                 href={link_to}
+                key={index}
                 onClick={() => setCurrent(path)}
                 className={`flex items-center text-white py-4 pl-6 nav-item ${
                   current == path ? 'active-nav-link' : ''
                 }`}
               >
-                <i className={`fas ${fa_icon} mr-3`} />
+                <FontAwesomeIcon icon={fa_icon} className="mr-3" />
                 {text}
               </a>
             )

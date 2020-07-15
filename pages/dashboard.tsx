@@ -11,12 +11,8 @@ const Page = () => (
         <h1 className="text-3xl text-black pb-6">Dashboard</h1>
 
         <div className="flex flex-wrap mt-6">
-          <Chart title="Monthly Reports" canvas_id="chartOne" icon="fa-plus" />
-          <Chart
-            title="Resolved Reports"
-            canvas_id="chartTwo"
-            icon="fa-check"
-          />
+          <Chart title="Monthly Reports" canvas_id="chartOne" icon="plus" />
+          <Chart title="Resolved Reports" canvas_id="chartTwo" icon="check" />
         </div>
 
         <Table row={tableRows} header={tableHead} />
