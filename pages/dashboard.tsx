@@ -1,5 +1,5 @@
 import Layout from '../components/LayoutAdmin'
-import Footer from '../components/element/Footer'
+import Footer from '../components/stuff/Footer'
 
 // Dashboard page
 import Overview from '../components/dashboard/Overview'

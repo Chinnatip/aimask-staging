@@ -1,5 +1,5 @@
-import Chart from '../element/Chart'
-import Table from '../element/Table'
+import Chart from '../stuff/Chart'
+import Table from '../stuff/Table'
 import { tableHead, tableRows } from '../static/MockupTable'
 
 const Dashboard = () => {
