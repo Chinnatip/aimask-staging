@@ -18,14 +18,7 @@ const Table = ({ row = [], header = [] }: Props) => {
           <thead className="bg-gray-800 text-white">
             <tr>
               {header.map((item, index) => {
-                return index <= 1 ? (
-                  <th
-                    key={index}
-                    className="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm"
-                  >
-                    {item}
-                  </th>
-                ) : (
+                return (
                   <th
                     key={index}
                     className="text-left py-3 px-4 uppercase font-semibold text-sm"
@@ -39,18 +32,10 @@ const Table = ({ row = [], header = [] }: Props) => {
           <tbody className="text-gray-700">
             {row.map((item, index) => (
               <tr key={index} className={index % 2 == 1 ? 'bg-gray-200' : ''}>
-                <td className="w-1/3 text-left py-3 px-4">{item[0]}</td>
-                <td className="w-1/3 text-left py-3 px-4">{item[1]}</td>
-                <td className="text-left py-3 px-4">
-                  <a className="hover:text-blue-500" href={`tel:${item[2]}`}>
-                    {item[2]}
-                  </a>
-                </td>
-                <td className="text-left py-3 px-4">
-                  <a className="hover:text-blue-500" href={`mailto:${item[3]}`}>
-                    {item[3]}
-                  </a>
-                </td>
+                <td className="text-left py-3 px-4">{item[0]}</td>
+                <td className="text-left py-3 px-4">{item[1]}</td>
+                <td className="w-1/3 text-left py-3 px-4">{item[2]}</td>
+                <td className="w-1/3 text-left py-3 px-4">{item[3]}</td>
               </tr>
             ))}
           </tbody>
@@ -58,6 +43,12 @@ const Table = ({ row = [], header = [] }: Props) => {
       </div>
     </div>
   )
+}
+
+// Array extractor function
+// for object extractable
+export const tableExtractor = (datas: any, header: string[]) => {
+  return datas.map((item: any) => header.map((header) => item[header]))
 }
 
 export default Table
