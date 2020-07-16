@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React, { ReactNode, useState } from 'react'
 import { navList, hoverList } from './static/LayoutAdminData'
 import { faPlus, faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons'
-import Icon from './Element/Icon'
+import Icon from './element/Icon'
 
 type Props = {
   children?: ReactNode
