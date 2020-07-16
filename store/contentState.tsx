@@ -1,12 +1,17 @@
 import { Machine, assign } from 'xstate'
 
+interface Context {
+  data: object[]
+  error: any
+}
+
 // Content Machine
-export const contentMachine = Machine({
+export const contentState = Machine<Context>({
   id: 'fetch',
   initial: 'loading',
   context: {
     data: [],
-    error: { message: '' },
+    error: {},
   },
   states: {
     idle: {
@@ -17,9 +22,7 @@ export const contentMachine = Machine({
         src: 'fetchData',
         onDone: {
           target: 'success',
-          actions: assign({
-            data: (_, event) => event.data,
-          }),
+          actions: assign({ data: (_, event) => event.data }),
         },
         onError: {
           target: 'failure',
@@ -33,7 +36,7 @@ export const contentMachine = Machine({
       on: {
         RELOAD: 'idle',
       },
-      // type: 'final',
+      // type: 'final', // use final for 'un-editable' state
     },
     failure: {
       on: {

@@ -1,6 +1,6 @@
 import { useMachine } from '@xstate/react'
 import { buttonProps } from '../StyleProps'
-import { contentMachine } from '../../machine/contentMachine'
+import { contentState } from '../../store/contentState'
 import Table, { tableExtractor } from '../stuff/Table'
 
 // Table property
@@ -8,7 +8,7 @@ const tableHeader = ['id', 'userId', 'title', 'body']
 
 // Rendering
 const Content = () => {
-  const [current, send] = useMachine(contentMachine, {
+  const [current, send] = useMachine(contentState, {
     services: {
       // some/api/${e.query}
       fetchData: () =>
@@ -43,7 +43,6 @@ const Content = () => {
     case 'failure':
       return (
         <>
-          <p>{current.context.error.message}</p>
           <br />
           <button className={buttonProps} onClick={() => send('RETRY')}>
             Reload
