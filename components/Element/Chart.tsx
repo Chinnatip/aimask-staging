@@ -1,4 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Icon from './Icon'
 import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
@@ -11,10 +11,7 @@ const Chart = ({ title = '', canvas_id = '', icon = '' }: Props) => {
   return (
     <div className="w-full lg:w-1/2 pr-0 lg:pr-2  ">
       <p className="text-xl pb-3 flex items-center">
-        <FontAwesomeIcon
-          icon={icon == 'check' ? faCheck : faPlus}
-          className="mr-3 fa-show"
-        />
+        <Icon fill={icon == 'check' ? faCheck : faPlus} />
         {title}
       </p>
       <div className="p-6 bg-white">

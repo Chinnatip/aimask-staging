@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import React, { ReactNode, useState } from 'react'
 import { navList, hoverList } from './static/LayoutAdminData'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons'
+import Icon from './Element/Icon'
 
 type Props = {
   children?: ReactNode
@@ -17,7 +17,7 @@ const LinkHomeAside = () => {
       href="/"
       className="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4"
     >
-      <FontAwesomeIcon icon={faArrowAltCircleUp} className="mr-3" />
+      <Icon fill={faArrowAltCircleUp} />
       Home page
     </a>
   )
@@ -44,7 +44,7 @@ const Layout = ({ children, title = '' }: Props) => {
             Admin
           </a>
           <button className="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-            <FontAwesomeIcon icon={faPlus} className="mr-3" />
+            <Icon fill={faPlus} />
             New Report
           </button>
         </div>
@@ -59,7 +59,7 @@ const Layout = ({ children, title = '' }: Props) => {
                   current == path ? 'active-nav-link' : ''
                 }`}
               >
-                <FontAwesomeIcon icon={fa_icon} className="mr-3" />
+                <Icon fill={fa_icon} />
                 {text}
               </a>
             )

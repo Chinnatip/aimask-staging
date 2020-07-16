@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faList } from '@fortawesome/free-solid-svg-icons'
+import Icon from './Icon'
 
 type Props = {
   row?: any[]
@@ -10,7 +10,8 @@ const Table = ({ row = [], header = [] }: Props) => {
   return (
     <div className="w-full mt-12">
       <p className="text-xl pb-3 flex items-center">
-        <FontAwesomeIcon icon={faList} className="mr-3" /> Latest Reports
+        <Icon fill={faList} />
+        Latest Reports
       </p>
       <div className="bg-white overflow-auto">
         <table className="min-w-full bg-white">
