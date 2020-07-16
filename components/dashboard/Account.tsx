@@ -11,7 +11,7 @@ const Content = () => {
   const [current, send] = useMachine(contentMachine, {
     services: {
       // some/api/${e.query}
-      fetchData: (_, e) =>
+      fetchData: () =>
         fetch(`https://jsonplaceholder.typicode.com/posts`).then((res) =>
           res.json()
         ),
