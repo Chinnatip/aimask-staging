@@ -1,7 +1,5 @@
 import {
   faPlus,
-  faTable,
-  faCalendar,
   faPaperclip,
   faSuitcase,
 } from '@fortawesome/free-solid-svg-icons'
