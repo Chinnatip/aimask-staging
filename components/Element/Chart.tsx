@@ -13,7 +13,7 @@ const Chart = ({ title = '', canvas_id = '', icon = '' }: Props) => {
       <p className="text-xl pb-3 flex items-center">
         <FontAwesomeIcon
           icon={icon == 'check' ? faCheck : faPlus}
-          className="mr-3 fa"
+          className="mr-3 fa-show"
         />
         {title}
       </p>
