@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React, { ReactNode, useState } from 'react'
 import { navList, hoverList } from './static/LayoutAdminData'
 import { faPlus, faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons'
+import { useAppStore } from '../store/index'
 import Icon from './stuff/Icon'
 
 type Props = {
@@ -25,7 +26,10 @@ const LinkHomeAside = () => {
 
 const Layout = ({ children, title = '' }: Props) => {
   const [hover, setHover] = useState(false)
-  const [current, setCurrent] = useState('dashboard')
+  const {
+    appState: { page },
+    setAppState,
+  } = useAppStore()
   return (
     <div className="bg-gray-100 font-family-karla flex">
       <Head>
@@ -49,14 +53,14 @@ const Layout = ({ children, title = '' }: Props) => {
           </button>
         </div>
         <nav className="text-white text-base font-semibold pt-3">
-          {navList.map(({ path, text, link_to, fa_icon }, index) => {
+          {navList.map(({ path, text, fa_icon }, index) => {
             return (
               <a
-                href={link_to}
+                href={`#${path}`}
                 key={index}
-                onClick={() => setCurrent(path)}
+                onClick={() => setAppState({ page: path })}
                 className={`flex items-center text-white py-4 pl-6 nav-item ${
-                  current == path ? 'active-nav-link' : ''
+                  page == path ? 'active-nav-link' : ''
                 }`}
               >
                 <Icon fill={fa_icon} />
@@ -79,22 +83,26 @@ const Layout = ({ children, title = '' }: Props) => {
             >
               <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400" />
             </button>
-            {hover ? (
+            {hover && (
               <div className="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-                {hoverList.map(({ text, path, link_to }) => {
+                {hoverList.map(({ text, path }) => {
                   return (
                     <a
-                      href={link_to}
-                      onClick={() => setCurrent(path)}
+                      href={`#${path}`}
+                      onClick={() => setAppState({ page: path })}
                       className="block px-4 py-2 account-link hover:text-white"
                     >
                       {text}
                     </a>
                   )
                 })}
+                <a
+                  href="/sign-out"
+                  className="block px-4 py-2 account-link hover:text-white"
+                >
+                  Signout
+                </a>
               </div>
-            ) : (
-              ''
             )}
           </div>
         </header>
