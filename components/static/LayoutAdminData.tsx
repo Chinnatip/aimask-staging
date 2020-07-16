@@ -13,16 +13,6 @@ export const navList = [
     fa_icon: faPlus,
   },
   {
-    path: 'table',
-    text: 'Tables',
-    fa_icon: faTable,
-  },
-  {
-    path: 'calendar',
-    text: 'Calendar',
-    fa_icon: faCalendar,
-  },
-  {
     path: 'account',
     text: 'Account',
     fa_icon: faPaperclip,

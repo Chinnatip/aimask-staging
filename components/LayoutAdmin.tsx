@@ -19,7 +19,7 @@ const LinkHomeAside = () => {
       className="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4"
     >
       <Icon fill={faArrowAltCircleUp} />
-      Home page
+      Landing page
     </a>
   )
 }
@@ -43,9 +43,9 @@ const Layout = ({ children, title = '' }: Props) => {
         <div className="p-6">
           <a
             href="/"
-            className="text-white text-3xl font-semibold uppercase hover:text-gray-300"
+            className="text-white text-2xl font-semibold uppercase hover:text-gray-300"
           >
-            Admin
+            Yellboard
           </a>
           <button className="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
             <Icon fill={faPlus} />
