@@ -1,5 +1,6 @@
 import { useAppStore } from '../store/index'
 
+// Layout
 import Layout from '../components/LayoutAdmin'
 import Footer from '../components/stuff/Footer'
 
@@ -12,7 +13,8 @@ type Props = {
   current_page: string
 }
 
-const SelectComponent = ({ current_page }: Props) => {
+// Page filtering
+const Page = ({ current_page }: Props) => {
   switch (current_page) {
     case 'dashboard':
       return <Overview />
@@ -23,18 +25,19 @@ const SelectComponent = ({ current_page }: Props) => {
   }
 }
 
-const Page = () => {
+// Rendering
+const Dashboard = () => {
   const {
     appState: { page },
   } = useAppStore()
   return (
     <Layout title="Dashboard" current="dashboard">
       <div className="w-full overflow-x-hidden border-t flex flex-col">
-        <SelectComponent current_page={page} />
+        <Page current_page={page} />
         <Footer />
       </div>
     </Layout>
   )
 }
 
-export default Page
+export default Dashboard
