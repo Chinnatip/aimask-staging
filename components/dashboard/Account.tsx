@@ -1,53 +1,10 @@
-import { Machine, assign } from 'xstate'
 import { useMachine } from '@xstate/react'
 import { buttonProps } from '../StyleProps'
+import { contentMachine } from '../../machine/contentMachine'
 import Table, { tableExtractor } from '../stuff/Table'
 
 // Table property
 const tableHeader = ['id', 'userId', 'title', 'body']
-
-// Content Machine
-const contentMachine = Machine({
-  id: 'fetch',
-  initial: 'loading',
-  context: {
-    data: [],
-    error: { message: '' },
-  },
-  states: {
-    idle: {
-      on: { FETCH: 'loading' },
-    },
-    loading: {
-      invoke: {
-        src: 'fetchData',
-        onDone: {
-          target: 'success',
-          actions: assign({
-            data: (_, event) => event.data,
-          }),
-        },
-        onError: {
-          target: 'failure',
-          actions: assign({
-            error: (_, event) => event.data,
-          }),
-        },
-      },
-    },
-    success: {
-      on: {
-        RELOAD: 'idle',
-      },
-      // type: 'final',
-    },
-    failure: {
-      on: {
-        RETRY: 'loading',
-      },
-    },
-  },
-})
 
 // Rendering
 const Content = () => {
