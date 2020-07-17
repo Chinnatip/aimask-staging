@@ -12,16 +12,8 @@ export const [useStore] = createStore<AppState>({
 export function useAppStore() {
   const [appState, setApp] = useStore()
 
-  // const logout = useCallback(() => {
-  //   if (!confirm('Are you sure?')) {
-  //     return
-  //   }
-  //   setUser(null)
-  // }, [setUser])
-
   return {
     appState,
     setAppState: setApp,
-    // logout,
   }
 }

@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React, { ReactNode, useState } from 'react'
 import { navList, hoverList } from './static/LayoutAdminData'
 import { faPlus, faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons'
-import { useAppStore } from '../store/index'
+import { useAppStore, useProfile } from '../store/index'
 import Icon from './stuff/Icon'
 
 type Props = {
@@ -30,6 +30,8 @@ const Layout = ({ children, title = '' }: Props) => {
     appState: { page },
     setAppState,
   } = useAppStore()
+  const { profile } = useProfile()
+
   return (
     <div className="bg-gray-100 font-family-karla flex">
       <Head>
@@ -81,7 +83,7 @@ const Layout = ({ children, title = '' }: Props) => {
               onClick={() => setHover(!hover)}
               className="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none"
             >
-              <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400" />
+              <img src={profile.picture} />
             </button>
             {hover && (
               <div className="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
