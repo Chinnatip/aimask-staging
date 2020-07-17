@@ -6,7 +6,7 @@ import Footer from '../components/stuff/Footer'
 
 // Dashboard page
 import Overview from '../components/dashboard/Overview'
-import Account from '../components/dashboard/Account'
+import Finance from '../components/dashboard/Finance'
 import NotFound from '../components/dashboard/NotFound'
 
 type Props = {
@@ -18,8 +18,8 @@ const Page = ({ current_page }: Props) => {
   switch (current_page) {
     case 'dashboard':
       return <Overview />
-    case 'account':
-      return <Account />
+    case 'finance':
+      return <Finance />
     default:
       return <NotFound />
   }

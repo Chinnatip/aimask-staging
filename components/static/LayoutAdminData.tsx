@@ -7,12 +7,12 @@ import {
 export const navList = [
   {
     path: 'dashboard',
-    text: 'Dashboard',
+    text: 'Overview',
     fa_icon: faPlus,
   },
   {
-    path: 'account',
-    text: 'Account',
+    path: 'finance',
+    text: 'Finance',
     fa_icon: faPaperclip,
   },
   {
@@ -24,8 +24,8 @@ export const navList = [
 
 export const hoverList = [
   {
-    text: 'Account',
-    path: 'account',
+    text: 'Finance',
+    path: 'finance',
   },
   {
     text: 'Support',

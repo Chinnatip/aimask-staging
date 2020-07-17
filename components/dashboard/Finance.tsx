@@ -53,13 +53,13 @@ const Content = () => {
   }
 }
 
-const Dashboard = () => {
+const Finance = () => {
   return (
     <main className="w-full flex-grow p-6">
-      <h1 className="text-3xl text-black pb-6">Accountant</h1>
+      <h1 className="text-3xl text-black pb-6">Financial account</h1>
       <Content />
     </main>
   )
 }
 
-export default Dashboard
+export default Finance
