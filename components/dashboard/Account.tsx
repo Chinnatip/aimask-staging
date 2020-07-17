@@ -1,6 +1,6 @@
 import { useMachine } from '@xstate/react'
 import { buttonProps } from '../StyleProps'
-import { contentState } from '../../store/contentState'
+import { useContent } from '../../store/index'
 import Table, { tableExtractor } from '../stuff/Table'
 
 // Table property
@@ -8,7 +8,7 @@ const tableHeader = ['id', 'userId', 'title', 'body']
 
 // Rendering
 const Content = () => {
-  const [current, send] = useMachine(contentState, {
+  const [current, send] = useMachine(useContent, {
     services: {
       fetchData: () =>
         fetch(`https://jsonplaceholder.typicode.com/posts`).then((res) =>

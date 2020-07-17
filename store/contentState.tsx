@@ -6,7 +6,7 @@ interface Context {
 }
 
 // Content Machine
-export const contentState = Machine<Context>({
+export const useContent = Machine<Context>({
   id: 'fetch',
   initial: 'loading',
   context: {

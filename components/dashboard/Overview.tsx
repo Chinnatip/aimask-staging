@@ -1,7 +1,7 @@
 import Chart from '../stuff/Chart'
 import Table from '../stuff/Table'
 import { useMachine } from '@xstate/react'
-import { contentState } from '../../store/contentState'
+import { useContent } from '../../store/index'
 import { tableHead, tableRows } from '../static/MockupTable'
 import { buttonProps } from '../StyleProps'
 import { barChartData, lineChartData } from '../static/ChartData'
@@ -11,7 +11,7 @@ import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
 let stateParser: any
 
 const Content = () => {
-  const [current, send] = useMachine(contentState, {
+  const [current, send] = useMachine(useContent, {
     services: {
       fetchData: () =>
         fetch(`https://jsonplaceholder.typicode.com/posts`).then((_) => {
