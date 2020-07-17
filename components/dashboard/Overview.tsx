@@ -1,10 +1,14 @@
 import Chart from '../stuff/Chart'
 import Table from '../stuff/Table'
 import { useMachine } from '@xstate/react'
-import { useContent } from '../../store/index'
-import { tableHead, tableRows } from '../static/MockupTable'
 import { buttonProps } from '../StyleProps'
-import { barChartData, lineChartData } from '../static/ChartData'
+import { useContent } from '../../store/index'
+import {
+  barChartData,
+  lineChartData,
+  tableHead,
+  tableRows,
+} from '../static/index'
 import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 // init LET as state parser

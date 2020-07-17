@@ -1,2 +1,5 @@
 export { profileData } from './ProfileData'
 export { photos } from './Photos'
+export { barChartData, lineChartData } from './ChartData'
+export { navList, hoverList } from './LayoutAdminData'
+export { tableHead, tableRows } from './MockupTable'

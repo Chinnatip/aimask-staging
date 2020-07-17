@@ -1,9 +1,10 @@
 import Player from '../stuff/Player'
-import { useProfile } from '../../store/index'
-import { photos } from '../static/index'
 import SocialMeter from '../stuff/SocialMeter'
 import ProfileCard from '../stuff/ProfileCard'
 import Gallery from 'react-photo-gallery'
+
+import { useProfile } from '../../store/index'
+import { photos } from '../static/index'
 
 const Profile = () => {
   const {

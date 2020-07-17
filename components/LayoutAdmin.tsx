@@ -1,9 +1,9 @@
 import Head from 'next/head'
+import Icon from './stuff/Icon'
 import React, { ReactNode, useState } from 'react'
-import { navList, hoverList } from './static/LayoutAdminData'
 import { faPlus, faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons'
 import { useAppStore, useProfile } from '../store/index'
-import Icon from './stuff/Icon'
+import { navList, hoverList } from './static/index'
 
 type Props = {
   children?: ReactNode
