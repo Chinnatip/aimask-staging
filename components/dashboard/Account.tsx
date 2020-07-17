@@ -10,7 +10,6 @@ const tableHeader = ['id', 'userId', 'title', 'body']
 const Content = () => {
   const [current, send] = useMachine(contentState, {
     services: {
-      // some/api/${e.query}
       fetchData: () =>
         fetch(`https://jsonplaceholder.typicode.com/posts`).then((res) =>
           res.json()

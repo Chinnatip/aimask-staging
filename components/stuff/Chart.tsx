@@ -9,6 +9,22 @@ type Props = {
   icon?: any
 }
 
+type SelecProps = {
+  type: string
+  data: any
+}
+
+const Selector = ({ data, type }: SelecProps) => {
+  switch (type) {
+    case 'bar':
+      return <BarChart data={data} />
+    case 'line':
+      return <LineChart data={data} />
+    default:
+      return <div>Blank</div>
+  }
+}
+
 const Chart = ({ title = '', type = 'bar', data, icon }: Props) => {
   return (
     <div className="w-full lg:w-1/2 pr-0 lg:pr-2  ">
@@ -17,13 +33,7 @@ const Chart = ({ title = '', type = 'bar', data, icon }: Props) => {
         {title}
       </p>
       <div className="p-0 bg-white chart-height">
-        {type == 'bar' ? (
-          <BarChart data={data} />
-        ) : type == 'line' ? (
-          <LineChart data={data} />
-        ) : (
-          <div>Blank</div>
-        )}
+        <Selector data={data} type={type}></Selector>
       </div>
     </div>
   )
