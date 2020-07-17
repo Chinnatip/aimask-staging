@@ -1,21 +1,29 @@
 import Icon from './Icon'
-import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
+import LineChart from '../stuff/LineChart'
+import BarChart from '../stuff/BarChart'
 
 type Props = {
   title: string
-  canvas_id: string
-  icon?: string
+  type: string
+  data: any
+  icon?: any
 }
 
-const Chart = ({ title = '', canvas_id = '', icon = '' }: Props) => {
+const Chart = ({ title = '', type = 'bar', data, icon }: Props) => {
   return (
     <div className="w-full lg:w-1/2 pr-0 lg:pr-2  ">
       <p className="text-xl pb-3 flex items-center">
-        <Icon fill={icon == 'check' ? faCheck : faPlus} />
+        <Icon fill={icon} />
         {title}
       </p>
-      <div className="p-6 bg-white">
-        <canvas id={canvas_id} width="400" height="200"></canvas>
+      <div className="p-0 bg-white chart-height">
+        {type == 'bar' ? (
+          <BarChart data={data} />
+        ) : type == 'line' ? (
+          <LineChart data={data} />
+        ) : (
+          <div>Blank</div>
+        )}
       </div>
     </div>
   )

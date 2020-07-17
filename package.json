@@ -11,6 +11,8 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "@nivo/bar": "^0.62.0",
+    "@nivo/line": "^0.62.0",
     "@xstate/react": "^0.8.1",
     "hooksy": "^1.0.0",
     "next": "latest",
