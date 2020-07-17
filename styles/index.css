@@ -6,6 +6,14 @@
 
 @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
 
+/* Filter brightness */
+.bri-70 {
+  filter: brightness(70%);
+}
+.bri-100 {
+  filter: brightness(100%);
+}
+
 /* Chart div */
 .chart-height {
   height: 300px;
