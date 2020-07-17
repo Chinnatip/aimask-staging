@@ -2,8 +2,9 @@ import Head from 'next/head'
 import Icon from './stuff/Icon'
 import React, { ReactNode, useState } from 'react'
 import { faPlus, faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons'
-import { useAppStore, useProfile } from '../store/index'
+import { useProfile } from '../store/index'
 import { navList, hoverList } from './static/index'
+import { useRouter } from 'next/router'
 
 type Props = {
   children?: ReactNode
@@ -26,12 +27,9 @@ const LinkHomeAside = () => {
 
 const Layout = ({ children, title = '' }: Props) => {
   const [hover, setHover] = useState(false)
-  const {
-    appState: { page },
-    setAppState,
-  } = useAppStore()
   const { profile } = useProfile()
 
+  const { route } = useRouter()
   return (
     <div className="bg-gray-100 font-family-karla flex">
       <Head>
@@ -58,11 +56,10 @@ const Layout = ({ children, title = '' }: Props) => {
           {navList.map(({ path, text, fa_icon }, index) => {
             return (
               <a
-                href={`#${path}`}
+                href={path}
                 key={index}
-                onClick={() => setAppState({ page: path })}
                 className={`flex items-center text-white py-4 pl-6 nav-item ${
-                  page == path ? 'active-nav-link' : ''
+                  route == path ? 'active-nav-link' : ''
                 }`}
               >
                 <Icon fill={fa_icon} />
@@ -90,20 +87,13 @@ const Layout = ({ children, title = '' }: Props) => {
                 {hoverList.map(({ text, path }) => {
                   return (
                     <a
-                      href={`#${path}`}
-                      onClick={() => setAppState({ page: path })}
+                      href={path}
                       className="block px-4 py-2 account-link hover:text-white"
                     >
                       {text}
                     </a>
                   )
                 })}
-                <a
-                  href="/sign-out"
-                  className="block px-4 py-2 account-link hover:text-white"
-                >
-                  Signout
-                </a>
               </div>
             )}
           </div>
