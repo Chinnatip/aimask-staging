@@ -9,12 +9,12 @@ type Props = {
   icon?: any
 }
 
-type SelecProps = {
+type ChartProps = {
   type: string
   data: any
 }
 
-const Selector = ({ data, type }: SelecProps) => {
+const Selector = ({ data, type }: ChartProps) => {
   switch (type) {
     case 'bar':
       return <BarChart data={data} />

@@ -1,5 +1,5 @@
-import Layout from '@/Layout'
-import ListDetail from '@/ListDetail'
+import Layout from '@/layout/Layout'
+import ListDetail from '@/stuff/ListDetail'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { User } from 'interfaces'
 import { userLists } from 'static'

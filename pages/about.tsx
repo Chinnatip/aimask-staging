@@ -1,5 +1,5 @@
 import initialize from 'utils/initialize'
-import Layout from '@/Layout'
+import Layout from '@/layout/Layout'
 import { Token } from 'interfaces'
 // import Navbar from '@/stuff/Navbar'
 // import { useProfile } from 'store/index'

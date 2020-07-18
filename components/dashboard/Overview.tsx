@@ -1,6 +1,5 @@
 import Chart from 'stuff/Chart'
 import Table from 'stuff/Table'
-import { buttonProps } from '@/StyleProps'
 import { useContent } from 'store'
 import { barChartData, lineChartData, tableHead, tableRows } from 'static'
 import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
@@ -59,7 +58,10 @@ const Content = () => {
       return (
         <>
           <br />
-          <button className={buttonProps} onClick={() => send('RETRY')}>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+            onClick={() => send('RETRY')}
+          >
             Reload
           </button>
         </>

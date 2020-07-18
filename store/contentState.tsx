@@ -1,6 +1,6 @@
 import { Machine, assign } from 'xstate'
 
-interface Context {
+type Context = {
   data: object[]
   error: any
 }

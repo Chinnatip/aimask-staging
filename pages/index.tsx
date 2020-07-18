@@ -1,4 +1,4 @@
-import Layout from '@/Layout'
+import Layout from '@/layout/Layout'
 import initialize from 'utils/initialize'
 import { Token } from 'interfaces'
 // import { useProfile } from 'store/index'

@@ -1,5 +1,5 @@
 // Layout
-import Layout from '@/LayoutAdmin'
+import Layout from '@/layout/LayoutAdmin'
 import Profile from '@/dashboard/Profile'
 import initialize from 'utils/initialize'
 import { Token } from 'interfaces'

@@ -1,5 +1,4 @@
 import { useMachine } from '@xstate/react'
-import { buttonProps } from '@/StyleProps'
 import Table, { tableExtractor } from 'stuff/Table'
 import { useContent } from 'store'
 
@@ -20,7 +19,7 @@ const Content = () => {
     case 'idle':
       return (
         <button
-          className={buttonProps}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
           onClick={() => send('FETCH', { query: 'something' })}
         >
           Load accountant data
@@ -34,7 +33,10 @@ const Content = () => {
         <>
           <Table row={tableRows} header={tableHeader} />
           <br />
-          <button className={buttonProps} onClick={() => send('RELOAD')}>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+            onClick={() => send('RELOAD')}
+          >
             Reload
           </button>
         </>
@@ -43,7 +45,10 @@ const Content = () => {
       return (
         <>
           <br />
-          <button className={buttonProps} onClick={() => send('RETRY')}>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+            onClick={() => send('RETRY')}
+          >
             Reload
           </button>
         </>

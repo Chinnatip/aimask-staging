@@ -2,11 +2,11 @@ import Icon from 'stuff/Icon'
 import { User } from 'interfaces'
 import { faBackward } from '@fortawesome/free-solid-svg-icons'
 
-type ListDetailProps = {
+type Props = {
   item: User
 }
 
-const ListDetail = ({ item: user }: ListDetailProps) => (
+const ListDetail = ({ item: user }: Props) => (
   <div className="p-20">
     <h1 className="text-4xl">Detail for {user.name}</h1>
     <p>ID: {user.id}</p>
