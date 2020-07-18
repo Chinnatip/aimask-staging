@@ -1,5 +1,5 @@
 export const profileData = {
-  login: true,
+  login: false,
   name: '/Kaykai Slider',
   picture:
     'https://scontent.fbkk8-2.fna.fbcdn.net/v/t1.0-9/29244721_1020524574780782_2971362077358161920_n.jpg?_nc_cat=107&_nc_sid=09cbfe&_nc_eui2=AeE7GDCh9UVv-r2AZfDUMxXabvWCZBv1fFxu9YJkG_V8XJWkUd4s3N6cbREq7RWxrRCP8GvhiinmpmL7L26i9NVZ&_nc_ohc=5cJKLbv0rvoAX8JWbrO&_nc_ht=scontent.fbkk8-2.fna&oh=598dbb1772f2c628346c5987aebccec8&oe=5F36A517',

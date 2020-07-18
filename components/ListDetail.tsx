@@ -1,5 +1,4 @@
-import * as React from 'react'
-import Icon from '../components/stuff/Icon'
+import Icon from './stuff/Icon'
 import { User } from '../interfaces'
 import { faBackward } from '@fortawesome/free-solid-svg-icons'
 

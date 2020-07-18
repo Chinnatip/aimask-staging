@@ -1,11 +1,15 @@
 import Layout from '../components/Layout'
 import Navbar from '../components/stuff/Navbar'
 import { useProfile } from '../store/index'
+import initialize from '../utils/initialize'
 
-const IndexPage = () => {
-  const {
-    profile: { login },
-  } = useProfile()
+type Props = {
+  token?: string
+}
+
+const IndexPage = ({ token }: Props) => {
+  const { profile } = useProfile()
+  const { login } = profile
   return (
     <Layout title="Yellboard - Dashboard for PR Agency">
       <header>
@@ -35,7 +39,7 @@ const IndexPage = () => {
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-5xl">
-                    Yellboard
+                    Yellboard <h1>{token}</h1>
                   </h1>
                   <p className="mt-4 text-lg text-gray-300">
                     This is a simple example of a Landing Page you can build
@@ -580,6 +584,14 @@ const IndexPage = () => {
       </main>
     </Layout>
   )
+}
+
+export async function getServerSideProps(context: any) {
+  const token = initialize(context)
+
+  return {
+    props: { token }, // will be passed to the page component as props
+  }
 }
 
 export default IndexPage

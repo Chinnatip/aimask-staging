@@ -1,9 +1,4 @@
-import {
-  faGlobe,
-  faIdCard,
-  faCoins,
-  faHandHoldingHeart,
-} from '@fortawesome/free-solid-svg-icons'
+import { faGlobe, faIdCard, faCoins } from '@fortawesome/free-solid-svg-icons'
 
 export const navList = [
   {
@@ -20,11 +15,6 @@ export const navList = [
     path: '/dashboard/profile',
     text: 'Profile',
     fa_icon: faIdCard,
-  },
-  {
-    path: '/dashboard/support',
-    text: 'Support',
-    fa_icon: faHandHoldingHeart,
   },
 ]
 
