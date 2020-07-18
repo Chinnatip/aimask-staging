@@ -23,8 +23,4 @@ export const hoverList = [
     text: 'Profile',
     path: '/dashboard/profile',
   },
-  {
-    text: 'Sign out',
-    path: '/sign-out',
-  },
 ]

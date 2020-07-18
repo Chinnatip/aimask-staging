@@ -4,7 +4,8 @@ import { ReactNode, useState } from 'react'
 import { faPlus, faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons'
 import { useProfile } from 'store'
 import { navList, hoverList } from 'static'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
+import { removeCookie } from 'utils/cookie'
 
 type Props = {
   children?: ReactNode
@@ -29,6 +30,7 @@ const Layout = ({ children, title = '' }: Props) => {
   const [hover, setHover] = useState(false)
   const { profile } = useProfile()
   const { route } = useRouter()
+  const { name, picture } = profile
   return (
     <div className="bg-gray-100 font-family-karla flex">
       <Head>
@@ -75,11 +77,12 @@ const Layout = ({ children, title = '' }: Props) => {
         <header className="w-full flex items-center bg-white py-2 px-6 hidden sm:flex">
           <div className="w-1/2"></div>
           <div className="relative w-1/2 flex justify-end">
+            <p className="realtive h-12 flex items-center mr-4">{name}</p>
             <button
               onClick={() => setHover(!hover)}
               className="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none"
             >
-              <img src={profile.picture} />
+              <img src={picture} />
             </button>
             {hover && (
               <div className="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
@@ -93,6 +96,15 @@ const Layout = ({ children, title = '' }: Props) => {
                     </a>
                   )
                 })}
+                <button
+                  className="block px-4 py-2 account-link hover:text-white w-full text-left"
+                  onClick={() => {
+                    removeCookie('token')
+                    Router.push('/')
+                  }}
+                >
+                  Sign out
+                </button>
               </div>
             )}
           </div>

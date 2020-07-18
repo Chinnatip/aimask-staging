@@ -40,7 +40,7 @@ const IndexPage = ({ token }: Props) => {
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-5xl">
-                    Yellboard <h1>{token != null && `| ${token.username}`}</h1>
+                    Yellboard <p>{token != null && `| ${token.username}`}</p>
                   </h1>
                   <p className="mt-4 text-lg text-gray-300">
                     This is a simple example of a Landing Page you can build

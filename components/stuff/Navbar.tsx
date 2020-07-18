@@ -6,6 +6,8 @@ import {
   faSignInAlt,
   faChartPie,
 } from '@fortawesome/free-solid-svg-icons'
+import Router from 'next/router'
+import { removeCookie } from 'utils/cookie'
 
 type Props = {
   transparent?: boolean
@@ -109,19 +111,35 @@ export default function Navbar({
                       <Icon fill={faSignInAlt} /> Sign In
                     </a>
                   ) : (
-                    <a
-                      href="/dashboard"
-                      className={
-                        (transparent
-                          ? 'bg-white text-gray-800 active:bg-gray-100'
-                          : 'bg-pink-500 text-white active:bg-pink-600') +
-                        ' text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3'
-                      }
-                      type="button"
-                      style={{ transition: 'all .15s ease' }}
-                    >
-                      <Icon fill={faChartPie} /> Dashboard
-                    </a>
+                    <>
+                      <button
+                        className={
+                          (transparent
+                            ? 'lg:text-white lg:hover:text-gray-300 text-gray-800'
+                            : 'text-gray-800 hover:text-gray-600') +
+                          ' px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold'
+                        }
+                        onClick={() => {
+                          removeCookie('token')
+                          Router.push('/')
+                        }}
+                      >
+                        Sign out
+                      </button>
+                      <a
+                        href="/dashboard"
+                        className={
+                          (transparent
+                            ? 'bg-white text-gray-800 active:bg-gray-100'
+                            : 'bg-pink-500 text-white active:bg-pink-600') +
+                          ' text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3'
+                        }
+                        type="button"
+                        style={{ transition: 'all .15s ease' }}
+                      >
+                        <Icon fill={faChartPie} /> Dashboard
+                      </a>
+                    </>
                   )}
                 </li>
               </ul>
