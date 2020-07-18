@@ -45,8 +45,7 @@ const Table = ({ row = [], header = [] }: Props) => {
   )
 }
 
-// Array extractor function
-// for object extractable
+// Array extractor
 export const tableExtractor = (datas: any, header: string[]) => {
   return datas.map((item: any) => header.map((header) => item[header]))
 }

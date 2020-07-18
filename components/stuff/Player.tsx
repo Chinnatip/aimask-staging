@@ -6,7 +6,7 @@ type Props = {
   height?: string
 }
 
-// Render a YouTube video player
+// Render a YouTube , Vimeo or Video link
 const Player = ({ link, width = '100%', height = '320px' }: Props) => {
   return <ReactPlayer url={link} width={width} height={height} />
 }

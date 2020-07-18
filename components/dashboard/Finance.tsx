@@ -1,9 +1,7 @@
 import { useMachine } from '@xstate/react'
-import Table, { tableExtractor } from 'stuff/Table'
 import { useContent } from 'store'
-
-// Table property
-const tableHeader = ['id', 'userId', 'title', 'body']
+import { tableHeader } from 'static'
+import Table, { tableExtractor } from 'stuff/Table'
 
 // Rendering
 const Content = () => {
