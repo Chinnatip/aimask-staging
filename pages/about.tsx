@@ -1,19 +1,22 @@
-import Link from 'next/link'
 import Layout from '../components/Layout'
-import { buttonProps } from '../components/StyleProps'
+import Navbar from '../components/stuff/Navbar'
+import { useProfile } from '../store/index'
 
-const AboutPage = () => (
-  <Layout title="About | Next.js + TypeScript Example">
-    <h1>About</h1>
-    <p>This is the about page</p>
-    <p>
-      <Link href="/">
-        <button className={buttonProps}>
-          <a>Go home</a>
-        </button>
-      </Link>
-    </p>
-  </Layout>
-)
+const AboutPage = () => {
+  const {
+    profile: { login },
+  } = useProfile()
+  return (
+    <Layout title="About us">
+      <header>
+        <Navbar login={login} />
+      </header>
+      <div className="p-20">
+        <h1 className="text-4xl">About</h1>
+        <p>This is the about page</p>
+      </div>
+    </Layout>
+  )
+}
 
 export default AboutPage

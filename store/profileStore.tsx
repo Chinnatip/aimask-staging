@@ -10,6 +10,7 @@ interface Follower {
 
 interface UserProfile {
   name: string
+  login?: boolean
   picture: string
   cover_image: string
   feature_video: string

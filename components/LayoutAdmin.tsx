@@ -28,7 +28,6 @@ const LinkHomeAside = () => {
 const Layout = ({ children, title = '' }: Props) => {
   const [hover, setHover] = useState(false)
   const { profile } = useProfile()
-
   const { route } = useRouter()
   return (
     <div className="bg-gray-100 font-family-karla flex">

@@ -1,6 +1,6 @@
 // Layout
 import Layout from '../../components/LayoutAdmin'
-import Footer from '../../components/stuff/Footer'
+import Footer from '../../components/stuff/DashboardFooter'
 
 // Dashboard page
 import Finance from '../../components/dashboard/Finance'
