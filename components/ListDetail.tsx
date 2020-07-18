@@ -1,5 +1,5 @@
-import Icon from './stuff/Icon'
-import { User } from '../interfaces'
+import Icon from 'stuff/Icon'
+import { User } from 'interfaces'
 import { faBackward } from '@fortawesome/free-solid-svg-icons'
 
 type ListDetailProps = {

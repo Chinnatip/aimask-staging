@@ -1,9 +1,9 @@
 // Layout
-import Layout from '../../components/LayoutAdmin'
-import Footer from '../../components/stuff/DashboardFooter'
+import Layout from '@/LayoutAdmin'
+import Footer from '@/stuff/DashboardFooter'
 
 // Dashboard page
-import Finance from '../../components/dashboard/Finance'
+import Finance from '@/dashboard/Finance'
 
 // Rendering
 const Dashboard = () => {

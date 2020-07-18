@@ -1,24 +1,16 @@
+import List from '@/List'
+import Layout from '@/Layout'
 import { GetStaticProps } from 'next'
-import { User } from '../../interfaces'
-import { userLists } from '../../components/static/index'
-import List from '../../components/List'
-import Layout from '../../components/Layout'
-import Navbar from '../../components/stuff/Navbar'
-import { useProfile } from '../../store/index'
+import { User } from 'interfaces'
+import { userLists } from 'static'
 
 type Props = {
   items: User[]
 }
 
 const WithStaticProps = ({ items }: Props) => {
-  const {
-    profile: { login },
-  } = useProfile()
   return (
-    <Layout title="User list">
-      <header>
-        <Navbar login={login} />
-      </header>
+    <Layout title="User list" ssg>
       <div className="p-20">
         <h1 className="text-4xl">Users List</h1>
         <p>

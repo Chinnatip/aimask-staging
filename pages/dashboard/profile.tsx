@@ -1,9 +1,9 @@
 // Layout
-import Layout from '../../components/LayoutAdmin'
-import Footer from '../../components/stuff/DashboardFooter'
+import Layout from '@/LayoutAdmin'
+import Footer from '@/stuff/DashboardFooter'
 
 // Dashboard page
-import Profile from '../../components/dashboard/Profile'
+import Profile from '@/dashboard/Profile'
 
 // Rendering
 const Dashboard = () => {

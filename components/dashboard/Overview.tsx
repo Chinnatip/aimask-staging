@@ -1,15 +1,10 @@
-import Chart from '../stuff/Chart'
-import Table from '../stuff/Table'
-import { useMachine } from '@xstate/react'
-import { buttonProps } from '../StyleProps'
-import { useContent } from '../../store/index'
-import {
-  barChartData,
-  lineChartData,
-  tableHead,
-  tableRows,
-} from '../static/index'
+import Chart from 'stuff/Chart'
+import Table from 'stuff/Table'
+import { buttonProps } from '@/StyleProps'
+import { useContent } from 'store'
+import { barChartData, lineChartData, tableHead, tableRows } from 'static'
 import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { useMachine } from '@xstate/react'
 
 // init LET as state parser
 let stateParser: any

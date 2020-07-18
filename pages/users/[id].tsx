@@ -1,11 +1,8 @@
+import Layout from '@/Layout'
+import ListDetail from '@/ListDetail'
 import { GetStaticProps, GetStaticPaths } from 'next'
-
-import { User } from '../../interfaces'
-import { userLists } from '../../components/static/index'
-import Layout from '../../components/Layout'
-import ListDetail from '../../components/ListDetail'
-import Navbar from '../../components/stuff/Navbar'
-import { useProfile } from '../../store/index'
+import { User } from 'interfaces'
+import { userLists } from 'static'
 
 type Props = {
   item?: User
@@ -13,12 +10,9 @@ type Props = {
 }
 
 const StaticPropsDetail = ({ item, errors }: Props) => {
-  const {
-    profile: { login },
-  } = useProfile()
   if (errors) {
     return (
-      <Layout title="Error on this page">
+      <Layout title="Error on this page" ssg>
         <p>
           <span style={{ color: 'red' }}>Error:</span> {errors}
         </p>
@@ -27,10 +21,7 @@ const StaticPropsDetail = ({ item, errors }: Props) => {
   }
 
   return (
-    <Layout title={`${item ? item.name : 'User Detail'} `}>
-      <header>
-        <Navbar login={login} />
-      </header>
+    <Layout title={`${item ? item.name : 'User Detail'} `} ssg>
       {item && <ListDetail item={item} />}
     </Layout>
   )

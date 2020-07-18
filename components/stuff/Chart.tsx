@@ -1,6 +1,6 @@
 import Icon from './Icon'
-import LineChart from '../stuff/LineChart'
-import BarChart from '../stuff/BarChart'
+import LineChart from './LineChart'
+import BarChart from './BarChart'
 
 type Props = {
   title: string

@@ -1,4 +1,4 @@
-import { useProfile } from '../../store/index'
+import { useProfile } from 'store'
 
 const ProfileCard = () => {
   const {

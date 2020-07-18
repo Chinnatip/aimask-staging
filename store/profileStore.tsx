@@ -1,6 +1,6 @@
 // import { useCallback } from 'react'
 import { createStore } from 'hooksy'
-import { profileData } from '../components/static/index'
+import { profileData } from 'static'
 
 interface Follower {
   facebook?: number

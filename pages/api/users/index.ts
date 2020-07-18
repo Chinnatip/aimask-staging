@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { userLists } from '../../../components/static/index'
+import { userLists } from 'static'
 
 const handler = (_req: NextApiRequest, res: NextApiResponse) => {
   try {
