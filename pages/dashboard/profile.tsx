@@ -1,20 +1,27 @@
 // Layout
 import Layout from '@/LayoutAdmin'
-import Footer from '@/stuff/DashboardFooter'
-
-// Dashboard page
 import Profile from '@/dashboard/Profile'
+import initialize from 'utils/initialize'
+import { Token } from 'interfaces'
+
+type Props = {
+  token?: Token
+}
 
 // Rendering
-const Dashboard = () => {
+const Dashboard = ({ token }: Props) => {
   return (
-    <Layout title="Dashboard" current="dashboard">
-      <div className="w-full overflow-x-hidden border-t flex flex-col">
-        <Profile />
-        <Footer />
-      </div>
+    <Layout title="Dashboard" current="dashboard" token={token}>
+      <Profile />
     </Layout>
   )
+}
+
+export async function getServerSideProps(context: any) {
+  const token = initialize(context)
+  return {
+    props: { token },
+  }
 }
 
 export default Dashboard

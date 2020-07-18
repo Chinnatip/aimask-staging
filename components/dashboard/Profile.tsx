@@ -3,7 +3,7 @@ import Player from 'stuff/Player'
 import SocialMeter from 'stuff/SocialMeter'
 import ProfileCard from 'stuff/ProfileCard'
 import { photos } from 'static'
-import { useProfile } from 'store'
+import { useInfluencer } from 'store'
 
 const Profile = () => {
   const {
@@ -13,7 +13,7 @@ const Profile = () => {
       description,
       follower: { facebook, youtube, instagram },
     },
-  } = useProfile()
+  } = useInfluencer()
   return (
     <main className="w-full flex-grow p-6">
       <div className="grid grid-rows-3 grid-flow-col gap-4">

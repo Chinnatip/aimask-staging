@@ -1,17 +1,9 @@
 export const profileData = {
-  login: false,
-  name: '/Kaykai Slider',
+  username: 'Chinnatip',
+  surname: 'Taemkaeo',
   picture:
-    'https://scontent.fbkk8-2.fna.fbcdn.net/v/t1.0-9/29244721_1020524574780782_2971362077358161920_n.jpg?_nc_cat=107&_nc_sid=09cbfe&_nc_eui2=AeE7GDCh9UVv-r2AZfDUMxXabvWCZBv1fFxu9YJkG_V8XJWkUd4s3N6cbREq7RWxrRCP8GvhiinmpmL7L26i9NVZ&_nc_ohc=5cJKLbv0rvoAX8JWbrO&_nc_ht=scontent.fbkk8-2.fna&oh=598dbb1772f2c628346c5987aebccec8&oe=5F36A517',
+    'https://scontent.fbkk12-2.fna.fbcdn.net/v/t1.0-9/90632529_2980871871934148_6781087709172596736_o.jpg?_nc_cat=105&_nc_sid=09cbfe&_nc_eui2=AeG1mZAg30X1-AGJRK-avOk1jtLsIGWhmCiO0uwgZaGYKL8BZ8hGzbDJCjommOIfsrflAuxheGT1EDYMXTTjFZel&_nc_ohc=X90NCLvTD94AX_v2WJ9&_nc_ht=scontent.fbkk12-2.fna&oh=196cb086b8782296c7792e7779a89d5f&oe=5F3A3457',
   cover_image:
-    'https://scontent.fbkk8-4.fna.fbcdn.net/v/t1.0-9/99368817_2672180913028552_6694010240838402048_o.jpg?_nc_cat=100&_nc_sid=e3f864&_nc_eui2=AeEgSeTuN_5v6PlKbaqI8VRqQvkfLNTqJOdC-R8s1Ook5xUFMmHJG9atoFyPmmdyhn4yP04txKQUfs3zpmw1KzP7&_nc_ohc=cR3Qz2hvHWgAX9DO11G&_nc_ht=scontent.fbkk8-4.fna&oh=3a7859f03f91e4f0a35e6b7e62709446&oe=5F35AE03',
-  feature_video: 'https://www.youtube.com/watch?v=e335KsiCwVs',
-  description:
-    'หากพูดถึงชื่อ "เก๋ไก๋ สไลเดอร์" คงไม่มีเด็กคนไหนไม่รู้จัก สาวน้อยหน้าตาน่ารัก ที่มีผู้ติดตามในช่องยูทูบมากกว่า 11 ล้านคน ซึ่งแต่ละคลิปที่ถูกปล่อยออกมานั้น จะมียอดคนดูไม่ต่ำกว่า 1 ล้านครั้ง จนกลายเป็นผู้มีอิทธิพลบนโลกออนไลน์ เรียกได้ว่าเป็น เจ้าแม่ยูทูบเบอร์ คนแรกที่มีผู้ติดตามมากสุดในเมืองไทย',
-  follower: {
-    facebook: 200994,
-    instagram: 89345,
-    youtube: 12909488,
-  },
-  tags: ['foodie', 'trend', 'reviewer'],
+    'https://scontent.fbkk8-2.fna.fbcdn.net/v/t1.0-9/75540287_2692753564079315_1924503965492314112_n.jpg?_nc_cat=107&_nc_sid=8bfeb9&_nc_eui2=AeHnNuNHkTLhgC4voEZMtnO7a5EghfnIFXtrkSCF-cgVe_I7Ibfaja2DZxrHSongDoRYDd83bO7Qsw4MChD8tYGI&_nc_ohc=23ERQGQarWcAX_r1s9r&_nc_ht=scontent.fbkk8-2.fna&oh=392b68ff2164cd4b05f0eb62951399f3&oe=5F37B9DF',
+  userId: 112,
 }

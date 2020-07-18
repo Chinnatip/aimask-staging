@@ -1,5 +1,5 @@
 // hooksy store
-export { useProfile } from './profileStore'
+export { useInfluencer } from './influencerStore'
 
 // xState
 export { useContent } from './contentState'

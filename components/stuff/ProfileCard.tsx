@@ -1,9 +1,9 @@
-import { useProfile } from 'store'
+import { useInfluencer } from 'store'
 
 const ProfileCard = () => {
   const {
     profile: { name, tags, picture, cover_image, description },
-  } = useProfile()
+  } = useInfluencer()
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
       <img

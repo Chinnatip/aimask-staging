@@ -8,16 +8,17 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import Router from 'next/router'
 import { removeCookie } from 'utils/cookie'
+import { Token } from 'interfaces'
 
 type Props = {
   transparent?: boolean
-  login?: boolean
+  login?: Token
   ssg?: boolean
 }
 
 export default function Navbar({
   transparent = false,
-  login = false,
+  login = undefined,
   ssg = false,
 }: Props) {
   return (
@@ -96,7 +97,7 @@ export default function Navbar({
             {!ssg && (
               <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
                 <li className="flex items-center">
-                  {!login ? (
+                  {login == undefined ? (
                     <a
                       href="/sign-in"
                       className={
@@ -126,6 +127,9 @@ export default function Navbar({
                       >
                         Sign out
                       </button>
+                      <div className="realtive z-10 w-8 h-8 rounded-full overflow-hidden  hover:border-gray-300 focus:border-gray-300 focus:outline-none">
+                        <img src={login.picture} alt="" />
+                      </div>
                       <a
                         href="/dashboard"
                         className={
