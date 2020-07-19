@@ -24,3 +24,12 @@ export const hoverList = [
     path: '/dashboard/profile',
   },
 ]
+
+export const docLists = [
+  { path: '/', text: 'Styles' },
+  { path: '/', text: 'CSS Components' },
+  { path: '/', text: 'Vuejs' },
+  { path: '/', text: 'React' },
+  { path: '/', text: 'Angular' },
+  { path: '/', text: 'Javascript' },
+]
