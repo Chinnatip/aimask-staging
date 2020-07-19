@@ -9,11 +9,11 @@ type Props = {
 const Table = ({ row = [], header = [] }: Props) => {
   return (
     <div className="w-full mt-12">
-      <p className="text-xl pb-3 flex items-center">
+      <p className="text-xl text-white pb-3 flex items-center">
         <Icon fill={faList} />
         Latest Reports
       </p>
-      <div className="bg-white overflow-auto">
+      <div className="bg-white overflow-auto shadow-md">
         <table className="min-w-full bg-white">
           <thead className="bg-gray-800 text-white">
             <tr>

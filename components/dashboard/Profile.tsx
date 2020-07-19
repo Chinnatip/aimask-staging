@@ -24,15 +24,15 @@ const Profile = () => {
             <Gallery photos={photos} />
           </div>
         </div>
-        <div className="row-span-3 col-span-2 ">
-          <h3 className="text-4xl font-normal leading-normal mt-0 mb-2 text-indigo-700">
+        <div className="row-span-3 col-span-2 ml-4">
+          <h3 className="text-4xl font-normal leading-normal mt-0 mb-2 text-white mb-4">
             {name}
           </h3>
-          <hr className="mt-6 mb-8 border-b-1 border-gray-300" />
           <SocialMeter type="facebook" follower={facebook} />
           <SocialMeter type="youtube" follower={youtube} />
           <SocialMeter type="instagram" follower={instagram} />
-          <p className="text-lg font-light leading-relaxed mt-6 mb-4 text-indigo-700">
+          <div className="mb-20"></div>
+          <p className="text-md font-light leading-relaxed mt-6 mb-4 text-gray-800">
             {description}
           </p>
           <ProfileCard />

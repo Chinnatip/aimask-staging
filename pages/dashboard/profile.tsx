@@ -11,7 +11,7 @@ type Props = {
 // Rendering
 const Dashboard = ({ token }: Props) => {
   return (
-    <Layout title="Dashboard" current="dashboard" token={token}>
+    <Layout title="Influencer Profile" current="dashboard" token={token}>
       <Profile />
     </Layout>
   )
