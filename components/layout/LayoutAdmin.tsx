@@ -14,7 +14,7 @@ type Props = {
 
 const Layout = ({ children, title = '', token = null }: Props) => {
   return (
-    <div className="font-family-karla flex">
+    <div className="font-family-karla flex bg-gray-300">
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8" />
@@ -22,13 +22,16 @@ const Layout = ({ children, title = '', token = null }: Props) => {
       </Head>
 
       <Sidebar />
-      <div className="relative w-full md:ml-64">
+      <div className="relative w-full md:ml-64 overflow-y-hidden">
         <div className="w-full flex flex-col h-screen">
           <Navbar title={title} token={token}></Navbar>
           {/* Top content */}
-          <div className="relative bg-pink-600 md:pt-32 pb-32 pt-12"></div>
+          <div className="relative bg-pink-600 md:pt-24 pb-40 pt-12"></div>
           {/* Normal content */}
-          <div className="px-4 md:px-10 mx-auto w-full -m-24 z-10 -mt-48">
+          <div
+            className="px-4 md:px-10 mx-auto w-full -m-24 z-10 overflow-auto"
+            style={{ marginTop: '-11rem' }}
+          >
             {children}
             <Footer />
           </div>

@@ -5,7 +5,7 @@ const ProfileCard = () => {
     profile: { name, tags, picture, cover_image, description },
   } = useInfluencer()
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg">
+    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
       <img
         className="w-full bri-70"
         src={cover_image}
