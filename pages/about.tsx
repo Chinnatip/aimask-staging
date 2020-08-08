@@ -1,12 +1,9 @@
 import initialize from 'utils/initialize'
 import Layout from '@/layout/Layout'
 import { Token } from 'interfaces'
-// import Navbar from '@/stuff/Navbar'
-// import { useProfile } from 'store/index'
 import CourseSet from '@/stuff/CourseSet'
 import ActivitySet from '@/stuff/ActivitySet'
 import Title from '@/stuff/Title'
-// import { courseLists } from '@/static/CourseLists'
 import { learnChinesePlaylists } from '@/static/playlist/LearnChinese'
 import { learnCookingPlaylists } from '@/static/playlist/LearnFood'
 import { learnProductivePlaylists } from '@/static/playlist/LearnProductive'
@@ -18,9 +15,6 @@ type Props = {
 }
 
 const AboutPage = ({ token }: Props) => {
-  // const {
-  //   profile: { login },
-  // } = useProfile()
   return (
     <Layout current="about" title="Torch - คลังเเสงของคุณ" token={token}>
       <div className="p-20 pt-12 mb-16 max-w-screen-xl m-auto">

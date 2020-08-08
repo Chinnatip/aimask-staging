@@ -1,11 +1,5 @@
 import Icon from './Icon'
-import {
-  faPaperPlane,
-  faDatabase,
-  faUser,
-  faSignInAlt,
-  faChartPie,
-} from '@fortawesome/free-solid-svg-icons'
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import Router from 'next/router'
 import { removeCookie } from 'utils/cookie'
 import { Token } from 'interfaces'
