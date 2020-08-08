@@ -11,6 +11,7 @@ type Props = {
   ssg?: boolean
   navTransparent?: boolean
   nofooter?: boolean
+  current?: string
 }
 
 const Layout = ({
@@ -20,6 +21,7 @@ const Layout = ({
   ssg = false,
   navTransparent = false,
   nofooter = false,
+  current = 'home',
 }: Props) => {
   return (
     <>
@@ -29,7 +31,12 @@ const Layout = ({
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <header>
-        <Navbar transparent={navTransparent} login={token} ssg={ssg} />
+        <Navbar
+          current={current}
+          transparent={navTransparent}
+          login={token}
+          ssg={ssg}
+        />
       </header>
 
       {children}

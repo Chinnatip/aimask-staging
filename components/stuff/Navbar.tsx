@@ -9,38 +9,41 @@ import {
 import Router from 'next/router'
 import { removeCookie } from 'utils/cookie'
 import { Token } from 'interfaces'
+import Pop from '@/stuff/ActivePop'
 
 type Props = {
   transparent?: boolean
   login?: Token
   ssg?: boolean
+  current: string
 }
 
 export default function Navbar({
   transparent = false,
   login = undefined,
+  current = 'home',
   ssg = false,
 }: Props) {
   return (
     <>
       <nav
         className={
-          (transparent
-            ? 'top-0 absolute z-50 w-full'
-            : 'relative shadow-lg bg-white shadow-lg') +
-          ' flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg'
+          ' flex flex-wrap items-center justify-between px-20 py-3 navbar-expand-lg max-w-screen-xl m-auto'
         }
       >
-        <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
+        <div className="container mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <a
               className={
-                (transparent ? 'text-white' : 'text-gray-800') +
-                ' text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase'
+                'leading-relaxed inline-block mr-4 pt-2 whitespace-no-wrap'
               }
               href="/"
             >
-              Yellboard
+              <img
+                src="main_logo.png"
+                style={{ height: '64px' }}
+                alt="torch logo"
+              />
             </a>
           </div>
           <div
@@ -52,45 +55,45 @@ export default function Navbar({
               <li className="flex items-center">
                 <a
                   className={
-                    (transparent
-                      ? 'lg:text-white lg:hover:text-gray-300 text-gray-800'
-                      : 'text-gray-800 hover:text-gray-600') +
-                    ' px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold'
+                    (current == 'home'
+                      ? 'text-green-900'
+                      : 'text-gray-500 hover:text-gray-600') +
+                    ' px-8 py-4 lg:py-2 flex items-center text-m uppercase font-bold  relative'
+                  }
+                  href="/"
+                >
+                  {current == 'home' && <Pop />}
+                  หน้าหลัก
+                </a>
+              </li>
+
+              <li className="flex items-center">
+                <a
+                  className={
+                    (current == 'playlist'
+                      ? 'text-green-900'
+                      : 'text-gray-500 hover:text-gray-600') +
+                    ' px-8 py-4 lg:py-2 flex items-center text-m uppercase font-bold  relative'
+                  }
+                  href="/playlist"
+                >
+                  {current == 'playlist' && <Pop />}
+                  เลือกเรื่องจากการ
+                </a>
+              </li>
+
+              <li className="flex items-center">
+                <a
+                  className={
+                    (current == 'about'
+                      ? 'text-green-900'
+                      : 'text-gray-500 hover:text-gray-600') +
+                    ' px-8 py-4 lg:py-2 flex items-center text-m uppercase font-bold relative'
                   }
                   href="/about"
                 >
-                  <Icon fill={faPaperPlane} />
-                  About
-                </a>
-              </li>
-
-              <li className="flex items-center">
-                <a
-                  className={
-                    (transparent
-                      ? 'lg:text-white lg:hover:text-gray-300 text-gray-800'
-                      : 'text-gray-800 hover:text-gray-600') +
-                    ' px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold'
-                  }
-                  href="/users"
-                >
-                  <Icon fill={faUser} />
-                  User lists
-                </a>
-              </li>
-
-              <li className="flex items-center">
-                <a
-                  className={
-                    (transparent
-                      ? 'lg:text-white lg:hover:text-gray-300 text-gray-800'
-                      : 'text-gray-800 hover:text-gray-600') +
-                    ' px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold'
-                  }
-                  href="/api/users"
-                >
-                  <Icon fill={faDatabase} />
-                  User-API
+                  {current == 'about' && <Pop />}
+                  คลังเเสงของคุณ
                 </a>
               </li>
             </ul>
@@ -115,34 +118,31 @@ export default function Navbar({
                     <>
                       <button
                         className={
-                          (transparent
-                            ? 'lg:text-white lg:hover:text-gray-300 text-gray-800'
-                            : 'text-gray-800 hover:text-gray-600') +
-                          ' px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold'
+                          'text-gray-700' +
+                          ' px-3 py-4 mr-2 lg:py-2 flex items-center text-m uppercase font-bold'
                         }
                         onClick={() => {
                           removeCookie('token')
                           Router.push('/')
                         }}
                       >
-                        Sign out
+                        ออกจากระบบ
                       </button>
-                      <div className="realtive z-10 w-8 h-8 rounded-full overflow-hidden  hover:border-gray-300 focus:border-gray-300 focus:outline-none">
-                        <img src={login.picture} alt="" />
+                      <div className="relative">
+                        <div className="realtive z-10 w-12 h-12 rounded-full overflow-hidden  hover:border-gray-300 focus:border-gray-300 focus:outline-none">
+                          <img src={login.picture} alt="your profile image" />
+                        </div>
+                        <img
+                          src="ic_crown.png"
+                          className="absolute"
+                          style={{
+                            top: '-0.5rem',
+                            right: '-0.5rem',
+                            height: '18px',
+                          }}
+                          alt="crown icon"
+                        />
                       </div>
-                      <a
-                        href="/dashboard"
-                        className={
-                          (transparent
-                            ? 'bg-white text-gray-800 active:bg-gray-100'
-                            : 'bg-pink-500 text-white active:bg-pink-600') +
-                          ' text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3'
-                        }
-                        type="button"
-                        style={{ transition: 'all .15s ease' }}
-                      >
-                        <Icon fill={faChartPie} /> Dashboard
-                      </a>
                     </>
                   )}
                 </li>

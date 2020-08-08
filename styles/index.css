@@ -4,7 +4,39 @@
 /* purgecss end ignore */
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Sarabun:400,700&display=swap');
+
+body {
+  font-family: 'Sarabun';
+}
+
+.bg-brown {
+  background-color: #4f482b;
+}
+
+.bg-dark-gray {
+  background-color: #606060;
+}
+
+.text-brown {
+  color: #4f482b;
+}
+
+.bg-blue {
+  background-color: #b1e1f4;
+}
+
+.bg-accent {
+  background-color: #f76121;
+}
+
+.button-accent {
+  background-color: #f76121;
+}
+
+.button-accent:hover {
+  background-color: #b34b1e;
+}
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
@@ -17,11 +49,11 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(171 45 110);
+  background-color: #f76121;
 }
 
 ::-webkit-scrollbar-button {
-  background-color: #7c2929;
+  background-color: #f76121;
 }
 
 ::-webkit-scrollbar-corner {
