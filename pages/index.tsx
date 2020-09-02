@@ -93,7 +93,7 @@ const IndexPage = ({ token }: Props) => {
 
   return (
     <Layout current="home" title="KOHLIFE - Map" token={token}>
-      <main className="px-8 mb-6">
+      <main className=" sm:px-8 sm:mb-6 px-0 mb-0">
         {/* <h1>{activeRoute}</h1> */}
         <div className="w-full flex">
           <div
