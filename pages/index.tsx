@@ -96,7 +96,10 @@ const IndexPage = ({ token }: Props) => {
       <main className="px-8 mb-6">
         {/* <h1>{activeRoute}</h1> */}
         <div className="w-full flex">
-          <div className="mr-2" style={{ maxHeight: '80vh', overflow: 'auto' }}>
+          <div
+            className="mr-2 sm:block hidden"
+            style={{ maxHeight: '80vh', overflow: 'auto' }}
+          >
             <p className="font-bold text-blue-600 underline">
               CURRENTLY : {translate_trip.length} ROUTES
             </p>
