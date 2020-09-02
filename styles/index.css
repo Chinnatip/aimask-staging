@@ -27,11 +27,11 @@ body {
 }
 
 .bg-accent {
-  background-color: #f76121;
+  background-color: #fbd38d;
 }
 
 .button-accent {
-  background-color: #f76121;
+  background-color: #fbd38d;
 }
 
 .button-accent:hover {
@@ -49,11 +49,11 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #f76121;
+  background-color: #fbd38d;
 }
 
 ::-webkit-scrollbar-button {
-  background-color: #f76121;
+  background-color: #fbd38d;
 }
 
 ::-webkit-scrollbar-corner {
