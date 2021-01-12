@@ -99,7 +99,7 @@ const IndexPage = ({ token }: Props) => {
   const [activeRoute] = useState<string[]>([])
 
   return (
-    <Layout current="home" title="KOHLIFE - Map" token={token}>
+    <Layout current="home" title="COVID - Map" token={token}>
       <main className="px-0 mb-0">
         {/* <h1>{activeRoute}</h1> */}
         <div className="w-full flex">
