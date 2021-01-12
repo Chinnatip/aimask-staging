@@ -1,7 +1,7 @@
 import Layout from '@/layout/Layout'
 import initialize from 'utils/initialize'
 import { Token } from 'interfaces'
-import moment from 'moment'
+// import moment from 'moment'
 import GoogleMapReact from 'google-map-react'
 
 import { destination_list } from '@/static/kohlife_destination'
@@ -26,9 +26,8 @@ let path_list: any[] = []
 
 const des_key = Object.keys(trip_match)
 
-const initial_traveller = 2
-
-const next_day_format = moment().add(1, 'day').format('YYYY-MM-DD')
+// const initial_traveller = 2
+// const next_day_format = moment().add(1, 'day').format('YYYY-MM-DD')
 
 const centerOfMap = destination_list.find(
   ({ seed_key }) => seed_key == 'bangkok'
@@ -89,14 +88,14 @@ const handleGoogleMapApi = (google: any) => {
 }
 
 const IndexPage = ({ token }: Props) => {
-  const [activeRoute, setRoute] = useState<string[]>([])
+  const [activeRoute] = useState<string[]>([])
 
   return (
     <Layout current="home" title="KOHLIFE - Map" token={token}>
-      <main className=" sm:px-8 sm:mb-6 px-0 mb-0">
+      <main className="px-0 mb-0">
         {/* <h1>{activeRoute}</h1> */}
         <div className="w-full flex">
-          <div
+          {/* <div
             className="mr-2 sm:block hidden"
             style={{ maxHeight: '80vh', overflow: 'auto' }}
           >
@@ -115,8 +114,8 @@ const IndexPage = ({ token }: Props) => {
                 {departure} - {arrival}
               </a>
             ))}
-          </div>
-          <div className="flex-grow" style={{ height: '80vh' }}>
+          </div> */}
+          <div className="flex-grow" style={{ height: '100vh' }}>
             <GoogleMapReact
               bootstrapURLKeys={{
                 key: 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc',
@@ -125,7 +124,7 @@ const IndexPage = ({ token }: Props) => {
                 lat: centerOfMap != undefined ? centerOfMap.latitude : 13,
                 lng: centerOfMap != undefined ? centerOfMap.longitude : 100,
               }}
-              defaultZoom={6}
+              defaultZoom={11}
               onGoogleApiLoaded={handleGoogleMapApi}
             >
               {destination_list.map((destination) => {
