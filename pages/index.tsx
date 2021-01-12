@@ -3,7 +3,7 @@ import initialize from 'utils/initialize'
 import { Token } from 'interfaces'
 // import moment from 'moment'
 import GoogleMapReact from 'google-map-react'
-
+import { bangkokMap } from '../components/static/bangkokLine'
 import { destination_list } from '@/static/kohlife_destination'
 import { trip_match } from '@/static/kohlife_trip_match'
 import { array } from '@/static/trip_array'
@@ -78,13 +78,21 @@ const Marker = (props: MarkerProps) => {
 
 const handleGoogleMapApi = (google: any) => {
   var flightPath = new google.maps.Polyline({
-    path: path_list,
+    path: bangkokMap,
     geodesic: true,
-    strokeColor: '#2d3748',
+    strokeColor: '#ff6217',//'#ffd86a',
     strokeOpacity: 1,
-    strokeWeight: 1.5,
+    strokeWeight: 4,
   })
+  // var flightPathNext = new google.maps.Polyline({
+  //   path: nextLine,
+  //   geodesic: true,
+  //   strokeColor: '#2d3748',
+  //   strokeOpacity: 1,
+  //   strokeWeight: 3,
+  // })
   flightPath.setMap(google.map)
+  // flightPathNext.setMap(google.map)
 }
 
 const IndexPage = ({ token }: Props) => {

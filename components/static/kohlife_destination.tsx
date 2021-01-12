@@ -15,8 +15,8 @@ export const destination_list = [
     location_id: 3,
     location_type: 'destination',
     address: null,
-    latitude: 13.7563309,
-    longitude: 100.5017651,
+    latitude: 13.744254,
+    longitude:  100.539992,
     country: 'tha',
   },
   {
