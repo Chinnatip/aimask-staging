@@ -1,7 +1,7 @@
 export const destination_list = [
   {
     seed_key: 'bangkok',
-    name: 'Bangkok',
+    name: 'กรุงเทพมหานคร',
     location_id: 3,
     location_type: 'destination',
     address: null,
