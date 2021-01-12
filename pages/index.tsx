@@ -3,7 +3,7 @@ import initialize from 'utils/initialize'
 import { Token } from 'interfaces'
 // import moment from 'moment'
 import GoogleMapReact from 'google-map-react'
-import { bangkokMap } from '../components/static/bangkokLine'
+import { bangkokMap, localeStyle } from '../components/static/bangkokLine'
 import { destination_list } from '@/static/kohlife_destination'
 import { trip_match } from '@/static/kohlife_trip_match'
 import { array } from '@/static/trip_array'
@@ -25,9 +25,6 @@ let translate_trip: any[] = []
 let path_list: any[] = []
 
 const des_key = Object.keys(trip_match)
-
-// const initial_traveller = 2
-// const next_day_format = moment().add(1, 'day').format('YYYY-MM-DD')
 
 const centerOfMap = destination_list.find(
   ({ seed_key }) => seed_key == 'bangkok'
@@ -80,19 +77,11 @@ const handleGoogleMapApi = (google: any) => {
   var flightPath = new google.maps.Polyline({
     path: bangkokMap,
     geodesic: true,
-    strokeColor: '#ff6217',//'#ffd86a',
+    strokeColor: '#099669', //'#ff6217',//'#ffd86a',
     strokeOpacity: 1,
-    strokeWeight: 4,
+    strokeWeight: 8,
   })
-  // var flightPathNext = new google.maps.Polyline({
-  //   path: nextLine,
-  //   geodesic: true,
-  //   strokeColor: '#2d3748',
-  //   strokeOpacity: 1,
-  //   strokeWeight: 3,
-  // })
   flightPath.setMap(google.map)
-  // flightPathNext.setMap(google.map)
 }
 
 const IndexPage = ({ token }: Props) => {
@@ -101,32 +90,14 @@ const IndexPage = ({ token }: Props) => {
   return (
     <Layout current="home" title="COVID - Map" token={token}>
       <main className="px-0 mb-0">
-        {/* <h1>{activeRoute}</h1> */}
         <div className="w-full flex">
-          {/* <div
-            className="mr-2 sm:block hidden"
-            style={{ maxHeight: '80vh', overflow: 'auto' }}
-          >
-            <p className="font-bold text-blue-600 underline">
-              CURRENTLY : {translate_trip.length} ROUTES
-            </p>
-            {translate_trip.map(({ departure, arrival }, index) => (
-              <a
-                key={index}
-                target="_blank"
-                href={`https://www.kohlife.com/transport/${departure}/${arrival}/${next_day_format}/${initial_traveller}`}
-                onMouseEnter={() => setRoute([arrival, departure])}
-                onMouseLeave={() => setRoute([])}
-                className="text-sm block my-1 text-blue-600 hover:underline"
-              >
-                {departure} - {arrival}
-              </a>
-            ))}
-          </div> */}
           <div className="flex-grow" style={{ height: '100vh' }}>
             <GoogleMapReact
               bootstrapURLKeys={{
                 key: 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc',
+              }}
+              options={{
+                styles: localeStyle
               }}
               defaultCenter={{
                 lat: centerOfMap != undefined ? centerOfMap.latitude : 13,
