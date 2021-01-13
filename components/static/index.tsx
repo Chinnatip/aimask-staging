@@ -1,8 +1,0 @@
-export { profileData } from './ProfileData'
-export { influencerData } from './InfluencerData'
-export { photos } from './Photos'
-export { barChartData, lineChartData } from './ChartData'
-export { navList, hoverList, docLists } from './LayoutAdminData'
-export { tableHead, tableRows } from './MockupTable'
-export { userLists } from './UserList'
-export { tableHeader } from './PlaceHolderTable'
