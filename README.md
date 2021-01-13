@@ -1,5 +1,7 @@
 ### Run project in localhost
 
+- ADD .env.local file (this file has only 1 environment var.)
+  - NEXT_PUBLIC_GOOGLE_MAP_KEY=XXXXXXX_GOOGLE_MAP_API_KEY_XXXXX
 - yarn install
 - yarn dev
 - access to http://localhost:3000

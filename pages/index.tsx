@@ -31,15 +31,14 @@ const handleGoogleMapApi = (google: any) => {
 
 const IndexPage = () => {
   // const [activeRoute] = useState<string[]>([])
+  const keyString: string =  process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY == undefined ?'GOOGLE_ENV' : process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY
   return (
     <Layout current="home" title="COVID - Map">
       <main className="px-0 mb-0">
         <div className="w-full flex">
           <div className="flex-grow" style={{ height: '100vh' }}>
             <GoogleMapReact
-              bootstrapURLKeys={{
-                key: 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc',
-              }}
+              bootstrapURLKeys={{ key: keyString}}
               options={{
                 styles: localeStyle
               }}
