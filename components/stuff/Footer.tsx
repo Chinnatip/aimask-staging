@@ -5,10 +5,10 @@ export default function Footer() {
         <div className="">
           <div className="flex flex-col flex-wrap text-left text-yellow-900">
             <div>
-              COVID MASK  PREDICTION MAP
+              COVID MASK PREDICTION MAP
             </div>
-            <h6 className="text-xs lowercase text-gray-700">
-                created by SuperAi.engineer 2020-2021
+            <h6 className="text-xs text-gray-700">
+                Powered by AIAT, iApp
             </h6>
           </div>
         </div>
