@@ -20,7 +20,7 @@ export default function Navbar() {
                 alt="torch logo"
               />
             </a>
-            {/* <a className={'leading-relaxed shadow-xl ml-3 inline-block bg-white rounded-full py-2 px-2 whitespace-no-wrap'} href="http://www.bangkok.go.th/">
+            <a className={'leading-relaxed shadow-xl ml-3 inline-block bg-white rounded-full py-2 px-2 whitespace-no-wrap'} href="http://www.bangkok.go.th/">
               <img src="tu.png"
                 style={{ height: '22px' }}
                 alt="torch logo"
@@ -76,7 +76,7 @@ export default function Navbar() {
                 style={{ height: '22px' }}
                 alt="torch logo"
               />
-            </a> */}
+            </a>
           </div>
         </div>
       </nav>
