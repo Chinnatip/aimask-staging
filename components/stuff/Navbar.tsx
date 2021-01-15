@@ -8,7 +8,7 @@ export default function Navbar({current}: Props) {
   const Router = useRouter()
   return (
     <>
-      <nav className={ 'relative flex flex-wrap items-center justify-between px-8 navbar-expand-lg '}>
+      <nav className={'text-b relative flex flex-wrap items-center justify-between px-8 navbar-expand-lg '}>
         <div className="shadow-lg fixed top-0 h-16 left-0 z-10 flex flex-wrap py-3 px-6 pl-8 w-screen" style={{background: '#ffab6d'}}>
           <div className="w-full relative flex items-center" >
             <button onClick={() => Router.push('/')} className="text-3xl text-gray-800">
