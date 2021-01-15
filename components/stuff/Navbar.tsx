@@ -18,7 +18,7 @@ export default function Navbar({current}: Props) {
             <div className="flex-grow"></div>
             <div>
               <button onClick={() => Router.push('/')} className={`mx-4 ${current == 'home' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>หน้าหลัก</button>
-              <a href="https://www.kohlife.com" className={`mx-4 ${current == 'brief' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>สรุปข้อมูล</a>
+              <a target="_blank" href="https://share.streamlit.io/cyberthorn-zz/mask-covid/main/first_app.py" className={`mx-4 ${current == 'brief' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>สรุปข้อมูล</a>
               <button onClick={() => Router.push('/aboutus')} className={`mx-4 ${current == 'aboutus' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>About Us</button>
             </div>
           </div>
