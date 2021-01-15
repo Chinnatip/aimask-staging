@@ -3,7 +3,7 @@ import { left } from '@popperjs/core'
 
 const AboutPage = () => {
     return (
-        <Layout current="home" title="DeepCare">
+        <Layout current="aboutus" title="DeepCare">
             <div className="pt-32 space-y-4">
                 <h1 className="text-3xl text-center font-semibold mb-3">สนับสนุนโดย</h1>
             </div>
