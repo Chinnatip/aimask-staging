@@ -20,4 +20,6 @@ export interface MarkerProps {
   data: MarkerProperty
   action?: any
   pop?: string
+  status: boolean
+  actionStatus?: any
 }

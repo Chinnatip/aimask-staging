@@ -4,9 +4,10 @@ type Props = {
   markers: MarkerProperty[]
   action: any
   pop?: any
+  actionStatus?: any
 }
 
-const Drawer = ({markers, action, pop}: Props) => {
+const Drawer = ({markers, action, actionStatus ,pop}: Props) => {
   return (
     <>
       <aside
@@ -31,7 +32,7 @@ const Drawer = ({markers, action, pop}: Props) => {
             return (
               <button
                 id={idx.toString()}
-                onClick={() => { action(point.name)}}
+                onClick={() => { actionStatus(true); action(point.name)}}
                 className={`block py-3 px-5 hover:bg-gray-100 ${pop == point.name && 'bg-gray-100'}	`}
               >
                 <span id={idx.toString()}>{name}</span>

@@ -7,15 +7,19 @@ import { MarkerProps , MarkerProperty } from '../interfaces/marker'
 import { currentMarkers } from '../components/static/dataPoint'
 
 const Marker = (props: MarkerProps) => {
-  const { data , pop, action } = props
+  const { data , pop, action, status, actionStatus } = props
   // const [ modal, setModal ] = useState(pop)
   const { no_correct_wear_mask, no_incorrect_wear_mask, no_not_wear_mask ,total, date } = data
   const calc = (num: number, total: number) => (num * 100 / total).toFixed(2)
   // console.log(data)
   return (
     <div className="relative">
-      { (pop == data.name) && <div className="z-10 text-b absolute p-4 bg-white -ml-40 rounded-lg shadow-xl" style={{marginTop: '-26rem' , width: '24rem', height: '24rem'}}>
-        <div className="text-gray-700 text-lg underline">{data.name}, กรุงเทพ</div>
+      { status && (pop == data.name) && <div className="z-10 text-b absolute p-4 bg-white -ml-40 rounded-lg shadow-xl" style={{marginTop: '-26rem' , width: '24rem', height: '24rem'}}>
+        <div className="text-gray-700 text-lg underline relative">
+          {data.name}, กรุงเทพ
+          <button onClick={() => actionStatus(!status)} className="bg-gray-300 h-8 w-8 rounded-full absolute top-0 right-0">X</button>
+        </div>
+
         <div className='text-sm text-gray-500'>สำรวจรวม {total} ราย | อัพเดทวันที่ {date.split(' ')[0]}</div>
         <img src={`./label/${data.name}.png`} className="m-auto h-40"/>
         <hr/>
@@ -34,7 +38,7 @@ const Marker = (props: MarkerProps) => {
           <div className="text-center text-red-600">{calc(no_not_wear_mask, total)}%</div>
         </div>
       </div>}
-      <button onClick={() => action(data.name)}>
+      <button onClick={() => { actionStatus(true); action(data.name)}}>
         <img src="mask_icon/m_green.png" className="h-12 w-12 -mt-2 -ml-2 shadow-xl rounded-full border-4 border-green-700" alt=""/>
       </button>
     </div>
@@ -56,6 +60,7 @@ const IndexPage = () => {
   const parcel: any = currentMarkers
   const markers: MarkerProperty[] = parcel
   const [popNow, setPop] = useState("ตลาดทุ่งครุ")
+  const [pick, setPick] = useState(true)
   const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
   return (
     <Layout current="home" title="DeepCare - Covid Map">
@@ -63,7 +68,7 @@ const IndexPage = () => {
         <div className="w-full flex">
           <div className="flex-grow" style={{ height: '100vh' }}>
         <>
-          <Drawer markers={markers} action={setPop} pop={popNow} />
+          <Drawer markers={markers} action={setPop} actionStatus={setPick} pop={popNow} />
           {/* {JSON.stringify(markers)} */}
           <GoogleMapReact
               bootstrapURLKeys={{ key: keyString}}
@@ -80,6 +85,8 @@ const IndexPage = () => {
                   key={index}
                   data={data}
                   pop={popNow}
+                  status={pick}
+                  actionStatus={setPick}
                   lat={latitude}
                   lng={longitude}
                   action={setPop} />
