@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import React, { ReactNode } from 'react'
-import Footer from 'stuff/Footer'
+// import Footer from 'stuff/Footer'
 import Navbar from 'stuff/Navbar'
 import { Token } from 'interfaces'
 
@@ -17,7 +17,8 @@ type Props = {
 const Layout = ({
   children,
   title = '',
-  nofooter = false,
+  current='/'
+  // nofooter = false,
 }: Props) => {
   return (
     <>
@@ -27,10 +28,10 @@ const Layout = ({
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <header>
-        <Navbar />
+        <Navbar current={current} />
       </header>
       {children}
-      {!nofooter && <Footer />}
+      {/* {!nofooter && <Footer />} */}
     </>
   )
 }
