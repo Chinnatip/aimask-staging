@@ -60,21 +60,6 @@ export const currentMarkers = [
   percentage: 90.990991
   },
   {
-  date: "2021-01-15 20:25:15.312859",
-  gpu_server: "iApp GPU 1",
-  name: "แนวถนนพระราม1-1",
-  latitude: 13.7458795,
-  longitude: 100.5320718,
-  date__1: 12012021,
-  time_start: "080000",
-  time_end: "090000",
-  no_correct_wear_mask: 12,
-  no_incorrect_wear_mask: 0,
-  no_not_wear_mask: 1,
-  total: 13,
-  percentage: 92.3076923076923
-  },
-  {
   date: "2021-01-15 20:57:45.398782",
   gpu_server: "iApp GPU 1",
   name: "แนวถนนราชดำริ2-2",
@@ -103,21 +88,6 @@ export const currentMarkers = [
   no_not_wear_mask: 2,
   total: 64,
   percentage: 96.875
-  },
-  {
-  date: "2021-01-15 22:14:41.169141",
-  gpu_server: "iApp GPU 1",
-  name: "แนวถนนราชวิถี1",
-  latitude: 13.7662817,
-  longitude: 100.5351334,
-  date__1: 12,
-  time_start: "01",
-  time_end: 2021,
-  no_correct_wear_mask: 5,
-  no_incorrect_wear_mask: 0,
-  no_not_wear_mask: 0,
-  total: 5,
-  percentage: 100
   },
   {
   date: "2021-01-15 22:17:44.851210",

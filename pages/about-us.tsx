@@ -19,8 +19,8 @@ const corpLinkTWO = [
 ]
 
 const participant = [
-    {role: 'AI DEVELOPER',name: 'Dr. Kobkrit Viriyayudhakorn',domain: ''},
-    {role: 'ADMIN',name: 'Suchathit Boonnag', domain: ''},
+    {role: 'AI DEVELOPER',name: 'Dr. Kobkrit Viriyayudhakorn',domain: 'https://kobkrit.com/'},
+    {role: 'ADMIN',name: 'Suchathit Boonnag', domain: 'https://www.linkedin.com/in/sboonnag/'},
     {role: 'DESIGN',name: 'Ananya Kuasakunrungroj', domain: ''},
     {role: '',name: 'Atichat Auppakansang', domain: 'https://atichat645.wixsite.com/port'},
     {role: '',name: 'Boonthicha Saejia', domain: ''},
@@ -38,6 +38,7 @@ const participant = [
     {role: '',name: 'Ponnipa Jantawong', domain: ''},
     {role: '',name: 'Pakin Siwatammarat', domain: 'https://ppirch.github.io/'},
     {role: '',name: 'Sirawich Smitsomboon', domain: 'http://photoservicethai.com/index.html?spacial=superai'},
+    {role: 'ADVISOR',name: 'Thanaruk Theeramunkong', domain: 'https://aiat.or.th/thanaruk/'},
 ]
 
 const AboutPage = () => {
