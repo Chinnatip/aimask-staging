@@ -18,7 +18,6 @@ const Layout = ({
   children,
   title = '',
   current='/'
-  // nofooter = false,
 }: Props) => {
   return (
     <>

@@ -13,7 +13,7 @@ export default function Navbar({current}: Props) {
           <div className="w-full relative flex items-center" >
             <h1 className="text-3xl text-gray-800">
               DEEPCARE
-              <span className="text-sm text-gray-700 ml-3">by AIAT</span>
+              {/* <span className="text-sm text-gray-700 ml-3">by AIAT</span> */}
             </h1>
             <div className="flex-grow"></div>
             <div>
