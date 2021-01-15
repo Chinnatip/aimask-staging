@@ -4,7 +4,7 @@ import Drawer from '../components/stuff/Drawer'
 import { bangkokMap, localeStyle } from '../components/static/bangkokLine'
 import { useState } from 'react'
 import { MarkerProps , MarkerProperty } from '../interfaces/marker'
-import { currentMarkers } from '../components/static/point'
+import { currentMarkers } from '../components/static/dataPoint'
 
 const Marker = (props: MarkerProps) => {
   const { data , pop, action } = props
@@ -17,7 +17,7 @@ const Marker = (props: MarkerProps) => {
       { (pop == data.name) && <div className="z-10 text-b absolute p-4 bg-white -ml-40 rounded-lg shadow-xl" style={{marginTop: '-26rem' , width: '24rem', height: '24rem'}}>
         <div className="text-gray-700 text-lg underline">{data.name}, กรุงเทพ</div>
         <div className='text-sm text-gray-500'>สำรวจรวม {total} ราย | อัพเดทวันที่ {date.split(' ')[0]}</div>
-        <img src="mock_graph.png" className="m-auto h-40"/>
+        <img src={`./label/${data.name}.png`} className="m-auto h-40"/>
         <hr/>
         <div className="mt-4 text-xs grid text-gray-700 grid-flow-row grid-cols-3 grid-rows-3 gap-4">
           <div className="text-center"></div>
@@ -67,9 +67,7 @@ const IndexPage = () => {
           {/* {JSON.stringify(markers)} */}
           <GoogleMapReact
               bootstrapURLKeys={{ key: keyString}}
-              options={{
-                styles: localeStyle
-              }}
+              options={{ styles: localeStyle }}
               defaultCenter={{ lat: 13.746683,lng:  100.470739 }}
               defaultZoom={13}
               onGoogleApiLoaded={handleGoogleMapApi}
