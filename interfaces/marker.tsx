@@ -4,6 +4,7 @@ export interface MarkerProperty {
   latitude: number
   longitude: number
   name: string
+  date__1: number
   no_correct_wear_mask: number
   no_incorrect_wear_mask: number
   no_not_wear_mask: number
@@ -14,9 +15,9 @@ export interface MarkerProperty {
 }
 
 export interface MarkerProps {
-  stage: string
   lat: number
   lng: number
   data: MarkerProperty
-  pop?: boolean
+  action?: any
+  pop?: string
 }

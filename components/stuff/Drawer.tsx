@@ -3,13 +3,14 @@ import { MarkerProperty } from '../../interfaces/marker'
 type Props = {
   markers: MarkerProperty[]
   action: any
+  pop?: any
 }
 
-const Drawer = ({markers, action}: Props) => {
+const Drawer = ({markers, action, pop}: Props) => {
   return (
     <>
       <aside
-        className="shadow-xl fixed z-50 mt-16 h-screen"
+        className="overflow-scroll shadow-xl fixed z-50 mt-16 h-screen"
         style={{ background: "rgba(255, 185, 134, 0.54)" }}
       >
         <nav className="text-left overflow-auto h-full">
@@ -28,10 +29,10 @@ const Drawer = ({markers, action}: Props) => {
             const no_not_wear_mask_pct = (no_not_wear_mask / total) * 100
             const sty = `${no_not_wear_mask_pct}fr ${no_incorrect_wear_mask_pct}fr ${no_correct_wear_mask_pct}fr`
             return (
-              <div
+              <button
                 id={idx.toString()}
-                onClick={() => action(point.name)}
-                className="py-3 px-5 hover:bg-gray-100	"
+                onClick={() => { action(point.name)}}
+                className={`block py-3 px-5 hover:bg-gray-100 ${pop == point.name && 'bg-gray-100'}	`}
               >
                 <span id={idx.toString()}>{name}</span>
                 <div
@@ -61,7 +62,7 @@ const Drawer = ({markers, action}: Props) => {
                     {no_correct_wear_mask_pct > 0 ? "1" : ""}
                   </div>
                 </div>
-              </div>
+              </button>
             )
           })}
         </nav>
