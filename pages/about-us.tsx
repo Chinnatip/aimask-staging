@@ -44,10 +44,10 @@ const participant = [
 const AboutPage = () => {
     return (
         <Layout current="aboutus" title="DeepCare">
-            <div className="pt-32 space-y-4">
+            <div className="text-b pt-32 space-y-4">
                 <h1 className="text-3xl text-center text-gray-800 font-semibold mb-3">สนับสนุนโดย</h1>
             </div>
-            <main className="px-20 mb-20">
+            <main className="text-b px-20 mb-20">
                 <div className={'text-center'}>
                     <div className="grid grid-cols-6 gap-8 py-5 p-10 flex items-center">
                         { corpLinkONE.map(link => {

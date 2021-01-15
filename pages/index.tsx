@@ -13,7 +13,7 @@ const Marker = (props: MarkerProps) => {
   const calc = (num: number, total: number) => (num * 100 / total).toFixed(2)
   // console.log(data)
   return (
-    <div className="relative">
+    <div className="text-b relative">
       { status && (pop == data.name) && <div className="z-10 text-b absolute p-4 bg-white -ml-40 rounded-lg shadow-xl" style={{marginTop: '-26rem' , width: '24rem', height: '24rem'}}>
         <div className="text-gray-700 text-lg underline relative">
           {data.name}, กรุงเทพ
@@ -64,7 +64,7 @@ const IndexPage = () => {
   const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
   return (
     <Layout current="home" title="DeepCare - Covid Map">
-      <main className="px-0 mb-0">
+      <main className="text-b px-0 mb-0">
         <div className="w-full flex">
           <div className="flex-grow" style={{ height: '100vh' }}>
         <>
