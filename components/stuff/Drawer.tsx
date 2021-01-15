@@ -1,9 +1,11 @@
-import { dataPoint } from "../static/dataPoint"
+import { MarkerProperty } from '../../interfaces/marker'
 
-const Drawer = () => {
-  const handleDrawerClick = (e: any) => {
-    console.log("ID: ", e.target.id)
-  }
+type Props = {
+  markers: MarkerProperty[]
+  action: any
+}
+
+const Drawer = ({markers, action}: Props) => {
   return (
     <>
       <aside
@@ -11,7 +13,7 @@ const Drawer = () => {
         style={{ background: "rgba(255, 185, 134, 0.54)" }}
       >
         <nav className="text-left overflow-auto h-full">
-          {dataPoint.map((point, idx) => {
+          {markers.map((point, idx) => {
             const {
               name,
               no_correct_wear_mask,
@@ -28,8 +30,8 @@ const Drawer = () => {
             return (
               <div
                 id={idx.toString()}
-                onClick={handleDrawerClick}
-                className="p-3 hover:bg-gray-100	"
+                onClick={() => action(point.name)}
+                className="py-3 px-5 hover:bg-gray-100	"
               >
                 <span id={idx.toString()}>{name}</span>
                 <div

@@ -1,44 +1,20 @@
 import Layout from '@/layout/Layout'
 import GoogleMapReact  from 'google-map-react'
-import { bangkokMap, localeStyle } from '../components/static/bangkokLine'
 import Drawer from '../components/stuff/Drawer'
-// import { randomMarker } from '../components/static/markerDot'
+import { bangkokMap, localeStyle } from '../components/static/bangkokLine'
 import { useMachine } from '@xstate/react'
 import { useContent } from '../data/machine'
 import { useState } from 'react'
-
-interface Marker {
-  date: string
-  gpu_server: string
-  latitude: number
-  longitude: number
-  name: string
-  no_correct_wear_mask: number
-  no_incorrect_wear_mask: number
-  no_not_wear_mask: number
-  percentage: number
-  time_end: string
-  time_start: string
-  total: number
-}
-
-interface MarkerProps {
-  stage: string
-  lat: number
-  lng: number
-  data: Marker
-  pop?: boolean
-}
+import { MarkerProps , MarkerProperty } from '../interfaces/marker'
 
 const Marker = (props: MarkerProps) => {
   const { data , pop=false } = props
   const [ modal, setModal ] = useState(pop)
-  console.log(data)
   const { no_correct_wear_mask, no_incorrect_wear_mask, no_not_wear_mask ,total, date } = data
   const calc = (num: number, total: number) => (num * 100 / total).toFixed(2)
+  // console.log(data)
   return (
     <div className="relative">
-      {/* <div className={`h-3 w-3 bg-${stage}-600 rounded-full shadow-lg`}/> */}
       { modal && <div className="z-10 text-b absolute p-4 bg-white -ml-40 rounded-lg shadow-xl" style={{marginTop: '-26rem' , width: '24rem', height: '24rem'}}>
         <div className="text-gray-700 text-lg underline">{data.name}, กรุงเทพ</div>
         <div className='text-sm text-gray-500'>สำรวจรวม {total} ราย อัพเดท: {date}</div>
@@ -86,7 +62,7 @@ const Content = () => {
             .then(response => response.json())
             .then((jsonData) => {
               console.log(jsonData)
-              const markers : Marker[] = jsonData
+              const markers : MarkerProperty[] = jsonData
               return { markers }
         }),
     },
@@ -96,10 +72,12 @@ const Content = () => {
     case 'loading': return <h1>Loading ...</h1>
     case 'success':
       const data: any = current.context.data
-      const markers: Marker[] = data.markers
+      const markers: MarkerProperty[] = data.markers
+      const [popNow, setPop] = useState("ตลาดทุ่งครุ")
       const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
       return (
         <>
+          <Drawer markers={markers} action={setPop} />
           {/* {JSON.stringify(markers)} */}
           <GoogleMapReact
               bootstrapURLKeys={{ key: keyString}}
@@ -117,7 +95,7 @@ const Content = () => {
                   key={index}
                   data={data}
                   stage={'blue'}
-                  pop={data.name == "ตลาดทุ่งครุ"}
+                  pop={data.name == popNow}
                   lat={latitude}
                   lng={longitude} />
                 )
@@ -130,14 +108,10 @@ const Content = () => {
   }
 }
 
-
 const IndexPage = () => {
-  // const [activeRoute] = useState<string[]>([])
-
   return (
     <Layout current="home" title="DeepCare - Covid Map">
       <main className="px-0 mb-0">
-        <Drawer />
         <div className="w-full flex">
           <div className="flex-grow" style={{ height: '100vh' }}>
             <Content />
