@@ -1,138 +1,87 @@
 import Layout from '@/layout/Layout'
-import { left } from '@popperjs/core'
+
+const corpLinkONE = [
+    {domain: 'https://www.thaigov.go.th/', logo: 'prime_minister_office.png'},
+    {domain: 'https://www.mhesi.go.th/', logo: 'orwo.png'},
+    {domain: 'https://www.mdes.go.th/', logo: 'de.jpg'},
+    {domain: 'http://www.moi.go.th/', logo: 'dep.jpg'},
+    {domain: 'http://www.bangkok.go.th/', logo: 'bma_logo.png'},
+    {domain: 'https://www.nrct.go.th/', logo: 'wocho.jpg'},
+]
+
+const corpLinkTWO = [
+    {domain: 'https://www.tu.ac.th/', logo: 'tu.png'},
+    {domain: 'https://www.siit.tu.ac.th/', logo: 'siit.png'},
+    {domain: 'https://www.ntplc.co.th/', logo: 'cat_logo.jpg'},
+    {domain: 'https://www.aiat.or.th/', logo: 'aiat_logo.png'},
+    {domain: 'https://superai.aiat.or.th/', logo: 'super-ai.png'},
+    {domain: 'https://ai.iapp.co.th/', logo: 'iapp_logo.png'},
+]
+
+const participant = [
+    {role: 'AI DEVELOPER',name: 'Dr. Kobkrit Viriyayudhakorn',domain: ''},
+    {role: 'ADMIN',name: 'Suchathit Boonnag', domain: ''},
+    {role: 'DESIGN',name: 'Ananya Kuasakunrungroj', domain: ''},
+    {role: '',name: 'Atichat Auppakansang', domain: 'https://atichat645.wixsite.com/port'},
+    {role: '',name: 'Boonthicha Saejia', domain: ''},
+    {role: '',name: 'Suppachai Nuthep', domain: ''},
+    {role: 'VISUALIZE',name: 'Athipud Rungsun', domain: ''},
+    {role: '',name: 'Chadchavan Rattanasopa', domain: ''},
+    {role: '',name: 'Jaral Pitavivadhananon', domain: ''},
+    {role: '',name: 'Natthakorn Kasamsumran', domain: 'http://www.nachod.me'},
+    {role: '',name: 'Nisit Sirimarnkit', domain: 'https://www.ninenox.com'},
+    {role: '',name: 'Rajasurang Wongkrasaemongkol',domain: ''},
+    {role: '',name: 'Tatchapong tanomsuk ', domain: ''},
+    {role: '',name: 'Varadtha Junburom', domain: ''},
+    {role: '',name: 'Wanna Dev', domain: 'https://wannadev.medium.com/'},
+    {role: 'WEB DEVELOPER',name: 'Chinnatip Taemkaeo', domain: 'https://www.linkedin.com/in/chinnatip-taemkaeo'},
+    {role: '',name: 'Ponnipa Jantawong', domain: ''},
+    {role: '',name: 'Pakin Siwatammarat', domain: 'https://ppirch.github.io/'},
+    {role: '',name: 'Sirawich Smitsomboon', domain: 'http://photoservicethai.com/index.html?spacial=superai'},
+]
 
 const AboutPage = () => {
     return (
         <Layout current="aboutus" title="DeepCare">
             <div className="pt-32 space-y-4">
-                <h1 className="text-3xl text-center font-semibold mb-3">สนับสนุนโดย</h1>
+                <h1 className="text-3xl text-center text-gray-800 font-semibold mb-3">สนับสนุนโดย</h1>
             </div>
-            <main className="px-20 mb-0">
+            <main className="px-20 mb-20">
                 <div className={'text-center'}>
-                    <div className="grid grid-cols-6 gap-8 py-5 p-10">
-                        <a className={'ml-5 inline-block'} href="http://www.bangkok.go.th/">
-                            <img src="prime_minister_office.png"
+                    <div className="grid grid-cols-6 gap-8 py-5 p-10 flex items-center">
+                        { corpLinkONE.map(link => {
+                            const { domain , logo } = link
+                            return <a className={'ml-5 inline-block'} href={domain}>
+                            <img src={logo}
                                 alt="torch logo"
                             />
                         </a>
-                        <a className={'ml-5 inline-block'} href="http://www.bangkok.go.th/">
-                            <img src="orwo.png"
-                                alt="torch logo"
-                            />
-                        </a>
-                        <a className={'ml-5 inline-block'} href="http://www.bangkok.go.th/">
-                            <img src="de.jpg"
-                                alt="torch logo"
-                            />
-                        </a>
-                        <a className={'ml-5 inline-block'} href="http://www.bangkok.go.th/">
-                            <img src="dep.jpg"
-                                alt="torch logo"
-                            />
-                        </a>
-                        <a className={'ml-5 inline-block'} href="http://www.bangkok.go.th/">
-                            <img src="bma_logo.png"
-                                alt="torch logo"
-                            />
-                        </a>
-                        <a className={'ml-5 inline-block'} href="http://www.bangkok.go.th/">
-                            <img src="wocho.jpg"
-                                alt="torch logo"
-                            />
-                        </a>
+                        }) }
                     </div>
                 </div>
-                <div className="grid grid-cols-6 gap-4 py-20 p-10">
-                    <a className={'inline-block'} href="http://www.bangkok.go.th/">
-                        <img src="tu.png"
+                <div className="grid grid-cols-6 gap-4 py-20 p-10 flex items-center">
+                    { corpLinkTWO.map(link => {
+                        const { domain , logo } = link
+                        return <a className={'ml-5 inline-block'} href={domain}>
+                        <img src={logo}
                             alt="torch logo"
                         />
                     </a>
-                    <a className={'ml-5 inline-block'} href="http://www.bangkok.go.th/">
-                        <img src="siit.png"
-                            alt="torch logo"
-                        />
-                    </a>
-                    <a className={'ml-5 inline-block'} href="http://www.bangkok.go.th/">
-                        <img src="cat_logo.jpg"
-                            alt="torch logo"
-                        />
-                    </a>
-                    <a className={'ml-5 inline-block'} href="https://aiat.or.th">
-                        <img src="aiat_logo.png"
-                            alt="torch logo"
-                        />
-                    </a>
-                    <a className={'ml-5 inline-block'} href="http://www.bangkok.go.th/">
-                        <img src="super-ai.png"
-                            alt="torch logo"
-                        />
-                    </a>
-                    <a className={'ml-5 inline-block'} href="https://iapp.co.th">
-                        <img src="iapp_logo.png"
-                            alt="torch logo"
-                        />
-                    </a>
+                    }) }
                 </div>
-                <div className="grid grid-cols-3 gap-4">
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}>AI DEVELOPER</div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Dr. Kobkrit</div>
-                    <div style={{textAlign:left}}>Viriyayudhakorn</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}>ADMIN</div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Suchathit</div>
-                    <div style={{textAlign:left}}>Boonnag</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}>DESIGN</div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Ananya</div>
-                    <div style={{textAlign:left}}>Kuasakunrungroj</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}></div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Atichat</div>
-                    <div style={{textAlign:left}}>Auppakansang</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}></div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Boonthicha</div>
-                    <div style={{textAlign:left}}>Saejia</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}></div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Suppachai</div>
-                    <div style={{textAlign:left}}>Nuthep</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}>VISUALIZE</div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Athipud</div>
-                    <div style={{textAlign:left}}>Rungsun</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}></div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Chadchavan</div>
-                    <div style={{textAlign:left}}>Rattanasopa</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}></div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Jaral</div>
-                    <div style={{textAlign:left}}>Pitavivadhananon</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}></div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Natthakorn</div>
-                    <div style={{textAlign:left}}>Kasamsumran</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}></div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Nisit</div>
-                    <div style={{textAlign:left}}>Sirimarnkit</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}></div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Rajasurang</div>
-                    <div style={{textAlign:left}}>Wongkrasaemongkol</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}></div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Tatchapong</div>
-                    <div style={{textAlign:left}}>Tanomsuk</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}></div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Varadtha</div>
-                    <div style={{textAlign:left}}>Junburom</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}></div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Wanna Dev</div>
-                    <div style={{textAlign:left}}></div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}>WEB DEVELOPER</div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Chinnatip</div>
-                    <div style={{textAlign:left}}>Taemkaeo</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}></div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Ponnipa</div>
-                    <div style={{textAlign:left}}>Jantawong</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}></div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Sirawich</div>
-                    <div style={{textAlign:left}}>Smitsomboon</div>
-                    <div className="text-1xl font-semibold" style={{ color: '#FF9900', textAlign: left , marginLeft:'300px'}}></div>
-                    <div style={{textAlign:left,marginLeft:'100px'}}>Pakin</div>
-                    <div style={{textAlign:left}}>Siwatammarat</div>
+                <div className="flex justify-content flex-col items-center">
+                    { participant.map(partner => {
+                        const {role, name, domain} = partner
+                        return <div className="flex items-start my-2">
+                            <div className="w-32 inline-block text-1xl font-semibold" style={{ color: '#FF9900'}}>{role}</div>
+                            { domain != '' ?
+                                <a target="_blank" href={domain} className="w-64 block text-left ml-20" >{name}</a> :
+                                <div className="w-64 text-left ml-20">{name}</div>
+                            }
+                        </div>
+                    })}
                 </div>
+
             </main>
         </Layout>
     )
