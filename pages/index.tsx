@@ -73,8 +73,8 @@ const IndexPage = () => {
           <GoogleMapReact
               bootstrapURLKeys={{ key: keyString}}
               options={{ styles: localeStyle }}
-              defaultCenter={{ lat: 13.746683,lng:  100.470739 }}
-              defaultZoom={13}
+              defaultCenter={{ lat: 13.713839,lng:  100.470462}}
+              defaultZoom={12}
               onGoogleApiLoaded={handleGoogleMapApi}
             >
               {markers.map((data, index) => {
