@@ -60,7 +60,7 @@ const IndexPage = () => {
   const parcel: any = currentMarkers
   const markers: MarkerProperty[] = parcel
   const [popNow, setPop] = useState("ตลาดทุ่งครุ")
-  const [pick, setPick] = useState(true)
+  const [pick, setPick] = useState(false)
   const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
   return (
     <Layout current="home" title="DeepCare - Covid Map">
@@ -73,7 +73,7 @@ const IndexPage = () => {
           <GoogleMapReact
               bootstrapURLKeys={{ key: keyString}}
               options={{ styles: localeStyle }}
-              defaultCenter={{ lat: 13.713839,lng:  100.470462}}
+              defaultCenter={{ lat: 13.713394, lng: 100.453041 }}
               defaultZoom={12}
               onGoogleApiLoaded={handleGoogleMapApi}
             >
