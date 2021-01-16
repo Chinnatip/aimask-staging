@@ -62,7 +62,7 @@ const IndexPage = () => {
   const [pick, setPick] = useState(false)
   const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
   return (
-    <Layout current="home" title="DeepCare - Covid Map">
+    <Layout current="home" title="DeepCare - Covid Map" markers={markers}>
       <main className="text-b px-0 mb-0">
         <div className="w-full flex">
           <div className="flex-grow" style={{ height: '100vh' }}>
