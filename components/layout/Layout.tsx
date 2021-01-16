@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react'
 // import Footer from 'stuff/Footer'
 import Navbar from 'stuff/Navbar'
 import { Token } from 'interfaces'
-import { MarkerProperty } from '../../interfaces/marker'
+import { CameraDetail } from '../../interfaces/marker'
 
 type Props = {
   children: ReactNode
@@ -13,7 +13,7 @@ type Props = {
   navTransparent?: boolean
   nofooter?: boolean
   current?: string
-  markers?: MarkerProperty[]
+  markers?: CameraDetail[]
 }
 
 const Layout = ({

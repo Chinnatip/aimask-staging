@@ -1,6 +1,6 @@
 import Layout from '@/layout/Layout'
-import { MarkerProperty } from '../interfaces/marker'
-import { currentMarkers } from '../components/static/dataPoint'
+import { CameraDetail } from '../interfaces/marker'
+import { observationPoint, camDetails  } from '../components/static/dataPoint'
 
 const corpLinkONE = [
     {domain: 'https://www.thaigov.go.th/', logo: 'prime_minister_office.png'},
@@ -44,8 +44,7 @@ const participant = [
 ]
 
 const AboutPage = () => {
-    const parcel: any = currentMarkers
-    const markers: MarkerProperty[] = parcel
+    const markers: CameraDetail[] = camDetails(observationPoint)
     return (
         <Layout current="aboutus" title="DeepCare" markers={markers}>
             <div className="text-b pt-32 space-y-4">

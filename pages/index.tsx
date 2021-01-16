@@ -3,13 +3,13 @@ import GoogleMapReact  from 'google-map-react'
 import Drawer from '../components/stuff/Drawer'
 import { bangkokMap, localeStyle } from '../components/static/bangkokLine'
 import { useState } from 'react'
-import { MarkerProps , MarkerProperty } from '../interfaces/marker'
-import { currentMarkers } from '../components/static/dataPoint'
+import { MarkerProps, CameraDetail } from '../interfaces/marker'
+import { observationPoint, camDetails } from '../components/static/dataPoint'
 
 const Marker = (props: MarkerProps) => {
   const { data , pop, action, status, actionStatus } = props
   // const [ modal, setModal ] = useState(pop)
-  const { no_correct_wear_mask, no_incorrect_wear_mask, no_not_wear_mask ,total, date } = data
+  const { result: {no_correct_wear_mask, no_incorrect_wear_mask, no_not_wear_mask ,total}, detect_timestamp } = data
   const calc = (num: number, total: number) => (num * 100 / total).toFixed(2)
   // console.log(data)
   return (
@@ -19,7 +19,7 @@ const Marker = (props: MarkerProps) => {
           {data.name}, กรุงเทพ
           <button onClick={() => actionStatus(!status)} className="bg-gray-300 h-8 w-8 rounded-full absolute top-0 right-0">X</button>
         </div>
-        <div className='text-sm text-gray-500'>สำรวจรวม {total} ราย | อัพเดทวันที่ {date.split(' ')[0]}</div>
+        <div className='text-sm text-gray-500'>สำรวจรวม {total} ราย | อัพเดทวันที่ {detect_timestamp.split(' ')[0]}</div>
         <img src={`./label/${data.name}.png`} className="m-auto mt-2" style={{ width: '22rem' }} />
         <hr/>
         <div className="mt-4 text-xs grid text-gray-700 grid-flow-row grid-cols-3 grid-rows-3 gap-4">
@@ -56,8 +56,7 @@ const handleGoogleMapApi = (google: any) => {
 }
 
 const IndexPage = () => {
-  const parcel: any = currentMarkers
-  const markers: MarkerProperty[] = parcel
+  const markers: CameraDetail[] = camDetails(observationPoint)
   const [popNow, setPop] = useState("ตลาดทุ่งครุ")
   const [pick, setPick] = useState(false)
   const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
@@ -77,7 +76,7 @@ const IndexPage = () => {
               onGoogleApiLoaded={handleGoogleMapApi}
             >
               {markers.map((data, index) => {
-                console.log(popNow)
+                // console.log(popNow)
                 const { latitude, longitude } = data
                 return (
                   <Marker

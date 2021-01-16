@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router'
-import { MarkerProperty } from '../../interfaces/marker'
+import { CameraDetail } from '../../interfaces/marker'
 
 type Props = {
   current: string,
-  markers?: MarkerProperty[]
+  markers?: CameraDetail[]
 }
 
 export default function Navbar({current, markers}: Props) {

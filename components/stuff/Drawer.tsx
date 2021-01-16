@@ -1,7 +1,7 @@
-import { MarkerProperty } from '../../interfaces/marker'
+import { CameraDetail } from '../../interfaces/marker'
 
 type Props = {
-  markers: MarkerProperty[]
+  markers: CameraDetail[]
   action: any
   pop?: any
   actionStatus?: any
@@ -18,10 +18,12 @@ const Drawer = ({markers, action, actionStatus ,pop}: Props) => {
           {markers.map((point, idx) => {
             const {
               name,
-              no_correct_wear_mask,
-              no_incorrect_wear_mask,
-              no_not_wear_mask,
-              total,
+              result: {
+                no_correct_wear_mask,
+                no_incorrect_wear_mask,
+                no_not_wear_mask,
+                total,
+              }
             } = point
             const no_correct_wear_mask_pct =
               (no_correct_wear_mask / total) * 100
@@ -31,6 +33,7 @@ const Drawer = ({markers, action, actionStatus ,pop}: Props) => {
             const sty = `${no_not_wear_mask_pct}fr ${no_incorrect_wear_mask_pct}fr ${no_correct_wear_mask_pct}fr`
             return (
               <button
+                key={idx}
                 id={idx.toString()}
                 onClick={() => { actionStatus(true); action(point.name)}}
                 className={`block py-3 px-5 hover:bg-gray-100 ${pop == point.name && 'bg-gray-100'}	`}
