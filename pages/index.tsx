@@ -14,14 +14,13 @@ const Marker = (props: MarkerProps) => {
   // console.log(data)
   return (
     <div className="text-b relative">
-      { status && (pop == data.name) && <div className="z-10 text-b absolute p-4 bg-white -ml-40 rounded-lg shadow-xl" style={{marginTop: '-26rem' , width: '24rem', height: '24rem'}}>
+      { status && (pop == data.name) && <div className="z-10 text-b absolute p-4 bg-white -ml-40 rounded-lg shadow-xl" style={{marginTop: '-26rem' , width: '24rem', height: '25rem'}}>
         <div className="text-gray-700 text-lg underline relative">
           {data.name}, กรุงเทพ
           <button onClick={() => actionStatus(!status)} className="bg-gray-300 h-8 w-8 rounded-full absolute top-0 right-0">X</button>
         </div>
-
         <div className='text-sm text-gray-500'>สำรวจรวม {total} ราย | อัพเดทวันที่ {date.split(' ')[0]}</div>
-        <img src={`./label/${data.name}.png`} className="m-auto h-40"/>
+        <img src={`./label/${data.name}.png`} className="m-auto mt-2" style={{ width: '22rem' }} />
         <hr/>
         <div className="mt-4 text-xs grid text-gray-700 grid-flow-row grid-cols-3 grid-rows-3 gap-4">
           <div className="text-center"></div>
