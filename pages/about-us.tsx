@@ -1,6 +1,6 @@
 import Layout from '@/layout/Layout'
 import { CameraDetail } from '../interfaces/marker'
-import { observationPoint, camDetails  } from '../components/static/dataPoint'
+import { observationPoint, camDetails } from '../components/static/dataPoint'
 
 const corpLink = [
     {domain: 'https://www.thaigov.go.th/', logo: 'prime_minister_office.png'},
@@ -59,7 +59,7 @@ const AboutPage = () => {
                                 alt="torch logo"
                             />
                         </a>
-                        }) }
+                        })}
                     </div>
                 </div>
                 <div className="text-b pt-16 space-y-4">
@@ -69,15 +69,14 @@ const AboutPage = () => {
                     { participant.map(partner => {
                         const {role, name, domain} = partner
                         return <div className="flex items-start my-2">
-                            <div className="w-32 text-1xl font-semibold" style={{ color: '#FF9900'}}>{role}</div>
-                            { domain != '' ?
-                                <a target="_blank" href={domain} className="w-64 block text-left ml-20" >{name}</a> :
-                                <div className="w-64 text-left ml-20">{name}</div>
+                            <div className="w-32 text-1xl font-semibold sm:col-span-12 md:col-span-2 lg:col-span-2" style={{ color: '#FF9900' }}>{role}</div>
+                            {domain != '' ?
+                                <a target="_blank" href={domain} className="w-64 inline-block text-left ml-20" >{name}</a> :
+                                <div className="w-64 text-left ml-20 sm:col-span-12 md:col-span-2 lg:col-span-2">{name}</div>
                             }
                         </div>
                     })}
                 </div>
-
             </main>
         </Layout>
     )
