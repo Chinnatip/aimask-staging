@@ -11,8 +11,8 @@ const Drawer = ({markers, action, actionStatus ,pop}: Props) => {
   return (
     <>
       <aside
-        className="overflow-scroll shadow-xl fixed z-50 mt-16 h-screen"
-        style={{ background: "rgba(255, 185, 134, 0.54)" }}
+        className="overflow-scroll shadow-xl fixed z-10"
+        style={{ background: "rgba(255, 185, 134, 0.54)", top: "4rem", bottom: "4rem" }}
       >
         <nav className="text-left overflow-auto h-full">
           {markers.map((point, idx) => {

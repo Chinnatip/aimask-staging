@@ -62,12 +62,8 @@ const IndexPage = () => {
   const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
   return (
     <Layout current="home" title="DeepCare - Covid Map" markers={markers}>
-      <main className="text-b px-0 mb-0">
-        <div className="w-full flex">
-          <div className="flex-grow" style={{ height: '100vh' }}>
-        <>
+      <>
           <Drawer markers={markers} action={setPop} actionStatus={setPick} pop={popNow} />
-          {/* {JSON.stringify(markers)} */}
           <GoogleMapReact
               bootstrapURLKeys={{ key: keyString}}
               options={{ styles: localeStyle }}
@@ -92,9 +88,6 @@ const IndexPage = () => {
               })}
             </GoogleMapReact>
         </>
-          </div>
-        </div>
-      </main>
     </Layout>
   )
 }

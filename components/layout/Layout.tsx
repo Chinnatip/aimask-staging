@@ -4,6 +4,7 @@ import React, { ReactNode } from 'react'
 import Navbar from 'stuff/Navbar'
 import { Token } from 'interfaces'
 import { CameraDetail } from '../../interfaces/marker'
+import Footer from 'stuff/Footer'
 
 type Props = {
   children: ReactNode
@@ -19,8 +20,9 @@ type Props = {
 const Layout = ({
   children,
   title = '',
-  current='/',
-  markers
+  current = '/',
+  markers,
+  nofooter = false
 }: Props) => {
   return (
     <>
@@ -32,8 +34,11 @@ const Layout = ({
       <header>
         <Navbar markers={markers} current={current} />
       </header>
-      {children}
-      {/* {!nofooter && <Footer />} */}
+      <div className="fixed"
+      style={{ top: "4rem", bottom: "4rem", left:"0", right:"0" }}>
+        {children}
+      </div>
+      {!nofooter && <Footer />}
     </>
   )
 }
