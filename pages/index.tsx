@@ -29,7 +29,7 @@ const IndexPage = () => {
       <Layout current="home" title="DeepCare - Covid Map" markers={markers}>
         <>
           <div className="flex flex-col w-full h-full">
-            <div className="mt-20 h-16 z-10 bg-white w-full"></div>
+            <div className="block lg:hidden mt-20 h-16 z-10 bg-white w-full"></div>
             <Drawer markers={markers} action={setPop} actionCenter={setCenter} actionStatus={setPick} pop={popNow} />
             <GoogleMapReact
               bootstrapURLKeys={{ key: keyString}}
@@ -56,7 +56,7 @@ const IndexPage = () => {
                 )}
               )}
             </GoogleMapReact>
-          <div className="h-16 z-10 bg-white w-full"></div>
+          <div className="block lg:hidden h-16 z-10 bg-white w-full"></div>
           </div>
         </>
       </Layout>

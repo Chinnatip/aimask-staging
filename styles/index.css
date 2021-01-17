@@ -18,6 +18,22 @@ body {
   color: #ffb986;
 }
 
+@media only screen and (min-width: 200px) {
+  .drawer-expand {
+    top: 8rem;
+    bottom: 4rem;
+    right: 100%;
+  }
+}
+
+@media only screen and (min-width: 780px) {
+  .drawer-expand {
+    top: 5rem !important;
+    bottom: 4rem !important;
+    right: auto !important;
+  }
+}
+
 .drawer-active {
   background-color: #756e66;
 }

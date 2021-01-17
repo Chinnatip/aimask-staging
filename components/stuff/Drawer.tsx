@@ -1,5 +1,8 @@
 import { CameraDetail } from '../../interfaces/marker'
 import { toggleDrawer } from '../strategy/toggle'
+import { faCaretRight } from '@fortawesome/free-solid-svg-icons'
+import Icon from '../stuff/Icon'
+
 
 type Props = {
   markers: CameraDetail[]
@@ -12,14 +15,14 @@ type Props = {
 const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
   return (
     <>
-      <aside id="Drawer"
-        className="overflow-y-scroll shadow-xl fixed z-30"
-        style={{ background: "#1b1a19e6", top: "8rem", bottom: "4rem", transitionDuration: "0.5s", right: "100%" }}>
+      <div id="Drawer"
+        className="overflow-y-scroll shadow-xl fixed z-30 drawer-expand"
+        style={{ background: "#1b1a19e6", transitionDuration: "0.5s" }}>
         <nav className="text-left h-full">
           <div className='text-white px-4 py-4 border-orange-400 border-b relative' >
             <div className="text-xs"> ข้อมูลวันที่ 17 มกราคม 2564 </div>
             <div className="text-xl mt-1"> ที่อยู่ของคุณ ณ ปัจุบัน </div>
-            <button onClick={() => toggleDrawer()} className="text-white absolute top-0 right-0 mr-3 mt-3 text-xl">X</button>
+            <button onClick={() => toggleDrawer()} className="lg:hidden text-white absolute top-0 right-0 mr-3 mt-3 text-xl">X</button>
           </div>
           {markers.map((point, idx) => {
             const {
@@ -51,7 +54,10 @@ const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
                   className={`text-xl text-white mb-1`}
                   id={ele_id}>
                   {name}
-                  <span className="inline-block ml-2 h-3 w-3 bg-orange-400" />
+                  <span className="text-orange-600 ml-2" >
+                    <Icon fill={faCaretRight}></Icon>
+                  </span>
+                  {/* <span className="inline-block ml-2 h-3 w-3 bg-orange-400" /> */}
                 </div>
                 <div
                   id="mask-meter"
@@ -86,7 +92,7 @@ const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
             )
           })}
         </nav>
-      </aside>
+      </div>
     </>
   )
 }

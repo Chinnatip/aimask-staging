@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { CameraDetail } from '../../interfaces/marker'
+import { SearchIcon, TableIcon, PeopleIcon} from '../stuff/Icon'
 
 type Props = {
   current: string,
@@ -34,9 +35,18 @@ export default function Navbar({current, markers}: Props) {
               </span>
             </div>
             <div className="hidden lg:flex ">
-              <button onClick={() => Router.push('/')} className={`mx-4 ${current == 'home' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>หน้าหลัก</button>
-              <a href="https://deepcare.aiat.or.th/streamlit/" className={`mx-4 ${current == 'brief' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>สรุปข้อมูล</a>
-              <button onClick={() => Router.push('/about-us')} className={`mx-4 ${current == 'aboutus' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>About Us</button>
+              <span className="flex">
+                <SearchIcon fill={current == 'home' ? '#2d3748' : 'white'} />
+                <button onClick={() => Router.push('/')} className={`mx-2 ${current == 'home' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>หน้าหลัก</button>
+              </span>
+              <span className="flex ml-4">
+                <TableIcon fill={current == 'report' ? '#2d3748' : 'white'} />
+                <a href="https://deepcare.aiat.or.th/streamlit/" className={`mx-2 ${current == 'brief' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>สรุปข้อมูล</a>
+              </span>
+              <span className="flex ml-4">
+                <PeopleIcon fill={current == 'aboutus' ? '#2d3748' : 'white'} />
+                <button onClick={() => Router.push('/about-us')} className={`mx-2 ${current == 'aboutus' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>About Us</button>
+              </span>
             </div>
           </div>
         </div>
