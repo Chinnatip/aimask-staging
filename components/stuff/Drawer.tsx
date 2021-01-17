@@ -1,7 +1,8 @@
 import { CameraDetail } from '../../interfaces/marker'
 import { toggleDrawer } from '../strategy/toggle'
-// import { faCaretRight } from '@fortawesome/free-solid-svg-icons'
-// import Icon from '../stuff/Icon'
+import { faCaretRight } from '@fortawesome/free-solid-svg-icons'
+import Icon from '../stuff/Icon'
+
 
 type Props = {
   markers: CameraDetail[]
@@ -53,9 +54,10 @@ const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
                   className={`text-xl text-white mb-1`}
                   id={ele_id}>
                   {name}
-                  {/* <span className="text-orange-600 ml-2" >
+                  <span className="text-orange-600 ml-2" >
                     <Icon fill={faCaretRight}></Icon>
-                  </span> */}
+                  </span>
+                  {/* <span className="inline-block ml-2 h-3 w-3 bg-orange-400" /> */}
                 </div>
                 <div
                   id="mask-meter"
