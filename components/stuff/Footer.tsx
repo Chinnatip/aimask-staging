@@ -1,4 +1,7 @@
+import { useRouter } from 'next/router'
+
 export default function Footer() {
+  const Router = useRouter()
   function CreateButton(imgele: JSX.Element, text: string, onClick?: () => void, onLoad?: () => void) {
     return (
       <div className="flex-1 w-full h-full">
@@ -36,8 +39,8 @@ export default function Footer() {
             if (Drawer.style.right != "100%") Drawer.style.right = "100%";
             else Drawer.style.right = (document.body.clientWidth - Drawer.offsetWidth).toString() + "px";
           })}
-          {CreateButton(TableIcon, "สรุปข้อมูล")}
-          {CreateButton(PeopleIcon, "About Us")}
+          {CreateButton(TableIcon, "สรุปข้อมูล", function onClick(){ Router.push('/report') })}
+          {CreateButton(PeopleIcon, "About Us", function onClick(){ Router.push('/about-us') })}
         </div>
       </footer>
     </>
