@@ -1,5 +1,5 @@
 import Layout from '@/layout/Layout'
-import GoogleMapReact  from 'google-map-react'
+import GoogleMapReact from 'google-map-react'
 import Drawer from '../components/stuff/Drawer'
 import { bangkokMap, localeStyle } from '../components/static/bangkokLine'
 import { useState } from 'react'
@@ -7,21 +7,26 @@ import { MarkerProps, CameraDetail } from '../interfaces/marker'
 import { observationPoint, camDetails } from '../components/static/dataPoint'
 
 const Marker = (props: MarkerProps) => {
-  const { data , pop, action, status, actionStatus } = props
+  const { data, pop, action, status, actionStatus, actionCenter } = props
   // const [ modal, setModal ] = useState(pop)
-  const { result: {no_correct_wear_mask, no_incorrect_wear_mask, no_not_wear_mask ,total}, detect_timestamp } = data
+  const {
+    result: { no_correct_wear_mask, no_incorrect_wear_mask, no_not_wear_mask ,total},
+    detect_timestamp ,
+    latitude,
+    longitude
+  } = data
   const calc = (num: number, total: number) => (num * 100 / total).toFixed(2)
   // console.log(data)
   return (
     <div className="text-b relative">
-      { status && (pop == data.name) && <div className="z-10 text-b absolute p-4 bg-white -ml-40 rounded-lg shadow-xl" style={{marginTop: '-26rem' , width: '24rem', height: '25rem'}}>
+      { status && (pop == data.name) && <div className="z-10 text-b absolute p-4 bg-white -ml-40 rounded-lg shadow-xl" style={{ marginTop: '-26rem', width: '24rem', height: '25rem' }}>
         <div className="text-gray-700 text-lg underline relative">
           {data.name}, กรุงเทพ
           <button onClick={() => actionStatus(!status)} className="bg-gray-300 h-8 w-8 rounded-full absolute top-0 right-0">X</button>
         </div>
         <div className='text-sm text-gray-500'>สำรวจรวม {total} ราย | อัพเดทวันที่ {detect_timestamp.split(' ')[0]}</div>
         <img src={`./label/${data.name}.png`} className="m-auto mt-2" style={{ width: '22rem' }} />
-        <hr/>
+        <hr />
         <div className="mt-4 text-xs grid text-gray-700 grid-flow-row grid-cols-3 grid-rows-3 gap-4">
           <div className="text-center"></div>
           <div className="text-center">จำนวนคน</div>
@@ -37,8 +42,8 @@ const Marker = (props: MarkerProps) => {
           <div className="text-center text-red-600">{calc(no_not_wear_mask, total)}%</div>
         </div>
       </div>}
-      <button onClick={() => { actionStatus(true); action(data.name)}}>
-        <img src="mask_icon/m_green.png" className="h-12 w-12 -mt-2 -ml-2 shadow-xl rounded-full border-4 border-green-700" alt=""/>
+      <button onClick={() => { actionStatus(true); actionCenter([latitude,longitude]); action(data.name)}}>
+        <img src="mask_icon/m_green.png" className="h-6 w-6 -mt-2 -ml-2 shadow-xl rounded-full border-2 border-green-700" alt=""/>
       </button>
     </div>
   )
@@ -58,44 +63,46 @@ const handleGoogleMapApi = (google: any) => {
 const IndexPage = () => {
   const markers: CameraDetail[] = camDetails(observationPoint)
   const [popNow, setPop] = useState("ตลาดทุ่งครุ")
+  const [center, setCenter] = useState([13.713394,100.453041])
   const [pick, setPick] = useState(false)
   const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
   return (
-    <Layout current="home" title="DeepCare - Covid Map" markers={markers}>
-      <main className="text-b px-0 mb-0">
-        <div className="w-full flex">
-          <div className="flex-grow" style={{ height: '100vh' }}>
+    <>
+      <Layout current="home" title="DeepCare - Covid Map" markers={markers}>
         <>
-          <Drawer markers={markers} action={setPop} actionStatus={setPick} pop={popNow} />
-          {/* {JSON.stringify(markers)} */}
+          <div className="fixed bottom-0 left-0 right-0 bg-white h-16 z-10" style={{ top: "4rem", bottom: "8rem" }}>
+            <div className="flex flex-wrap text-white text-center w-full h-full">
+            </div>
+          </div>
+          <Drawer markers={markers} action={setPop} actionCenter={setCenter} actionStatus={setPick} pop={popNow} />
           <GoogleMapReact
-              bootstrapURLKeys={{ key: keyString}}
-              options={{ styles: localeStyle }}
-              defaultCenter={{ lat: 13.713394, lng: 100.453041 }}
-              defaultZoom={12}
-              onGoogleApiLoaded={handleGoogleMapApi}
-            >
-              {markers.map((data, index) => {
-                // console.log(popNow)
-                const { latitude, longitude } = data
-                return (
-                  <Marker
+            bootstrapURLKeys={{ key: keyString}}
+            options={{ styles: localeStyle }}
+            defaultCenter={{ lat: center[0], lng: center[1] }}
+            center={{ lat: center[0], lng: center[1] }}
+            defaultZoom={12}
+            onGoogleApiLoaded={handleGoogleMapApi}
+          >
+            {markers.map((data, index) => {
+              // console.log(popNow)
+              const { latitude, longitude } = data
+              return (
+                <Marker
                   key={index}
                   data={data}
                   pop={popNow}
                   status={pick}
+                  actionCenter={setCenter}
                   actionStatus={setPick}
                   lat={latitude}
                   lng={longitude}
                   action={setPop} />
-                )
-              })}
-            </GoogleMapReact>
+              )}
+            )}
+          </GoogleMapReact>
         </>
-          </div>
-        </div>
-      </main>
-    </Layout>
+      </Layout>
+    </>
   )
 }
 
