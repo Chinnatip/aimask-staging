@@ -10,9 +10,9 @@ type Props = {
 const Drawer = ({markers, action, actionStatus ,pop}: Props) => {
   return (
     <>
-      <aside
-        className="overflow-scroll shadow-xl fixed z-10"
-        style={{ background: "rgba(255, 185, 134, 0.54)", top: "4rem", bottom: "4rem" }}
+      <aside id="Drawer"
+        className="overflow-scroll shadow-xl fixed z-30"
+        style={{ background: "rgba(255, 185, 134, 0.54)", top: "4rem", bottom: "4rem", transitionDuration: "0.5s", right: "100%" }}
       >
         <nav className="text-left overflow-auto h-full">
           {markers.map((point, idx) => {
