@@ -37,7 +37,7 @@ const Layout = ({
       <div className="fixed top-0 w-screen h-screen">
         {children}
       </div>
-      {!nofooter && <Footer />}
+      {!nofooter && <Footer current={current} />}
     </>
   )
 }

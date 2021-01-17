@@ -14,6 +14,10 @@ body {
   font-family: 'Kanit';
 }
 
+.tab-active {
+  color: #ffb986;
+}
+
 .bg-brown {
   background-color: #4f482b;
 }
