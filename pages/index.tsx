@@ -28,36 +28,36 @@ const IndexPage = () => {
     <>
       <Layout current="home" title="DeepCare - Covid Map" markers={markers}>
         <>
-          <div className="fixed bottom-0 left-0 right-0 bg-white h-16 z-10" style={{ top: "4rem", bottom: "8rem" }}>
-            <div className="flex flex-wrap text-white text-center w-full h-full">
-            </div>
-          </div>
-          <Drawer markers={markers} action={setPop} actionCenter={setCenter} actionStatus={setPick} pop={popNow} />
-          <GoogleMapReact
-            bootstrapURLKeys={{ key: keyString}}
-            options={{ styles: localeStyle }}
-            defaultCenter={{ lat: center[0], lng: center[1] }}
-            center={{ lat: center[0], lng: center[1] }}
-            defaultZoom={12}
-            onGoogleApiLoaded={handleGoogleMapApi}
-          >
-            {markers.map((data, index) => {
-              // console.log(popNow)
-              const { latitude, longitude } = data
-              return (
-                <Marker
-                  key={index}
-                  data={data}
-                  pop={popNow}
-                  status={pick}
-                  actionCenter={setCenter}
-                  actionStatus={setPick}
-                  lat={latitude}
-                  lng={longitude}
-                  action={setPop} />
+          <div className="flex flex-col w-full h-full">
+            <div className="mt-20 h-16 z-10 bg-white w-full"></div>
+            <Drawer markers={markers} action={setPop} actionCenter={setCenter} actionStatus={setPick} pop={popNow} />
+            <GoogleMapReact
+              bootstrapURLKeys={{ key: keyString}}
+              options={{ styles: localeStyle }}
+              defaultCenter={{ lat: center[0], lng: center[1] }}
+              center={{ lat: center[0], lng: center[1] }}
+              defaultZoom={12}
+              onGoogleApiLoaded={handleGoogleMapApi}
+            >
+              {markers.map((data, index) => {
+                // console.log(popNow)
+                const { latitude, longitude } = data
+                return (
+                  <Marker
+                    key={index}
+                    data={data}
+                    pop={popNow}
+                    status={pick}
+                    actionCenter={setCenter}
+                    actionStatus={setPick}
+                    lat={latitude}
+                    lng={longitude}
+                    action={setPop} />
+                )}
               )}
-            )}
-          </GoogleMapReact>
+            </GoogleMapReact>
+          <div className="h-16 z-10 bg-white w-full"></div>
+          </div>
         </>
       </Layout>
     </>
