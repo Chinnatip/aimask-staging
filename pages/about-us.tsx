@@ -28,6 +28,7 @@ const corpLinkTHREE = [
 const participant = [
     { role: 'AI DEVELOPER', name: 'Dr. Kobkrit Viriyayudhakorn', domain: 'https://kobkrit.com/' },
     { role: 'ADMIN', name: 'Suchathit Boonnag', domain: 'https://www.linkedin.com/in/sboonnag/' },
+    { role: 'ADVISOR', name: 'Dr. Thanaruk Theeramunkong', domain: 'https://aiat.or.th/thanaruk/' },
     { role: 'DESIGN', name: 'Ananya Kuasakunrungroj', domain: '' },
     { role: '', name: 'Atichat Auppakansang', domain: 'https://atichat645.wixsite.com/port' },
     { role: '', name: 'Boonthicha Saejia', domain: '' },
@@ -43,9 +44,8 @@ const participant = [
     { role: '', name: 'Wanna Dev', domain: 'https://wannadev.medium.com/' },
     { role: 'WEB DEVELOPER', name: 'Chinnatip Taemkaeo', domain: 'https://www.linkedin.com/in/chinnatip-taemkaeo' },
     { role: '', name: 'Ponnipa Jantawong', domain: '' },
-    { role: '', name: 'Pakin Siwatammarat', domain: 'https://ppirch.github.io/' },
     { role: '', name: 'Sirawich Smitsomboon', domain: 'http://photoservicethai.com/index.html?spacial=superai' },
-    { role: 'ADVISOR', name: 'Dr. Thanaruk Theeramunkong', domain: 'https://aiat.or.th/thanaruk/' },
+    { role: '', name: 'Pakin Siwatammarat', domain: 'https://ppirch.github.io/' },
 ]
 
 const AboutPage = () => {
