@@ -28,7 +28,7 @@ export default function Footer() {
   </svg>)
   return (
     <>
-      <footer className="fixed justify-between bottom-0 left-0 right-0 bg-black h-16">
+      <footer className="lg:hidden fixed justify-between bottom-0 left-0 right-0 bg-black h-16">
         <div className="flex flex-wrap text-white text-center w-full h-full">
           {CreateButton(SearchIcon, "ดูข้อมูลเขต", function onClick() {
             let Drawer = document.getElementById("Drawer");

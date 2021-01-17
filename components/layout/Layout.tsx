@@ -34,8 +34,7 @@ const Layout = ({
       <header>
         <Navbar markers={markers} current={current} />
       </header>
-      <div className="fixed"
-      style={{ top: "4rem", bottom: "4rem", left:"0", right:"0" }}>
+      <div className="fixed top-0 w-screen h-screen">
         {children}
       </div>
       {!nofooter && <Footer />}

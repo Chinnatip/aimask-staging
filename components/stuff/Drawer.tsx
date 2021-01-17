@@ -5,9 +5,11 @@ type Props = {
   action: any
   pop?: any
   actionStatus?: any
+  actionCenter?: any
 }
 
-const Drawer = ({markers, action, actionStatus ,pop}: Props) => {
+
+const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
   return (
     <>
       <aside id="Drawer"
@@ -18,6 +20,8 @@ const Drawer = ({markers, action, actionStatus ,pop}: Props) => {
           {markers.map((point, idx) => {
             const {
               name,
+              latitude,
+              longitude,
               result: {
                 no_correct_wear_mask,
                 no_incorrect_wear_mask,
@@ -35,10 +39,10 @@ const Drawer = ({markers, action, actionStatus ,pop}: Props) => {
               <button
                 key={idx}
                 id={idx.toString()}
-                onClick={() => { actionStatus(true); action(point.name)}}
-                className={`block py-3 px-5 hover:bg-gray-100 ${pop == point.name && 'bg-gray-100'}	`}
+                onClick={() => { actionStatus(true); action(point.name); actionCenter([latitude, longitude])}}
+                className={`text-left block pt-3 pb-5 px-5 hover:bg-gray-100 ${pop == point.name && 'bg-gray-100'}	`}
               >
-                <span id={idx.toString()}>{name}</span>
+                <span className="text-gray-800" id={idx.toString()}>{name}</span>
                 <div
                   id="mask-meter"
                   style={{

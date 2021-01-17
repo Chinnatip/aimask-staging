@@ -19,6 +19,7 @@ export interface MarkerProps {
   lng: number
   data: CameraDetail
   action?: any
+  actionCenter?: any
   pop?: string
   status: boolean
   actionStatus?: any

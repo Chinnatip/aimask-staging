@@ -7,9 +7,14 @@ import { MarkerProps, CameraDetail } from '../interfaces/marker'
 import { observationPoint, camDetails } from '../components/static/dataPoint'
 
 const Marker = (props: MarkerProps) => {
-  const { data, pop, action, status, actionStatus } = props
+  const { data, pop, action, status, actionStatus, actionCenter } = props
   // const [ modal, setModal ] = useState(pop)
-  const { result: { no_correct_wear_mask, no_incorrect_wear_mask, no_not_wear_mask, total }, detect_timestamp } = data
+  const {
+    result: { no_correct_wear_mask, no_incorrect_wear_mask, no_not_wear_mask ,total},
+    detect_timestamp ,
+    latitude,
+    longitude
+  } = data
   const calc = (num: number, total: number) => (num * 100 / total).toFixed(2)
   // console.log(data)
   return (
@@ -37,8 +42,8 @@ const Marker = (props: MarkerProps) => {
           <div className="text-center text-red-600">{calc(no_not_wear_mask, total)}%</div>
         </div>
       </div>}
-      <button onClick={() => { actionStatus(true); action(data.name) }}>
-        <img src="mask_icon/m_green.png" className="h-12 w-12 -mt-2 -ml-2 shadow-xl rounded-full border-4 border-green-700" alt="" />
+      <button onClick={() => { actionStatus(true); actionCenter([latitude,longitude]); action(data.name)}}>
+        <img src="mask_icon/m_green.png" className="h-6 w-6 -mt-2 -ml-2 shadow-xl rounded-full border-2 border-green-700" alt=""/>
       </button>
     </div>
   )
@@ -58,6 +63,7 @@ const handleGoogleMapApi = (google: any) => {
 const IndexPage = () => {
   const markers: CameraDetail[] = camDetails(observationPoint)
   const [popNow, setPop] = useState("ตลาดทุ่งครุ")
+  const [center, setCenter] = useState([13.713394,100.453041])
   const [pick, setPick] = useState(false)
   const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
   return (
@@ -68,11 +74,12 @@ const IndexPage = () => {
             <div className="flex flex-wrap text-white text-center w-full h-full">
             </div>
           </div>
-          <Drawer markers={markers} action={setPop} actionStatus={setPick} pop={popNow} />
+          <Drawer markers={markers} action={setPop} actionCenter={setCenter} actionStatus={setPick} pop={popNow} />
           <GoogleMapReact
-            bootstrapURLKeys={{ key: keyString }}
+            bootstrapURLKeys={{ key: keyString}}
             options={{ styles: localeStyle }}
-            defaultCenter={{ lat: 13.713394, lng: 100.453041 }}
+            defaultCenter={{ lat: center[0], lng: center[1] }}
+            center={{ lat: center[0], lng: center[1] }}
             defaultZoom={12}
             onGoogleApiLoaded={handleGoogleMapApi}
           >
@@ -85,12 +92,13 @@ const IndexPage = () => {
                   data={data}
                   pop={popNow}
                   status={pick}
+                  actionCenter={setCenter}
                   actionStatus={setPick}
                   lat={latitude}
                   lng={longitude}
                   action={setPop} />
-              )
-            })}
+              )}
+            )}
           </GoogleMapReact>
         </>
       </Layout>
