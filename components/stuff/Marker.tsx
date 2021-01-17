@@ -36,10 +36,9 @@ export const Marker = (props: MarkerProps) => {
           <div className="h-8 text-lg flex items-center justify-center text-red-600 text-md">{calc(no_not_wear_mask, total)}%</div>
         </div>
         <div className='mt-2 mr-2 text-right text-xs text-gray-500'>อัพเดทวันที่ {detect_timestamp.split(' ')[0]}</div>
-        <span className="w-full ml-3 text-center text-white absolute bottom-0 left-0 text-4xl" style={{marginBottom: '-1.9rem'}}>
+        <span className="w-full ml-3 text-center text-white absolute bottom-0 left-0 text-4xl" style={{marginBottom: '-1.6rem'}}>
           <Icon fill={faCaretDown}/>
         </span>
-
       </div>}
       <button onClick={() => { actionStatus(true); actionCenter([latitude,longitude]); action(data.name)}}>
         <img src="mask_icon/m_green.png" className="h-6 w-6 -mt-2 -ml-2 shadow-xl rounded-full border-2 border-green-700" alt=""/>
