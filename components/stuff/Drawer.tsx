@@ -6,19 +6,20 @@ type Props = {
   pop?: any
   actionStatus?: any
   actionCenter?: any
+  actionDrawer?: any
 }
 
-
-const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
+const Drawer = ({markers, action, actionStatus, actionCenter, actionDrawer ,pop}: Props) => {
   return (
     <>
       <aside id="Drawer"
         className="overflow-y-scroll shadow-xl fixed z-30"
-        style={{ background: "#1b1a19e6", top: "4rem", bottom: "4rem", transitionDuration: "0.5s", right: "100%" }}>
+        style={{ background: "#1b1a19e6", top: "8rem", bottom: "4rem", transitionDuration: "0.5s", right: "100%" }}>
         <nav className="text-left h-full">
-          <div className='text-white px-4 py-4 border-gray-500 border-b' >
+          <div className='text-white px-4 py-4 border-gray-500 border-b relative' >
             <div className="text-xs"> ข้อมูลวันที่ 17 มกราคม 2564 </div>
-            <div className="text-xl mt-2"> ที่อยู่ของคุณในปัจุบัน </div>
+            <div className="text-xl mt-1"> ที่อยู่ของคุณ ณ ปัจุบัน </div>
+            <button onClick={() => actionDrawer()} className="text-white absolute top-0 right-0 mr-3 mt-3 text-xl">X</button>
           </div>
           {markers.map((point, idx) => {
             const {
@@ -44,13 +45,13 @@ const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
                 key={idx}
                 id={ele_id}
                 onClick={() => { actionStatus(true); action(point.name); actionCenter([latitude, longitude])}}
-                className={`text-left block pt-3 pb-5 px-5 hover:bg-gray-100 ${pop == point.name && 'bg-gray-100'}	`}
+                className={`text-left block border-none pt-3 pb-5 px-5 hover:drawer-active ${pop == point.name && 'drawer-active'}	`}
               >
-                <span
-                  className={`text-xl ${pop == point.name ?  'text-gray-800' : 'text-white' } `}
+                <div
+                  className={`text-xl text-white mb-1`}
                   id={ele_id}>
                   {name}
-                </span>
+                </div>
                 <div
                   id="mask-meter"
                   style={{

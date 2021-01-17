@@ -15,6 +15,7 @@ type Props = {
   nofooter?: boolean
   current?: string
   markers?: CameraDetail[]
+  actionDrawer?: any
 }
 
 const Layout = ({
@@ -22,7 +23,8 @@ const Layout = ({
   title = '',
   current = '/',
   markers,
-  nofooter = false
+  nofooter = false,
+  actionDrawer
 }: Props) => {
   return (
     <>
@@ -37,7 +39,7 @@ const Layout = ({
       <div className="fixed top-0 w-screen h-screen">
         {children}
       </div>
-      {!nofooter && <Footer current={current} />}
+      {!nofooter && <Footer current={current} actionDrawer={actionDrawer} />}
     </>
   )
 }

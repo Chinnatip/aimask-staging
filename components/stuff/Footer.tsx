@@ -4,11 +4,12 @@ import { SearchIcon, TableIcon, PeopleIcon} from '../stuff/Icon'
 
 type Props = {
   current: string
+  actionDrawer?: any
 }
 
 
 
-export default function Footer({current}: Props) {
+export default function Footer({current, actionDrawer}: Props) {
   const Router = useRouter()
 
   const CreateButton = (
@@ -44,10 +45,7 @@ export default function Footer({current}: Props) {
           {CreateButton("ดูข้อมูลเขต",'home',  function onClick() {
             //
             Router.push('/')
-            let Drawer = document.getElementById("Drawer");
-            if (Drawer == null) return;
-            if (Drawer.style.right != "100%") Drawer.style.right = "100%";
-            else Drawer.style.right = (document.body.clientWidth - Drawer.offsetWidth).toString() + "px";
+            actionDrawer()
           })}
           {CreateButton("สรุปข้อมูล",'report',  function onClick(){ Router.push('/report') })}
           {CreateButton("About Us",'aboutus',  function onClick(){ Router.push('/about-us') })}

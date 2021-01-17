@@ -60,6 +60,13 @@ const handleGoogleMapApi = (google: any) => {
   flightPath.setMap(google.map)
 }
 
+const toggleDrawer = () => {
+  let Drawer = document.getElementById("Drawer");
+  if (Drawer == null) return;
+  if (Drawer.style.right != "100%") Drawer.style.right = "100%";
+  else Drawer.style.right = (document.body.clientWidth - Drawer.offsetWidth).toString() + "px";
+}
+
 const IndexPage = () => {
   const markers: CameraDetail[] = camDetails(observationPoint)
   const [popNow, setPop] = useState("ตลาดทุ่งครุ")
@@ -68,13 +75,13 @@ const IndexPage = () => {
   const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
   return (
     <>
-      <Layout current="home" title="DeepCare - Covid Map" markers={markers}>
+      <Layout current="home" title="DeepCare - Covid Map" markers={markers} actionDrawer={toggleDrawer}>
         <>
           <div className="fixed bottom-0 left-0 right-0 bg-white h-16 z-10" style={{ top: "4rem", bottom: "8rem" }}>
             <div className="flex flex-wrap text-white text-center w-full h-full">
             </div>
           </div>
-          <Drawer markers={markers} action={setPop} actionCenter={setCenter} actionStatus={setPick} pop={popNow} />
+          <Drawer markers={markers} action={setPop} actionDrawer={toggleDrawer} actionCenter={setCenter} actionStatus={setPick} pop={popNow} />
           <GoogleMapReact
             bootstrapURLKeys={{ key: keyString}}
             options={{ styles: localeStyle }}

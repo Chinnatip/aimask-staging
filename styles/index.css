@@ -18,6 +18,10 @@ body {
   color: #ffb986;
 }
 
+.drawer-active {
+  background-color: #756e66;
+}
+
 .bg-brown {
   background-color: #4f482b;
 }

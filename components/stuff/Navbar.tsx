@@ -12,10 +12,10 @@ export default function Navbar({current, markers}: Props) {
   return (
     <>
       <nav className={'text-b relative flex flex-wrap items-center justify-between px-8 navbar-expand-lg '}>
-        <div className="shadow-lg fixed top-0 h-16 left-0 z-10 flex flex-wrap py-3 px-6 pl-8 w-screen" style={{background: '#ffab6d'}}>
+        <div className={`shadow-lg fixed top-0 h-20 left-0 z-10 flex flex-wrap py-3 px-4 lg:px-6 lg:pl-8 w-screen`} style={{background: '#ffab6d'}}>
           <div className="w-full relative flex items-center" >
             <button onClick={() => Router.push('/')} className="text-left text-gray-800">
-              <div className="text-3xl -mt-3">DEEPCARE</div>
+              <div className="text-4xl -mt-2">DeepCare</div>
               <span className="text-xs text-white -mt-2 block">ระบบเเสดงจำนวนผู้สวมใส่หน้ากากอนามัย</span>
             </button>
             <div className="flex-grow pl-12 hidden lg:flex ">
