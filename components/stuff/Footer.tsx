@@ -69,9 +69,8 @@ export default function Footer({current}: Props) {
         current == 'home' && <footer className="fixed bottom-0 hidden lg:flex h-16 bg-white w-full">
         <div className="flex-grow"></div>
         <div className="flex items-center">
-          {corpLink.map(({logo, domain, height=10}) => <a href={domain}>
-            <img className={`h-${height} mr-6`} src={logo} alt=""/>
-          </a>  )}
+          {corpLink.map(({logo, height=10}) =>
+            <img className={`h-${height} mr-6`} src={logo} alt=""/> )}
         </div>
       </footer>
       }

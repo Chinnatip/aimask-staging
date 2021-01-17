@@ -22,6 +22,10 @@ body {
   color: #ffb986;
 }
 
+.banner-bottom-height {
+  height: 4.2rem;
+}
+
 @media only screen and (min-width: 200px) {
   .drawer-expand {
     top: 9rem;

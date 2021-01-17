@@ -38,7 +38,7 @@ const IndexPage = () => {
             <Drawer markers={markers} action={setPop} actionCenter={setCenter} actionStatus={setPick} pop={popNow} />
             <GoogleMapReact
               bootstrapURLKeys={{ key: keyString}}
-              options={{ styles: localeStyle }}
+              options={{ styles: localeStyle , minZoom: 5 }}
               defaultCenter={{ lat: center[0], lng: center[1] }}
               center={{ lat: center[0], lng: center[1] }}
               defaultZoom={12}
@@ -61,7 +61,7 @@ const IndexPage = () => {
                 )}
               )}
             </GoogleMapReact>
-          <div className="block lg:hidden h-16 z-10 bg-white w-full"></div>
+          <div className="block banner-bottom-height z-10 bg-white w-full"></div>
           </div>
         </>
       </Layout>

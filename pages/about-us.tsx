@@ -54,7 +54,7 @@ const AboutPage = () => {
                     <div className="grid grid-cols-3 gap-6 lg:grid-cols-5 lg:gap-10 py-10 w-2/3 m-auto flex items-center">
                         { corpLink.map(link => {
                             const { domain , logo, span=1, custom='' } = link
-                            return <a className={`col-span-${span} lg:ml-5 ${custom} inline-block text-center`} href={domain}>
+                            return <a target="_blank" className={`col-span-${span} lg:ml-5 ${custom} inline-block text-center`} href={domain}>
                             <img src={logo}
                                 alt="torch logo"
                             />
