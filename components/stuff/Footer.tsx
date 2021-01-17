@@ -1,15 +1,12 @@
 import { useRouter } from 'next/router'
 import { SearchIcon, TableIcon, PeopleIcon} from '../stuff/Icon'
-
+import { toggleDrawer } from '../strategy/toggle'
 
 type Props = {
   current: string
-  actionDrawer?: any
 }
 
-
-
-export default function Footer({current, actionDrawer}: Props) {
+export default function Footer({current}: Props) {
   const Router = useRouter()
 
   const CreateButton = (
@@ -45,7 +42,7 @@ export default function Footer({current, actionDrawer}: Props) {
           {CreateButton("ดูข้อมูลเขต",'home',  function onClick() {
             //
             Router.push('/')
-            actionDrawer()
+            toggleDrawer()
           })}
           {CreateButton("สรุปข้อมูล",'report',  function onClick(){ Router.push('/report') })}
           {CreateButton("About Us",'aboutus',  function onClick(){ Router.push('/about-us') })}

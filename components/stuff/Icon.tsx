@@ -1,3 +1,23 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+type Props = {
+  fill: any
+  noMargin?: boolean
+}
+
+// Font Awesome Icon
+const Icon = ({ fill, noMargin = false }: Props) => {
+  return (
+    <FontAwesomeIcon
+      icon={fill}
+      className={`${noMargin ? '' : 'mr-3'} fa-show`}
+    />
+  )
+}
+
+export default Icon
+
+
 export const SearchIcon = ({fill, height=20}: {fill: string , height?: number}) => {
   return (
     <svg height={height} viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">

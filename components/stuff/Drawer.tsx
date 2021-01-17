@@ -1,4 +1,5 @@
 import { CameraDetail } from '../../interfaces/marker'
+import { toggleDrawer } from '../strategy/toggle'
 
 type Props = {
   markers: CameraDetail[]
@@ -6,20 +7,19 @@ type Props = {
   pop?: any
   actionStatus?: any
   actionCenter?: any
-  actionDrawer?: any
 }
 
-const Drawer = ({markers, action, actionStatus, actionCenter, actionDrawer ,pop}: Props) => {
+const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
   return (
     <>
       <aside id="Drawer"
         className="overflow-y-scroll shadow-xl fixed z-30"
         style={{ background: "#1b1a19e6", top: "8rem", bottom: "4rem", transitionDuration: "0.5s", right: "100%" }}>
         <nav className="text-left h-full">
-          <div className='text-white px-4 py-4 border-gray-500 border-b relative' >
+          <div className='text-white px-4 py-4 border-orange-400 border-b relative' >
             <div className="text-xs"> ข้อมูลวันที่ 17 มกราคม 2564 </div>
             <div className="text-xl mt-1"> ที่อยู่ของคุณ ณ ปัจุบัน </div>
-            <button onClick={() => actionDrawer()} className="text-white absolute top-0 right-0 mr-3 mt-3 text-xl">X</button>
+            <button onClick={() => toggleDrawer()} className="text-white absolute top-0 right-0 mr-3 mt-3 text-xl">X</button>
           </div>
           {markers.map((point, idx) => {
             const {
@@ -44,22 +44,25 @@ const Drawer = ({markers, action, actionStatus, actionCenter, actionDrawer ,pop}
               <button
                 key={idx}
                 id={ele_id}
-                onClick={() => { actionStatus(true); action(point.name); actionCenter([latitude, longitude])}}
+                onClick={() => { toggleDrawer(); actionStatus(true); action(point.name); actionCenter([latitude, longitude])}}
                 className={`text-left block border-none pt-3 pb-5 px-5 hover:drawer-active ${pop == point.name && 'drawer-active'}	`}
               >
                 <div
                   className={`text-xl text-white mb-1`}
                   id={ele_id}>
                   {name}
+                  <span className="inline-block ml-2 h-3 w-3 bg-orange-400" />
                 </div>
                 <div
                   id="mask-meter"
+                  className="relative"
                   style={{
                     display: "grid",
                     gridTemplateColumns: sty,
                     width: 250,
                   }}
                 >
+                  <span className="text-white absolute top-0 right-0 mr-3">{no_correct_wear_mask_pct.toFixed(2)}%</span>
                   <div
                     id="not_wear"
                     className="bg-red-500 text-center text-transparent"
