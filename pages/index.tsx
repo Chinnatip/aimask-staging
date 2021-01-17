@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { CameraDetail } from '../interfaces/marker'
 import { observationPoint, camDetails } from '../components/static/dataPoint'
 import { Marker }  from '../components/stuff/Marker'
+import {GridMask} from '../components/stuff/GridMask'
 
 const handleGoogleMapApi = (google: any) => {
   var flightPath = new google.maps.Polyline({
@@ -29,7 +30,11 @@ const IndexPage = () => {
       <Layout current="home" title="DeepCare - Covid Map" markers={markers}>
         <>
           <div className="flex flex-col w-full h-full">
-            <div className="block lg:hidden mt-20 h-16 z-10 bg-white w-full"></div>
+            <div className="grid grid-cols-3 px-5 gap-2 lg:hidden mt-20 h-16 z-10 bg-white w-full">
+              <GridMask color="green-600" amount={173} criteria="95%-100%" image="m_green"  />
+              <GridMask color="yellow-600" amount={50} criteria="90%-95%" image="m_yellow"  />
+              <GridMask color="red-600" amount={20} criteria="ต่ำกว่า 90%" image="m_red"  />
+            </div>
             <Drawer markers={markers} action={setPop} actionCenter={setCenter} actionStatus={setPick} pop={popNow} />
             <GoogleMapReact
               bootstrapURLKeys={{ key: keyString}}

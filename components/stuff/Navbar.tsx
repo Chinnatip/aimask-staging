@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { CameraDetail } from '../../interfaces/marker'
 import { SearchIcon, TableIcon, PeopleIcon} from '../stuff/Icon'
+import {GridMask} from './GridMask'
 
 type Props = {
   current: string,
@@ -19,21 +20,12 @@ export default function Navbar({current, markers}: Props) {
               <div className="text-4xl -mt-2">DeepCare</div>
               <span className="text-xs text-white -mt-2 block">ระบบเเสดงจำนวนผู้สวมใส่หน้ากากอนามัย</span>
             </button>
-            <div className="flex-grow pl-12 hidden lg:flex ">
-              {/* {JSON.stringify(markers)} */}
-              <span className="flex w-24 items-center justify-center ">
-                <img src="mask_icon/m_green.png" alt="" className="h-8"/>
-                <span className="ml-3 text-gray-800 text-3xl">x {markers?.length}</span>
-              </span>
-              <span className="flex w-24 ml-8 items-center justify-center ">
-                <img src="mask_icon/m_yellow.png" alt="" className="h-8"/>
-                <span className="ml-3 text-gray-800 text-3xl">x 0</span>
-              </span>
-              <span className="flex w-24 ml-8 items-center justify-center ">
-                <img src="mask_icon/m_red.png" alt="" className="h-8"/>
-                <span className="ml-3 text-gray-800 text-3xl">x 0</span>
-              </span>
+            <div className="w-1/3 pl-12 hidden lg:grid grid-cols-3 px-5 gap-2  ">
+              <GridMask text_col="text-white" color="black" amount={173} criteria="95%-100%" image="m_green"  />
+              <GridMask text_col="text-white" color="black" amount={50} criteria="90%-95%" image="m_yellow"  />
+              <GridMask text_col="text-white" color="black" amount={20} criteria="ต่ำกว่า 90%" image="m_red"  />
             </div>
+            <div className="flex-grow"></div>
             <div className="hidden lg:flex ">
               <span className="flex">
                 <SearchIcon fill={current == 'home' ? '#2d3748' : 'white'} />

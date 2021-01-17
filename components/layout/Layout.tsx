@@ -34,7 +34,7 @@ const Layout = ({
       <header>
         <Navbar markers={markers} current={current} />
       </header>
-      <div className={`${current == 'home' && 'fixed'} top-0 w-screen h-screen`}>
+      <div className={`fixed top-0 w-screen h-screen overflow-auto`}>
         {children}
       </div>
       {!nofooter && <Footer current={current} />}
