@@ -1,5 +1,5 @@
 const Page = () => {
-  <div>
+  return <div>
     <p className="h-10">yoyo</p>
   </div>
 }
