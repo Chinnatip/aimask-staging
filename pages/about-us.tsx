@@ -9,6 +9,12 @@ const corpLinkONE = [
     {domain: 'http://www.moi.go.th/', logo: 'dep.jpg'},
     {domain: 'http://www.bangkok.go.th/', logo: 'bma_logo.png'},
     {domain: 'https://www.nrct.go.th/', logo: 'wocho.jpg'},
+    {domain: 'https://www.tu.ac.th/', logo: 'tu.png'},
+    {domain: 'https://www.siit.tu.ac.th/', logo: 'siit.png'},
+    {domain: 'https://www.ntplc.co.th/', logo: 'cat_logo.jpg'},
+    {domain: 'https://www.aiat.or.th/', logo: 'aiat_logo.png'},
+    {domain: 'https://superai.aiat.or.th/', logo: 'super-ai.png'},
+    {domain: 'https://ai.iapp.co.th/', logo: 'iapp_logo.png'},
 ]
 
 const corpLinkTWO = [
@@ -50,12 +56,12 @@ const AboutPage = () => {
             <div className="text-b pt-32 space-y-4">
                 <h1 className="text-3xl text-center text-gray-800 font-semibold mb-3">สนับสนุนโดย</h1>
             </div>
-            <main className="text-b px-20 mb-20">
+            <main className="text-b sm:px-5 md:px-10 lg:px-20 mb-20">
                 <div className={'text-center'}>
-                    <div className="grid grid-cols-6 gap-8 py-5 p-10 flex items-center">
+                    <div className="grid xs:grid-cols-3 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-6 gap-8 py-10 p-10 flex items-center">
                         { corpLinkONE.map(link => {
                             const { domain , logo } = link
-                            return <a className={'ml-5 inline-block'} href={domain}>
+                            return <a className={'ml-5 inline-block text-center'} href={domain}>
                             <img src={logo}
                                 alt="torch logo"
                             />
@@ -63,7 +69,7 @@ const AboutPage = () => {
                         }) }
                     </div>
                 </div>
-                <div className="grid grid-cols-6 gap-4 py-20 p-10 flex items-center">
+                {/* <div className="grid sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-6 gap-4 py-20 p-10 flex items-center">
                     { corpLinkTWO.map(link => {
                         const { domain , logo } = link
                         return <a className={'ml-5 inline-block'} href={domain}>
@@ -72,12 +78,12 @@ const AboutPage = () => {
                         />
                     </a>
                     }) }
-                </div>
+                </div> */}
                 <div className="flex justify-content flex-col items-center">
                     { participant.map(partner => {
                         const {role, name, domain} = partner
                         return <div className="flex items-start my-2">
-                            <div className="w-32 inline-block text-1xl font-semibold" style={{ color: '#FF9900'}}>{role}</div>
+                            <div className="w-32 text-1xl font-semibold" style={{ color: '#FF9900'}}>{role}</div>
                             { domain != '' ?
                                 <a target="_blank" href={domain} className="w-64 block text-left ml-20" >{name}</a> :
                                 <div className="w-64 text-left ml-20">{name}</div>
