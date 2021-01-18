@@ -92,7 +92,6 @@ const Content = ({setMark, mapStyle}: {setMark: any , mapStyle: any}) => {
   }
 }
 
-
 const IndexPage = () => {
   const [maskType, setMaskType] = useState<MaskType>({red: 0, green: 0, yellow: 0})
   const [mapStyle, setMapStyle] = useState<any>(localeStyle)
