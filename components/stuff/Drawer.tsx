@@ -3,7 +3,6 @@ import { toggleDrawer } from '../strategy/toggle'
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons'
 import Icon from '../stuff/Icon'
 
-
 type Props = {
   markers: CameraDetail[]
   action: any
