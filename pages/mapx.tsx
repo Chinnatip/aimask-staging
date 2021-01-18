@@ -12,7 +12,6 @@ import { useContent } from '../store/machine'
 import { maskCounting, findCenter, camDetails } from '../components/strategy/marker'
 import { faSun, faEye } from '@fortawesome/free-solid-svg-icons'
 import Icon from '../components/stuff/Icon'
-import { toggleDrawer } from '../components/strategy/toggle'
 
 let stateParser
 
@@ -21,8 +20,8 @@ const handleGoogleMapApi = (google: any) => {
     path: bangkokMap,
     geodesic: true,
     strokeColor: '#099669',
-    strokeOpacity: 1,
-    strokeWeight: 6,
+    strokeOpacity: 0.8,
+    strokeWeight: 3
   })
   flightPath.setMap(google.map)
 }
@@ -39,11 +38,20 @@ const Content = ({setMark, mapStyle}: {setMark: any , mapStyle: any}) => {
         const parcel: any = res.docs.map(item => item.data())
         const cameras: Observation[] = parcel
         const district_lists: string[] = [ ...new Set(cameras.map(cam => cam.district_name))].sort()
-        const markers: CameraDetail[] = camDetails(cameras)
+        const markers: CameraDetail[] = camDetails(cameras).filter( camera => camera.result.total > 49 )
+        // const district_score = district_lists.map(district => {
+        //   const filter_cam = markers.filter(marker => marker.district_name == district)
+        //   const cam_count = filter_cam.length
+        //   const filter_cam_score = (filter_cam.map(cam => cam.result.percentage).reduce( (sum, cam) => { return sum + cam },0 ))/cam_count
+        //   return {
+        //     name: district,
+        //     score: filter_cam_score
+        //   }
+        // })
         const maskCounter: MaskType = maskCounting(markers)
         setCenter(findCenter())
         setMark(maskCounter)
-        return { cameras, markers, district_lists, maskCounter }
+        return { markers, district_lists, maskCounter }
       })
     },
   })
@@ -86,11 +94,6 @@ const Content = ({setMark, mapStyle}: {setMark: any , mapStyle: any}) => {
               )}
             )}
           </GoogleMapReact>
-
-          <button onClick={() => toggleDrawer()} style={{ bottom: '5rem'}} className="absolute flex items-center justify-center bottom-0 left-0 h-12 w-32 bg-white shadow-lg text-gray-800 bg-orange-500 rounded-full -mt-32 ml-2">
-            เปิด Drawer
-          </button>
-
         </>
       )
     case 'failure': return <h1>Reload</h1>
@@ -98,13 +101,12 @@ const Content = ({setMark, mapStyle}: {setMark: any , mapStyle: any}) => {
   }
 }
 
-
-const MapPage = () => {
+const IndexPage = () => {
   const [maskType, setMaskType] = useState<MaskType>({red: 0, green: 0, yellow: 0})
   const [mapStyle, setMapStyle] = useState<any>(localeStyle)
   return (
     <>
-      <Layout current="map" maskType={maskType} title="DeepCare - Covid Map">
+      <Layout current="home" maskType={maskType} title="DeepCare - Covid Map">
         <>
           <div className="flex flex-col w-full h-full relative">
             <button onClick={() => mapStyle == localeStyle ? setMapStyle(darkTheme) : setMapStyle(localeStyle)}
@@ -135,4 +137,6 @@ export async function getServerSideProps() {
   }
 }
 
-export default MapPage
+export default IndexPage
+
+

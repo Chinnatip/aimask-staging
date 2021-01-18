@@ -1,7 +1,7 @@
 import axios from "axios"
 import firebase from "./firebase"
 import { CameraDetail, Observation, MaskType } from "../../interfaces/marker"
-import { maskCounting, camDetails } from "../../components/strategy/marker"
+import { maskCounting, camDetails } from "./marker"
 
 const covidToday = async () => {
   try {
@@ -13,14 +13,32 @@ const covidToday = async () => {
   }
 }
 
+interface Data {
+  x: string
+  y: number
+}
+
+interface Timeline {
+  id: string
+  color: string
+  data: Data[]
+}
+
+interface DataField {
+  Data: {
+    Date: string
+    NewConfirmed: number
+  }[]
+}
+
 const formatTimeline = (
-  data,
-  maskByDate,
+  data: DataField,
+  maskByDate: any,
   start_date: number,
   end_date: number
 ) => {
   const Data = data.Data
-  const timeline = [
+  let timeline: Timeline[] = [
     {
       id: "อัตราการใส่หน้ากาก",
       color: "hsl(13, 70%, 50%)",
@@ -32,10 +50,10 @@ const formatTimeline = (
       data: [],
     },
   ]
-  Data.filter((d) => {
+  Data.filter((d: { Date: string }) => {
     const timeStamp = new Date(d.Date).getTime()
     return timeStamp >= start_date && timeStamp <= end_date
-  }).map((d) => {
+  }).map((d: { Date: string, NewConfirmed: number }) => {
     const newConfirmed = d.NewConfirmed
     const { no_correct_wear_mask, total } = maskByDate[
       d.Date.replace(/^0+/, "")
@@ -65,7 +83,7 @@ const fetchFirebase = async () => {
   return cameras
 }
 
-const covidTimeline = async (collections) => {
+const covidTimeline = async (collections: any) => {
   try {
     interface maskByDateInterface {
       [key: string]: {

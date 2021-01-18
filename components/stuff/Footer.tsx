@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
-import { SearchIcon, TableIcon, PeopleIcon} from '../stuff/Icon'
-import { toggleDrawer } from '../strategy/toggle'
+import { MarkerIcon, HomeIcon, TableIcon, PeopleIcon} from '../stuff/Icon'
+// import { toggleDrawer } from '../strategy/toggle'
 
 type Props = {
   current: string
@@ -20,7 +20,6 @@ const corpLink = [
 
 export default function Footer({current}: Props) {
   const Router = useRouter()
-
   const CreateButton = (
     text: string,
     current_stage: string,
@@ -29,16 +28,17 @@ export default function Footer({current}: Props) {
     const getCol = current==current_stage ? '#EF802D' : 'white'
     return (
       <div className="flex-1 w-full h-full">
-        <button className={`flex items-center justify-center w-full h-full ${current==current_stage && 'tab-active'} `} onClick={onClick} onLoad={onLoad}>
+        <button className={`flex flex-col items-center justify-center w-full h-full ${current==current_stage && 'tab-active'} `} onClick={onClick} onLoad={onLoad}>
           <div className="flex align-middle">
             {
-            current_stage == 'map' ? <SearchIcon fill={getCol}/> :
+            current_stage == 'home' ? <HomeIcon fill={getCol}/>:
+            current_stage == 'map' ? <MarkerIcon fill={getCol}/> :
             current_stage == 'report' ? <TableIcon fill={getCol}/> :
             <PeopleIcon fill={getCol}/>
             }
           </div>
           <div className={`ml-1 inline-block`} />
-          <div className="inline-block text-md" style={{color: getCol}}>
+          <div className="inline-block text-sm" style={{color: getCol}}>
             {text}
           </div>
         </button>
@@ -49,20 +49,18 @@ export default function Footer({current}: Props) {
     <>
       <footer className="lg:hidden fixed justify-between bottom-0 left-0 right-0 bg-black h-16">
         <div className="flex flex-wrap text-white text-center w-full h-full px-2">
-          {CreateButton("ดูข้อมูลเขต",'map',  function onClick() {
-            //
-            Router.push('/map')
-            toggleDrawer()
-          })}
-          {/* {CreateButton("สรุปข้อมูล",'report',  function onClick(){ Router.push('/report') })} */}
-          <a href="http://deepcare.aiat.or.th:8501//" target="_blank" className="flex-1 w-full h-full">
-            <button className={`flex items-center justify-center w-full h-full ${current=='report' && 'tab-active'} `}>
+          {CreateButton("หน้าเเรก",'home',  function onClick() { Router.push('/') })}
+          {CreateButton("แผนที่",'map',  function onClick() { Router.push('/map') })}
+          <a href="https://deepcare.aiat.or.th/streamlit/" className="flex-col flex-1 w-full h-full">
+            <button className={`flex flex-col items-center justify-center w-full h-full ${current=='report' && 'tab-active'} `}>
               <div className="flex align-middle"> <TableIcon fill={current=='report'?'#EF802D' : 'white'}/> </div>
               <div className={`ml-1 inline-block`} />
-              <div className="inline-block text-md">สรุปข้อมูล</div>
+              <div className="inline-block text-sm">สรุปข้อมูล</div>
             </button>
           </a>
-          {CreateButton("About Us",'aboutus',  function onClick(){ Router.push('/about-us') })}
+          {CreateButton("About Us",'aboutus',  function onClick(){
+            Router.push('/about-us')
+          })}
         </div>
       </footer>
       {

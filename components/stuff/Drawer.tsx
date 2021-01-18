@@ -49,6 +49,7 @@ const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
                 key={idx}
                 id={ele_id}
                 onClick={() => { toggleDrawer(); actionStatus(true); action(point.name); actionCenter([latitude, longitude])}}
+                style={{ maxWidth: '20rem' }}
                 className={`text-left block border-none pt-3 pb-5 px-5 hover:drawer-active ${pop == point.name && 'drawer-active'}	`}
               >
                 <div className={`text-lg text-white mb-1`} id={ele_id}>
@@ -56,7 +57,7 @@ const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
                   <span className="text-orange-600 ml-2" > <Icon fill={faCaretRight}></Icon> </span>
                 </div>
                 <div className="text-white opacity-50 -mt-2 mt-3 text-xs font-thin">
-                  {subdistrict_name} - {district_name}
+                  แขวง{subdistrict_name} เขต{district_name}
                 </div>
                 <div
                   id="mask-meter"

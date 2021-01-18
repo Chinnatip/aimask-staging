@@ -40,20 +40,21 @@ function CreateSmallBox(
     </div>
   )
 }
-function OptionCatagory(text: string) {
-  return <option value={text}>{text}</option>
-}
-function CreateList(text: string, percent: string, color: string) {
-  return (
-    <div className="p-2 justify-items-between items-center flex flex-col lg:flex-row w-full">
-      <div className="flex">{text}</div>
-      <div className="flex-1" />
-      <div className={`flex ${color}`}>{percent}</div>
-    </div>
-  )
-}
 
-const Content = (setMarkType) => {
+// function OptionCatagory(text: string) {
+//   return <option value={text}>{text}</option>
+// }
+// function CreateList(text: string, percent: string, color: string) {
+//   return (
+//     <div className="p-2 justify-items-between items-center flex flex-col lg:flex-row w-full">
+//       <div className="flex">{text}</div>
+//       <div className="flex-1" />
+//       <div className={`flex ${color}`}>{percent}</div>
+//     </div>
+//   )
+// }
+
+const Content = () => {
   const DataDate = "17 มกราคม 2564"
   const Map = <img src="Map/Map.png" />
   const [current] = useMachine(useContent, {
@@ -290,7 +291,7 @@ const Content = (setMarkType) => {
 
 import Link from "next/link"
 const IndexPage = () => {
-  const [maskType, setMarkType] = useState<MaskType>({
+  const [maskType] = useState<MaskType>({
     red: 0,
     green: 0,
     yellow: 0,
@@ -322,7 +323,7 @@ const IndexPage = () => {
                   </p>
                 </div>
               </div>
-              <Content setMarkType={setMarkType} />
+              <Content />
             </div>
           </div>
         </div>

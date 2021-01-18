@@ -5,6 +5,8 @@ import { useContent } from '../store/machine'
 import { useState } from 'react'
 import { CameraDetail, Observation, MaskType } from '../interfaces/marker'
 import { maskCounting, camDetails } from '../components/strategy/marker'
+import Icon from '../components/stuff/Icon'
+import { faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 
 let stateParser
 
@@ -42,10 +44,10 @@ const participant = [
     {role: '',name: 'Tatchapong tanomsuk ', domain: ''},
     {role: '',name: 'Varadtha Junburom', domain: ''},
     {role: '',name: 'Wanna Dev', domain: 'https://wannadev.medium.com/'},
-    {role: 'DEVELOPER',name: 'Chinnatip Taemkaeo', domain: 'https://www.linkedin.com/in/chinnatip-taemkaeo'},
+    {role: 'DEVELOPER',name: 'Chinnatip Taemkaeo', domain: ''},
     {role: '',name: 'Ponnipa Jantawong', domain: ''},
     {role: '',name: 'Pakin Siwatammarat', domain: 'https://ppirch.github.io/'},
-    {role: '',name: 'Sirawich Smitsomboon', domain: 'http://photoservicethai.com/index.html?spacial=superai'},
+    {role: '',name: 'Sirawich Smitsomboon', domain: 'http://sirawich.photoservicethai.com/index.html?spacial=superai'},
     {role: 'ADVISOR',name: 'Dr. Thanaruk Theeramunkong', domain: 'https://aiat.or.th/thanaruk/'},
 ]
 
@@ -55,7 +57,10 @@ const Content = ({setMark}: {setMark: any}) => {
         fetchData: () =>
         firebase.firestore().collection('hours').get().then(res => {
           const parcel: any = res.docs.map(item => item.data())
-          const cameras: Observation[] = parcel
+          let cameras: Observation[] = parcel
+          //
+          cameras = cameras.filter(camera => camera.collection)
+          //
           const district_lists: string[] = [ ...new Set(cameras.map(cam => cam.district_name))].sort()
           const markers: CameraDetail[] = camDetails(cameras)
           const maskCounter: MaskType = maskCounting(markers)
@@ -100,6 +105,12 @@ const AboutPage = () => {
                 </div>
                 <div className="text-b pt-16 space-y-4">
                     <h1 className="text-3xl text-center text-gray-800 font-semibold mb-3">ทีมนักพัฒนา</h1>
+                    <div className="text-center">
+                        ติดต่อเราที่ <a className="ml-2" style={{ color: '#FF9900' }} href="mailto:deepcare@aiat.or.th">
+                            <Icon fill={faEnvelopeOpen}></Icon>
+                            deepcare@aiat.or.th
+                        </a>
+                    </div>
                 </div>
                 <div className="flex mt-8 justify-content flex-col items-center">
                     { participant.map(partner => {
