@@ -38,8 +38,7 @@ const Content = ({setMark, mapStyle}: {setMark: any , mapStyle: any}) => {
         const parcel: any = res.docs.map(item => item.data())
         const cameras: Observation[] = parcel
         const district_lists: string[] = [ ...new Set(cameras.map(cam => cam.district_name))].sort()
-        // console.log(district_lists)
-        const markers: CameraDetail[] = camDetails(cameras)
+        const markers: CameraDetail[] = camDetails(cameras).filter( camera => camera.result.total > 49 )
         // const district_score = district_lists.map(district => {
         //   const filter_cam = markers.filter(marker => marker.district_name == district)
         //   const cam_count = filter_cam.length
@@ -49,11 +48,10 @@ const Content = ({setMark, mapStyle}: {setMark: any , mapStyle: any}) => {
         //     score: filter_cam_score
         //   }
         // })
-        // console.log(district_score)
         const maskCounter: MaskType = maskCounting(markers)
         setCenter(findCenter(markers))
         setMark(maskCounter)
-        return { cameras, markers, district_lists, maskCounter }
+        return { markers, district_lists, maskCounter }
       })
     },
   })

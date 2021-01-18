@@ -20,16 +20,26 @@ export const Marker = (props: MarkerProps) => {
     longitude
   } = data
   const calc = (num: number, total: number) =>  (num * 100 / total).toFixed(2)
+  const splitDateTime = (dt: string) => {
+    const day = dt.substring(0,2)
+    const month = dt.substring(2,4)
+    const year =dt.substring(4,8)
+    // console.log(day, month, year)
+    return `${day}/${month}/${year}`
+  }
+  splitDateTime(data.collection_date)
   return (
-    <div className="text-b relative">
-      { status && (pop == data.name) && <div className="z-10 text-b absolute p-4 bg-white -ml-40 rounded-lg shadow-xl" style={{ marginTop: '-16.4rem', width: '20rem', height: '15rem' }}>
+    <div className="text-b relative overflow-scroll-y">
+      { status && (pop == data.name) && <div className="z-10 text-b absolute p-4 bg-white -ml-40 rounded-lg shadow-xl" style={{ marginTop: '-17.4rem', width: '20rem', height: '16rem' }}>
         <div className="text-gray-700 text-xl relative">
           {data.name}
+          <div className="text-xs text-gray-500 block -mt-1">แขวง{data.subdistrict_name} เขต{data.district_name}</div>
+          <div className="text-xs text-gray-500 block">สำรวจ {data.result.total}คน วันที่ {splitDateTime(data.collection_date)}</div>
           <button onClick={() => actionStatus(!status)} className="bg-gray-300 h-8 w-8 rounded-full absolute top-0 right-0">X</button>
         </div>
         {/* <img src={`./label/${data.name}.png`} className="m-auto mt-2" style={{ height: '9rem' }} /> */}
         {/* <hr /> */}
-        <div className="mt-4 text-xs grid text-gray-700 grid-flow-row grid-cols-4 grid-rows-3 gap-0">
+        <div className="mt-1 text-xs grid text-gray-700 grid-flow-row grid-cols-4 grid-rows-3 gap-0">
           <div className="col-span-2 h-4 text-center"></div>
           <div className="h-8 flex items-center justify-center text-md">จำนวนคน</div>
           <div className="h-8 flex items-center justify-center text-md">สัดส่วน</div>
