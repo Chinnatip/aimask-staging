@@ -55,7 +55,7 @@ export default function Footer({current}: Props) {
             toggleDrawer()
           })}
           {/* {CreateButton("สรุปข้อมูล",'report',  function onClick(){ Router.push('/report') })} */}
-          <a href="http://deepcare.aiat.or.th:8501/" target="_blank" className="flex-1 w-full h-full">
+          <a href="http://deepcare.aiat.or.th:8501/" className="flex-1 w-full h-full">
             <button className={`flex items-center justify-center w-full h-full ${current=='report' && 'tab-active'} `}>
               <div className="flex align-middle"> <TableIcon fill={current=='report'?'#EF802D' : 'white'}/> </div>
               <div className={`ml-1 inline-block`} />
