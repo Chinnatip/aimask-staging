@@ -8,7 +8,7 @@ export default function Chart() {
         <div>
             <a href="/"><img src="deepcare.png" className="h-20" alt="torch logo"
             /></a>
-            <div style={{ height: 500 }}>
+            <div style={{ height: 500,width:750 }}>
                 <ResponsiveLine
                     data={data}
                     margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
@@ -22,7 +22,6 @@ export default function Chart() {
                         tickSize: 5,
                         tickPadding: 5,
                         tickRotation: 0,
-                        legend: 'transportation',
                         legendOffset: 36,
                         legendPosition: 'middle'
                     }}
