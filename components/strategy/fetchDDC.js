@@ -1,4 +1,5 @@
 import axios from "axios"
+import firebase from "./firebase"
 import { useMachine } from "@xstate/react"
 import { useContent } from "../../store/machine"
 
