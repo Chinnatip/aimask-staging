@@ -16,7 +16,7 @@ export default function Chart(timeline: any) {
       }}
       yFormat=" >-.2f"
       axisTop={null}
-      axisRight={{}}
+      axisRight={null}
       axisBottom={{
         orient: "bottom",
         tickSize: 5,
