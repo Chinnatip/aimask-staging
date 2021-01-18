@@ -32,7 +32,7 @@ export default function Navbar({current, maskType}: Props) {
               </span>
               <span className="flex ml-4">
                 <TableIcon fill={current == 'report' ? '#2d3748' : 'white'} />
-                <a href="http://deepcare.aiat.or.th:8501/" className={`mx-2 ${current == 'brief' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>สรุปข้อมูล</a>
+                <a href="https://deepcare.aiat.or.th/streamlit/" className={`mx-2 ${current == 'brief' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>สรุปข้อมูล</a>
               </span>
               <span className="flex ml-4">
                 <PeopleIcon fill={current == 'aboutus' ? '#2d3748' : 'white'} />

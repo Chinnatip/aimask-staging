@@ -5,6 +5,8 @@ import { useContent } from '../store/machine'
 import { useState } from 'react'
 import { CameraDetail, Observation, MaskType } from '../interfaces/marker'
 import { maskCounting, camDetails } from '../components/strategy/marker'
+import Icon from '../components/stuff/Icon'
+import { faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 
 let stateParser
 
@@ -103,6 +105,12 @@ const AboutPage = () => {
                 </div>
                 <div className="text-b pt-16 space-y-4">
                     <h1 className="text-3xl text-center text-gray-800 font-semibold mb-3">ทีมนักพัฒนา</h1>
+                    <div className="text-center">
+                        ติดต่อเราที่ <a className="ml-2" style={{ color: '#FF9900' }} href="mailto:deepcare@aiat.or.th">
+                            <Icon fill={faEnvelopeOpen}></Icon>
+                            deepcare@aiat.or.th
+                        </a>
+                    </div>
                 </div>
                 <div className="flex mt-8 justify-content flex-col items-center">
                     { participant.map(partner => {
