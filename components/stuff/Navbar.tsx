@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { MaskType } from '../../interfaces/marker'
-import { SearchIcon, TableIcon, PeopleIcon, HomeIcon} from '../stuff/Icon'
+import { MarkerIcon, TableIcon, PeopleIcon, HomeIcon} from '../stuff/Icon'
 import {GridMask} from './GridMask'
 
 type Props = {
@@ -30,10 +30,10 @@ export default function Navbar({current, maskType}: Props) {
                 <HomeIcon fill={current == 'home' ? '#2d3748' : 'white'} />
                 <button onClick={() => Router.push('/')} className={`mx-2 ${current == 'home' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>หน้าหลัก</button>
               </span>
-              {/* <span className="flex">
-                <HomeIcon fill={current == 'home' ? '#2d3748' : 'white'} />
-                <button onClick={() => Router.push('/')} className={`mx-2 ${current == 'home' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>หน้าหลัก</button>
-              </span> */}
+              <span className="flex">
+                <MarkerIcon fill={current == 'map' ? '#2d3748' : 'white'} />
+                <button onClick={() => Router.push('/map')} className={`mx-2 ${current == 'map' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>แผนที่</button>
+              </span>
               <span className="flex ml-4">
                 <TableIcon fill={current == 'report' ? '#2d3748' : 'white'} />
                 <a href="http://deepcare.aiat.or.th:8501/" className={`mx-2 ${current == 'brief' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>สรุปข้อมูล</a>

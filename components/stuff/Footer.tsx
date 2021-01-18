@@ -32,7 +32,7 @@ export default function Footer({current}: Props) {
         <button className={`flex items-center justify-center w-full h-full ${current==current_stage && 'tab-active'} `} onClick={onClick} onLoad={onLoad}>
           <div className="flex align-middle">
             {
-            current_stage == 'home' ? <SearchIcon fill={getCol}/> :
+            current_stage == 'map' ? <SearchIcon fill={getCol}/> :
             current_stage == 'report' ? <TableIcon fill={getCol}/> :
             <PeopleIcon fill={getCol}/>
             }
@@ -49,9 +49,9 @@ export default function Footer({current}: Props) {
     <>
       <footer className="lg:hidden fixed justify-between bottom-0 left-0 right-0 bg-black h-16">
         <div className="flex flex-wrap text-white text-center w-full h-full px-2">
-          {CreateButton("ดูข้อมูลเขต",'home',  function onClick() {
+          {CreateButton("ดูข้อมูลเขต",'map',  function onClick() {
             //
-            Router.push('/')
+            Router.push('/map')
             toggleDrawer()
           })}
           {/* {CreateButton("สรุปข้อมูล",'report',  function onClick(){ Router.push('/report') })} */}
@@ -66,7 +66,7 @@ export default function Footer({current}: Props) {
         </div>
       </footer>
       {
-        current == 'home' && <footer className="fixed bottom-0 hidden lg:flex h-16 bg-white w-full">
+        current == 'map' && <footer className="fixed bottom-0 hidden lg:flex h-16 bg-white w-full">
         <div className="flex-grow"></div>
         <div className="flex items-center">
           {corpLink.map(({logo, height=10}, index) =>

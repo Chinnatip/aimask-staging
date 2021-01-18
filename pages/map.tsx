@@ -93,12 +93,12 @@ const Content = ({setMark, mapStyle}: {setMark: any , mapStyle: any}) => {
 }
 
 
-const IndexPage = () => {
+const MapPage = () => {
   const [maskType, setMaskType] = useState<MaskType>({red: 0, green: 0, yellow: 0})
   const [mapStyle, setMapStyle] = useState<any>(localeStyle)
   return (
     <>
-      <Layout current="home" maskType={maskType} title="DeepCare - Covid Map">
+      <Layout current="map" maskType={maskType} title="DeepCare - Covid Map">
         <>
           <div className="flex flex-col w-full h-full relative">
             <button onClick={() => mapStyle == localeStyle ? setMapStyle(darkTheme) : setMapStyle(localeStyle)}
@@ -129,4 +129,4 @@ export async function getServerSideProps() {
   }
 }
 
-export default IndexPage
+export default MapPage
