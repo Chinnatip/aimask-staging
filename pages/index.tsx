@@ -53,7 +53,7 @@ function CreateList(text: string, percent: string, color: string) {
   )
 }
 
-const Content = () => {
+const Content = (setMarkType) => {
   const DataDate = "17 มกราคม 2564"
   const Map = <img src="Map/Map.png" />
   const [current] = useMachine(useContent, {
@@ -69,6 +69,7 @@ const Content = () => {
     case "success":
       stateParser = current.context.data
       const { today, timeline, maskCounter, maskTodaySummary } = stateParser
+      // setMarkType({ ...maskCounter })
       return (
         <>
           <div className="w-full text-center">
@@ -289,7 +290,11 @@ const Content = () => {
 
 import Link from "next/link"
 const IndexPage = () => {
-  const [maskType] = useState<MaskType>({ red: 0, green: 0, yellow: 0 })
+  const [maskType, setMarkType] = useState<MaskType>({
+    red: 0,
+    green: 0,
+    yellow: 0,
+  })
   return (
     // <p>Hi</p>
     <Layout current="home" maskType={maskType} title="DeepCare - Covid Map">
@@ -317,7 +322,7 @@ const IndexPage = () => {
                   </p>
                 </div>
               </div>
-              <Content />
+              <Content setMarkType={setMarkType} />
             </div>
           </div>
         </div>
