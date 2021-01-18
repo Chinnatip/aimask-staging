@@ -29,6 +29,8 @@ const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
               name,
               latitude,
               longitude,
+              district_name,
+              subdistrict_name,
               result: {
                 no_correct_wear_mask,
                 no_incorrect_wear_mask,
@@ -50,14 +52,12 @@ const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
                 onClick={() => { toggleDrawer(); actionStatus(true); action(point.name); actionCenter([latitude, longitude])}}
                 className={`text-left block border-none pt-3 pb-5 px-5 hover:drawer-active ${pop == point.name && 'drawer-active'}	`}
               >
-                <div
-                  className={`text-lg text-white mb-1`}
-                  id={ele_id}>
+                <div className={`text-lg text-white mb-1`} id={ele_id}>
                   {name}
-                  <span className="text-orange-600 ml-2" >
-                    <Icon fill={faCaretRight}></Icon>
-                  </span>
-                  {/* <span className="inline-block ml-2 h-3 w-3 bg-orange-400" /> */}
+                  <span className="text-orange-600 ml-2" > <Icon fill={faCaretRight}></Icon> </span>
+                </div>
+                <div className="text-white opacity-50 -mt-2 mt-3 text-xs font-thin">
+                  {subdistrict_name} - {district_name}
                 </div>
                 <div
                   id="mask-meter"

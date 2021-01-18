@@ -13,7 +13,7 @@ export default function Navbar({current, maskType}: Props) {
   return (
     <>
       <nav className={'text-b relative flex flex-wrap items-center justify-between px-8 navbar-expand-lg '}>
-        <div className={`shadow-lg fixed top-0 h-20 left-0 z-10 flex flex-wrap py-3 px-4 lg:px-6 lg:pl-8 w-screen`} style={{background: '#ffab6d'}}>
+        <div className={`shadow-lg fixed top-0 h-20 left-0 z-10 flex flex-wrap py-3 px-4 lg:px-6 lg:pl-8 w-screen`} style={{background: '#EF802D'}}>
           <div className="w-full relative flex items-center" >
             <button onClick={() => Router.push('/')} className="text-left text-gray-800">
               <div className="text-4xl -mt-2">DeepCare</div>

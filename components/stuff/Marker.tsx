@@ -1,6 +1,7 @@
 import { MarkerProps } from '../../interfaces/marker'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { find_mask } from  '../strategy/marker'
+import dayjs from 'dayjs'
 import Icon from './Icon'
 
 export const Marker = (props: MarkerProps) => {
@@ -18,10 +19,10 @@ export const Marker = (props: MarkerProps) => {
     latitude,
     longitude
   } = data
-  const calc = (num: number, total: number) => (num * 100 / total).toFixed(2)
+  const calc = (num: number, total: number) =>  (num * 100 / total).toFixed(2)
   return (
     <div className="text-b relative">
-      { status && (pop == data.name) && <div className="z-10 text-b absolute p-4 bg-white -ml-40 rounded-lg shadow-xl" style={{ marginTop: '-25.4rem', width: '20rem', height: '24rem' }}>
+      { status && (pop == data.name) && <div className="z-10 text-b absolute p-4 bg-white -ml-40 rounded-lg shadow-xl" style={{ marginTop: '-16.4rem', width: '20rem', height: '15rem' }}>
         <div className="text-gray-700 text-xl relative">
           {data.name}
           <button onClick={() => actionStatus(!status)} className="bg-gray-300 h-8 w-8 rounded-full absolute top-0 right-0">X</button>
@@ -42,7 +43,7 @@ export const Marker = (props: MarkerProps) => {
           <div className="h-8 text-lg flex items-center justify-center text-red-600 text-md">{no_not_wear_mask}</div>
           <div className="h-8 text-lg flex items-center justify-center text-red-600 text-md">{calc(no_not_wear_mask, total)}%</div>
         </div>
-        <div className='mt-2 mr-2 text-right text-xs text-gray-500'>อัพเดทวันที่ {detect_timestamp.split(' ')[0]}</div>
+        <div className='mt-2 mr-2 text-right text-xs text-gray-500'>อัพเดทวันที่ { dayjs( parseInt(detect_timestamp) * 1000).format('DD MMM YYYY HH:MM')}</div>
         <span className="w-full ml-3 text-center text-white absolute bottom-0 left-0 text-4xl" style={{marginBottom: '-1.6rem'}}>
           <Icon fill={faCaretDown}/>
         </span>

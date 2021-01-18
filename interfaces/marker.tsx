@@ -97,4 +97,7 @@ export interface CameraDetail {
   collection_date: string
   detect_timestamp: string
   result: Result
+  province_name: string
+  district_name: string
+  subdistrict_name: string
 }

@@ -26,7 +26,7 @@ export default function Footer({current}: Props) {
     current_stage: string,
     onClick?: () => void,
     onLoad?: () => void) => {
-    const getCol = current==current_stage ? '#FFB986' : 'white'
+    const getCol = current==current_stage ? '#EF802D' : 'white'
     return (
       <div className="flex-1 w-full h-full">
         <button className={`flex items-center justify-center w-full h-full ${current==current_stage && 'tab-active'} `} onClick={onClick} onLoad={onLoad}>
@@ -38,7 +38,7 @@ export default function Footer({current}: Props) {
             }
           </div>
           <div className={`ml-1 inline-block`} />
-          <div className="inline-block text-md">
+          <div className="inline-block text-md" style={{color: getCol}}>
             {text}
           </div>
         </button>
@@ -57,7 +57,7 @@ export default function Footer({current}: Props) {
           {/* {CreateButton("สรุปข้อมูล",'report',  function onClick(){ Router.push('/report') })} */}
           <a href="http://deepcare.aiat.or.th:8501//" target="_blank" className="flex-1 w-full h-full">
             <button className={`flex items-center justify-center w-full h-full ${current=='report' && 'tab-active'} `}>
-              <div className="flex align-middle"> <TableIcon fill={current=='report'?'#FFB986' : 'white'}/> </div>
+              <div className="flex align-middle"> <TableIcon fill={current=='report'?'#EF802D' : 'white'}/> </div>
               <div className={`ml-1 inline-block`} />
               <div className="inline-block text-md">สรุปข้อมูล</div>
             </button>

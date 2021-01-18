@@ -10,7 +10,10 @@ export const find_mask = (percentage: number) => {
 // Export camera-details method
 export const camDetails = (observer: Observation[]): CameraDetail[] => {
   return observer.map(observe => {
-    const { camera_latitude, camera_longtitude, camera_name, collection } = observe
+    const {
+      camera_latitude, camera_longtitude, camera_name, collection,
+      province_name, district_name, subdistrict_name
+    } = observe
     const lastday = Math.max( ...Object.keys(collection).map(key => parseInt(key)))
     const selectCollection = collection[lastday]
     const { gpu_process_time_gmt, result } = selectCollection
@@ -20,6 +23,7 @@ export const camDetails = (observer: Observation[]): CameraDetail[] => {
       longitude: parseFloat( camera_longtitude),
       collection_date: lastday.toString(),
       detect_timestamp: gpu_process_time_gmt.toString(),
+      province_name, district_name, subdistrict_name ,
       result
     }
   })
