@@ -24,6 +24,30 @@ const handleGoogleMapApi = (google: any) => {
   flightPath.setMap(google.map)
 }
 
+// const lists =[{
+//   province_name: "กรุงเทพ",
+//   district_name: "บางมด",
+//   subdistrict_name: "ทุ่งครุ",
+//   camera_latitude: "13.7037576",
+//   camera_longtitude: "100.4508963",
+//   camera_name: "ตลาดทุ่งครุ",
+//   collection: {
+//     12012021080000090000: {
+//       gpu_process_time_gmt: 1610911273,
+//       gpu_server: "iApp GPU 1",
+//       record_end_date_gmt: 1610416800,
+//       record_start_date_gmt: 1610413200,
+//       result: {
+//         no_correct_wear_mask: 0,
+//         no_incorrect_wear_mask: 0,
+//         no_not_wear_mask: 0,
+//         percentage: 100,
+//         total: 0
+//       }
+//     }
+//   }
+// }]
+
 const Content = ({setMark}: {setMark: any}) => {
   const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
   const [popNow, setPop] = useState("ตลาดทุ่งครุ")
@@ -66,7 +90,7 @@ const Content = ({setMark}: {setMark: any}) => {
             center={{ lat: center[0], lng: center[1] }}
             defaultZoom={12}
             onGoogleApiLoaded={handleGoogleMapApi}
-          >  n n
+          >
             {cameraPoints.map((data, index) => {
               // console.log(popNow)
               const { latitude , longitude } = data
