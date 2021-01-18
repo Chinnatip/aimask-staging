@@ -18,10 +18,50 @@ const IndexPage = () => {
         // <p>Hi</p>
         <Layout current="home" maskType={maskType} title="DeepCare - Covid Map">
             <>
-                <div className="w-full h-full">
+                <div className="w-full h-full overflow-y-scroll">
                     <div className="h-20"></div> {/* Padding the top */}
-                    <div className="p-4 w-full justify-items-between items-center flex">
-                        {CreateBox("ใส่หน้ากากไม่ถูกต้อง",99,"text-green-500")}
+                    <div className="p-4 w-full">
+                        <div className="justify-items-between items-center flex flex-col lg:flex-row w-full">
+                            <div className="flex-grow lg:flex-grow-0 p-2">
+                                <div className="justify-items-between items-center flex flex-col">
+                                    <div className="justify-items-between items-center flex flex-row">
+                                        {/* <div className="p-2">
+                                            {CreateBox("ใส่หน้ากากไม่ถูกต้อง", 99, "text-green-500")}
+                                        </div>
+                                        <div className="p-2">
+                                            {CreateBox("ใส่หน้ากากไม่ถูกต้อง", 99, "text-green-500")}
+                                        </div> */}
+                                        <div className="text-4xl">
+                                            ภาพรวม
+                                        </div>
+                                    </div>
+                                    <div className="justify-items-between items-center flex flex-row">
+                                        <div className="p-2">
+                                            {CreateBox("จำนวนคนทั้งหมด", 1024, "text-black")}
+                                        </div>
+                                        <div className="p-2">
+                                            {CreateBox("ใส่หน้ากากถูกต้อง", 999, "text-green-500")}
+                                        </div>
+                                    </div>
+                                    <div className="justify-items-between items-center flex flex-row">
+                                        <div className="p-2">
+                                            {CreateBox("ใส่หน้ากากไม่ถูกต้อง", 22, "text-yellow-500")}
+                                        </div>
+                                        <div className="p-2">
+                                            {CreateBox("ไม่ได้ใส่หน้ากาก", 3, "text-red-500")}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex-grow p-2">
+                                <div className="bg-gray-900">
+                                    <p className="text-white text-center h-48 w-64 lg:w-auto">CharArea<br />Can be as tall/wide as you like!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="h-64">
+
                     </div>
                 </div>
             </>
