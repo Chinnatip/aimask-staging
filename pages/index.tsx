@@ -20,8 +20,8 @@ const handleGoogleMapApi = (google: any) => {
     path: bangkokMap,
     geodesic: true,
     strokeColor: '#099669',
-    strokeOpacity: 1,
-    strokeWeight: 6,
+    strokeOpacity: 0.8,
+    strokeWeight: 3
   })
   flightPath.setMap(google.map)
 }
@@ -38,7 +38,18 @@ const Content = ({setMark, mapStyle}: {setMark: any , mapStyle: any}) => {
         const parcel: any = res.docs.map(item => item.data())
         const cameras: Observation[] = parcel
         const district_lists: string[] = [ ...new Set(cameras.map(cam => cam.district_name))].sort()
+        // console.log(district_lists)
         const markers: CameraDetail[] = camDetails(cameras)
+        // const district_score = district_lists.map(district => {
+        //   const filter_cam = markers.filter(marker => marker.district_name == district)
+        //   const cam_count = filter_cam.length
+        //   const filter_cam_score = (filter_cam.map(cam => cam.result.percentage).reduce( (sum, cam) => { return sum + cam },0 ))/cam_count
+        //   return {
+        //     name: district,
+        //     score: filter_cam_score
+        //   }
+        // })
+        // console.log(district_score)
         const maskCounter: MaskType = maskCounting(markers)
         setCenter(findCenter(markers))
         setMark(maskCounter)
@@ -129,3 +140,6 @@ export async function getServerSideProps() {
 }
 
 export default IndexPage
+
+
+

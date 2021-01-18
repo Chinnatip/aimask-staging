@@ -42,7 +42,7 @@ const participant = [
     {role: '',name: 'Tatchapong tanomsuk ', domain: ''},
     {role: '',name: 'Varadtha Junburom', domain: ''},
     {role: '',name: 'Wanna Dev', domain: 'https://wannadev.medium.com/'},
-    {role: 'DEVELOPER',name: 'Chinnatip Taemkaeo', domain: 'https://www.linkedin.com/in/chinnatip-taemkaeo'},
+    {role: 'DEVELOPER',name: 'Chinnatip Taemkaeo', domain: ''},
     {role: '',name: 'Ponnipa Jantawong', domain: ''},
     {role: '',name: 'Pakin Siwatammarat', domain: 'https://ppirch.github.io/'},
     {role: '',name: 'Sirawich Smitsomboon', domain: 'http://sirawich.photoservicethai.com/index.html?spacial=superai'},
@@ -55,7 +55,10 @@ const Content = ({setMark}: {setMark: any}) => {
         fetchData: () =>
         firebase.firestore().collection('hours').get().then(res => {
           const parcel: any = res.docs.map(item => item.data())
-          const cameras: Observation[] = parcel
+          let cameras: Observation[] = parcel
+          //
+          cameras = cameras.filter(camera => camera.collection)
+          //
           const district_lists: string[] = [ ...new Set(cameras.map(cam => cam.district_name))].sort()
           const markers: CameraDetail[] = camDetails(cameras)
           const maskCounter: MaskType = maskCounting(markers)

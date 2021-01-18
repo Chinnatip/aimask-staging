@@ -49,6 +49,7 @@ const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
                 key={idx}
                 id={ele_id}
                 onClick={() => { toggleDrawer(); actionStatus(true); action(point.name); actionCenter([latitude, longitude])}}
+                style={{ maxWidth: '20rem' }}
                 className={`text-left block border-none pt-3 pb-5 px-5 hover:drawer-active ${pop == point.name && 'drawer-active'}	`}
               >
                 <div className={`text-lg text-white mb-1`} id={ele_id}>
