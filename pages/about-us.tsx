@@ -33,6 +33,7 @@ const participant = [
     {role: '',name: 'Atichat Auppakansang', domain: 'https://atichat645.wixsite.com/port'},
     {role: '',name: 'Boonthicha Saejia', domain: ''},
     {role: '',name: 'Suppachai Nuthep', domain: ''},
+    {role: '',name: 'Suriya Chayatummagoon', domain: ''},
     {role: 'VISUALIZE',name: 'Athipud Rungsun', domain: ''},
     {role: '',name: 'Chadchavan Rattanasopa', domain: ''},
     {role: '',name: 'Jaral Pitavivadhananon', domain: ''},
