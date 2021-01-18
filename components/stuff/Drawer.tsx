@@ -20,11 +20,11 @@ const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
         style={{ background: "#1b1a19e6", transitionDuration: "0.5s" }}>
         <nav className="text-left h-full">
           <div className='text-white px-4 py-4 border-orange-400 border-b relative' >
-            <div className="text-xs"> ข้อมูลวันที่ 17 มกราคม 2564 </div>
+            <div className="text-xs"> ข้อมูลวันที่ 12-17 มกราคม 2564 </div>
             <div className="text-xl mt-1"> ที่อยู่ของคุณ ณ ปัจุบัน </div>
             <button onClick={() => toggleDrawer()} className="lg:hidden text-white absolute top-0 right-0 mr-3 mt-3 text-xl">X</button>
           </div>
-          {markers.map((point, idx) => {
+          {markers.sort((a,b) => a.result.percentage - b.result.percentage).map((point, idx) => {
             const {
               name,
               latitude,
@@ -51,7 +51,7 @@ const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
                 className={`text-left block border-none pt-3 pb-5 px-5 hover:drawer-active ${pop == point.name && 'drawer-active'}	`}
               >
                 <div
-                  className={`text-xl text-white mb-1`}
+                  className={`text-lg text-white mb-1`}
                   id={ele_id}>
                   {name}
                   <span className="text-orange-600 ml-2" >
@@ -65,7 +65,7 @@ const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
                   style={{
                     display: "grid",
                     gridTemplateColumns: sty,
-                    width: 250,
+                    width: 280,
                   }}
                 >
                   <span className="text-white absolute top-0 right-0 mr-3">{no_correct_wear_mask_pct.toFixed(2)}%</span>

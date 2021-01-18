@@ -1,16 +1,15 @@
 import { useRouter } from 'next/router'
-import { CameraDetail } from '../../interfaces/marker'
+import { MaskType } from '../../interfaces/marker'
 import { SearchIcon, TableIcon, PeopleIcon} from '../stuff/Icon'
 import {GridMask} from './GridMask'
 
 type Props = {
   current: string,
-  markers?: CameraDetail[]
+  maskType: MaskType,
 }
 
-export default function Navbar({current, markers}: Props) {
+export default function Navbar({current, maskType}: Props) {
   const Router = useRouter()
-  console.log(markers)
   return (
     <>
       <nav className={'text-b relative flex flex-wrap items-center justify-between px-8 navbar-expand-lg '}>
@@ -21,9 +20,9 @@ export default function Navbar({current, markers}: Props) {
               <span className="text-xs text-white -mt-2 block">ระบบเเสดงจำนวนผู้สวมใส่หน้ากากอนามัย</span>
             </button>
             <div className="w-1/3 pl-12 hidden lg:grid grid-cols-3 px-5 gap-2  ">
-              <GridMask text_col="text-white" color="black" amount={173} criteria="95%-100%" image="m_green"  />
-              <GridMask text_col="text-white" color="black" amount={50} criteria="90%-95%" image="m_yellow"  />
-              <GridMask text_col="text-white" color="black" amount={20} criteria="ต่ำกว่า 90%" image="m_red"  />
+              <GridMask text_col="text-white" color="black" amount={maskType.green} criteria="95%-100%" image="m_green"  />
+              <GridMask text_col="text-white" color="black" amount={maskType.yellow} criteria="90%-95%" image="m_yellow"  />
+              <GridMask text_col="text-white" color="black" amount={maskType.red} criteria="ต่ำกว่า 90%" image="m_red"  />
             </div>
             <div className="flex-grow"></div>
             <div className="hidden lg:flex ">
@@ -33,7 +32,7 @@ export default function Navbar({current, markers}: Props) {
               </span>
               <span className="flex ml-4">
                 <TableIcon fill={current == 'report' ? '#2d3748' : 'white'} />
-                <a href="https://deepcare.aiat.or.th/streamlit/" className={`mx-2 ${current == 'brief' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>สรุปข้อมูล</a>
+                <a href="http://deepcare.aiat.or.th:8501/" className={`mx-2 ${current == 'brief' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>สรุปข้อมูล</a>
               </span>
               <span className="flex ml-4">
                 <PeopleIcon fill={current == 'aboutus' ? '#2d3748' : 'white'} />

@@ -1,12 +1,19 @@
 import { MarkerProps } from '../../interfaces/marker'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { find_mask } from  '../strategy/marker'
 import Icon from './Icon'
 
 export const Marker = (props: MarkerProps) => {
   const { data, pop, action, status, actionStatus, actionCenter } = props
   // const [ modal, setModal ] = useState(pop)
   const {
-    result: { no_correct_wear_mask, no_incorrect_wear_mask, no_not_wear_mask ,total},
+    result: {
+      no_correct_wear_mask,
+      no_incorrect_wear_mask,
+      no_not_wear_mask ,
+      total ,
+      percentage
+    },
     detect_timestamp ,
     latitude,
     longitude
@@ -19,8 +26,8 @@ export const Marker = (props: MarkerProps) => {
           {data.name}
           <button onClick={() => actionStatus(!status)} className="bg-gray-300 h-8 w-8 rounded-full absolute top-0 right-0">X</button>
         </div>
-        <img src={`./label/${data.name}.png`} className="m-auto mt-2" style={{ height: '9rem' }} />
-        <hr />
+        {/* <img src={`./label/${data.name}.png`} className="m-auto mt-2" style={{ height: '9rem' }} /> */}
+        {/* <hr /> */}
         <div className="mt-4 text-xs grid text-gray-700 grid-flow-row grid-cols-4 grid-rows-3 gap-0">
           <div className="col-span-2 h-4 text-center"></div>
           <div className="h-8 flex items-center justify-center text-md">จำนวนคน</div>
@@ -41,7 +48,7 @@ export const Marker = (props: MarkerProps) => {
         </span>
       </div>}
       <button onClick={() => { actionStatus(true); actionCenter([latitude,longitude]); action(data.name)}}>
-        <img src="mask_icon/m_green.png" className="h-6 w-6 -mt-2 -ml-2 shadow-xl rounded-full border-2 border-green-700" alt=""/>
+        <img src={`mask_icon/${find_mask(percentage)}.png`} className="-mt-2 -ml-2 rounded-full" style={{height: '26px', boxShadow: '0 4px 3px rgba(0, 0, 0, 0.25)'}} alt=""/>
       </button>
     </div>
   )

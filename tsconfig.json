@@ -30,5 +30,5 @@
     "**/*.tsx",
     "machine/contentState.js",
     "machine/contentMachine.js"
-, "pages/_document.js"  ]
+, "pages/_document.js", "components/strategy"  ]
 }

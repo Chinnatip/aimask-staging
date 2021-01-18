@@ -1,10 +1,9 @@
 import Head from 'next/head'
 import React, { ReactNode } from 'react'
-// import Footer from 'stuff/Footer'
 import Navbar from 'stuff/Navbar'
-import { Token } from 'interfaces'
-import { CameraDetail } from '../../interfaces/marker'
 import Footer from 'stuff/Footer'
+import { Token } from 'interfaces'
+import { MaskType } from '../../interfaces/marker'
 
 type Props = {
   children: ReactNode
@@ -14,14 +13,15 @@ type Props = {
   navTransparent?: boolean
   nofooter?: boolean
   current?: string
-  markers?: CameraDetail[]
+  maskType: MaskType
+  // markers?: CameraDetail[]
 }
 
 const Layout = ({
   children,
   title = '',
   current = '/',
-  markers,
+  maskType ,
   nofooter = false,
 }: Props) => {
   return (
@@ -32,7 +32,7 @@ const Layout = ({
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <header>
-        <Navbar markers={markers} current={current} />
+        <Navbar maskType={maskType} current={current} />
       </header>
       <div className={`fixed top-0 w-screen h-screen overflow-auto`}>
         {children}

@@ -55,7 +55,7 @@ export default function Footer({current}: Props) {
             toggleDrawer()
           })}
           {/* {CreateButton("สรุปข้อมูล",'report',  function onClick(){ Router.push('/report') })} */}
-          <a href="https://deepcare.aiat.or.th/streamlit/" target="_blank" className="flex-1 w-full h-full">
+          <a href="http://deepcare.aiat.or.th:8501//" target="_blank" className="flex-1 w-full h-full">
             <button className={`flex items-center justify-center w-full h-full ${current=='report' && 'tab-active'} `}>
               <div className="flex align-middle"> <TableIcon fill={current=='report'?'#FFB986' : 'white'}/> </div>
               <div className={`ml-1 inline-block`} />
@@ -69,8 +69,8 @@ export default function Footer({current}: Props) {
         current == 'home' && <footer className="fixed bottom-0 hidden lg:flex h-16 bg-white w-full">
         <div className="flex-grow"></div>
         <div className="flex items-center">
-          {corpLink.map(({logo, height=10}) =>
-            <img className={`h-${height} mr-6`} src={logo} alt=""/> )}
+          {corpLink.map(({logo, height=10}, index) =>
+            <img key={index} className={`h-${height} mr-6`} src={logo} alt=""/> )}
         </div>
       </footer>
       }

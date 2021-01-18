@@ -1,6 +1,12 @@
 import Layout from '@/layout/Layout'
-import { CameraDetail } from '../interfaces/marker'
-import { observationPoint, camDetails } from '../components/static/dataPoint'
+import firebase from '../components/strategy/firebase'
+import { useMachine } from '@xstate/react'
+import { useContent } from '../store/machine'
+import { useState } from 'react'
+import { CameraDetail, Observation, MaskType } from '../interfaces/marker'
+import { maskCounting, camDetails } from '../components/strategy/marker'
+
+let stateParser
 
 const corpLink = [
     {domain: 'https://www.thaigov.go.th/', logo: 'prime_minister_office.png'},
@@ -42,10 +48,39 @@ const participant = [
     {role: 'ADVISOR',name: 'Dr. Thanaruk Theeramunkong', domain: 'https://aiat.or.th/thanaruk/'},
 ]
 
+const Content = ({setMark}: {setMark: any}) => {
+    const [current] = useMachine(useContent, {
+      services: {
+        fetchData: () =>
+        firebase.firestore().collection('hours').get().then(res => {
+          const parcel: any = res.docs.map(item => item.data())
+          const cameras: Observation[] = parcel
+          const district_lists: string[] = [ ...new Set(cameras.map(cam => cam.district_name))].sort()
+          const markers: CameraDetail[] = camDetails(cameras)
+          const maskCounter: MaskType = maskCounting(markers)
+          setMark(maskCounter)
+          return { cameras, markers, district_lists, maskCounter }
+        })
+      },
+    })
+    switch (current.value) {
+      case 'idle': return <h1>Blank</h1>
+      case 'loading': return <h1>Loading</h1>
+      case 'success': stateParser = current.context.data;
+        console.log(stateParser)
+        return (
+            <span></span>
+        )
+      case 'failure': return <h1>Reload</h1>
+      default: return null
+    }
+  }
+
 const AboutPage = () => {
-    const markers: CameraDetail[] = camDetails(observationPoint)
+    const [maskType, setMaskType] = useState<MaskType>({red: 0, green: 0, yellow: 0})
     return (
-        <Layout current="aboutus" title="DeepCare" markers={markers}>
+        <Layout maskType={maskType} current="aboutus" title="DeepCare">
+            <Content setMark={setMaskType} />
             <div className="text-b pt-32 space-y-4">
                 <h1 className="text-3xl text-center text-gray-800 font-semibold mb-3">สนับสนุนโดย</h1>
             </div>
