@@ -24,17 +24,20 @@ export const Marker = (props: MarkerProps) => {
     const day = dt.substring(0,2)
     const month = dt.substring(2,4)
     const year =dt.substring(4,8)
-    // console.log(day, month, year)
-    return `${day}/${month}/${year}`
+    const hour =dt.substring(8,10)
+    const min =dt.substring(10,12)
+    const hourTo =dt.substring(14,16)
+    const minTo =dt.substring(16,18)
+    return [`${day}/${month}/${year}`,`${hour}:${min} - ${hourTo}:${minTo}`]
   }
-  splitDateTime(data.collection_date)
+  const [collect_date, collect_time] = splitDateTime(data.collection_date)
   return (
     <div className="text-b relative overflow-scroll-y">
-      { status && (pop == data.name) && <div className="z-10 text-b absolute p-4 bg-white -ml-40 rounded-lg shadow-xl" style={{ marginTop: '-17.4rem', width: '20rem', height: '16rem' }}>
+      { status && (pop == data.name) && <div className="z-10 text-b absolute p-4 bg-white -ml-40 rounded-lg shadow-xl" style={{ marginTop: '-19.4rem', width: '20rem', height: '18rem' }}>
         <div className="text-gray-700 text-xl relative">
           {data.name}
           <div className="text-xs text-gray-500 block -mt-1">แขวง{data.subdistrict_name} เขต{data.district_name}</div>
-          <div className="text-xs text-gray-500 block">สำรวจ {data.result.total}คน วันที่ {splitDateTime(data.collection_date)}</div>
+          <div className="text-xs text-gray-500 block">สำรวจ {data.result.total}คน วันที่ {collect_date} เวลา {collect_time}</div>
           <button onClick={() => actionStatus(!status)} className="bg-gray-300 h-8 w-8 rounded-full absolute top-0 right-0">X</button>
         </div>
         {/* <img src={`./label/${data.name}.png`} className="m-auto mt-2" style={{ height: '9rem' }} /> */}
@@ -53,7 +56,7 @@ export const Marker = (props: MarkerProps) => {
           <div className="h-8 text-lg flex items-center justify-center text-red-600 text-md">{no_not_wear_mask}</div>
           <div className="h-8 text-lg flex items-center justify-center text-red-600 text-md">{calc(no_not_wear_mask, total)}%</div>
         </div>
-        <div className='mt-2 mr-2 text-right text-xs text-gray-500'>อัพเดทวันที่ { dayjs( parseInt(detect_timestamp) * 1000).format('DD MMM YYYY HH:MM')}</div>
+        <div className='mt-2 mr-2 text-right text-xs text-gray-500'>อัพเดทวันที่ { dayjs( parseInt(detect_timestamp) * 1000).format('DD/MM/YYYY HH:MM')}</div>
         <span className="w-full ml-3 text-center text-white absolute bottom-0 left-0 text-4xl" style={{marginBottom: '-1.6rem'}}>
           <Icon fill={faCaretDown}/>
         </span>

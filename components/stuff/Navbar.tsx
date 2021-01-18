@@ -15,7 +15,7 @@ export default function Navbar({current, maskType}: Props) {
       <nav className={'text-b relative flex flex-wrap items-center justify-between px-8 navbar-expand-lg '}>
         <div className={`shadow-lg fixed top-0 h-20 left-0 z-10 flex flex-wrap py-3 px-4 lg:px-6 lg:pl-8 w-screen`} style={{background: '#EF802D'}}>
           <div className="w-full relative flex items-center" >
-            <button onClick={() => Router.push('/')} className="text-left text-gray-800">
+            <button onClick={() => Router.push('/')} className="text-left text-black">
               <div className="text-4xl -mt-2">DeepCare</div>
               <span className="text-xs text-white -mt-2 block">ระบบเเสดงจำนวนผู้สวมใส่หน้ากากอนามัย</span>
             </button>
@@ -27,16 +27,16 @@ export default function Navbar({current, maskType}: Props) {
             <div className="flex-grow"></div>
             <div className="hidden lg:flex ">
               <span className="flex">
-                <SearchIcon fill={current == 'home' ? '#2d3748' : 'white'} />
-                <button onClick={() => Router.push('/')} className={`mx-2 ${current == 'home' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>หน้าหลัก</button>
+                <SearchIcon fill={current == 'home' ? 'black' : 'white'} />
+                <button onClick={() => Router.push('/')} className={`mx-2 ${current == 'home' ? 'font-bold text-black' : 'text-gray-100'} `}>หน้าหลัก</button>
               </span>
               <span className="flex ml-4">
-                <TableIcon fill={current == 'report' ? '#2d3748' : 'white'} />
-                <a href="https://deepcare.aiat.or.th/streamlit/" className={`mx-2 ${current == 'brief' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>สรุปข้อมูล</a>
+                <TableIcon fill={current == 'report' ? 'black' : 'white'} />
+                <a href="https://deepcare.aiat.or.th/streamlit/" className={`mx-2 ${current == 'brief' ? 'font-bold text-black' : 'text-gray-100'} `}>สรุปข้อมูล</a>
               </span>
               <span className="flex ml-4">
-                <PeopleIcon fill={current == 'aboutus' ? '#2d3748' : 'white'} />
-                <button onClick={() => Router.push('/about-us')} className={`mx-2 ${current == 'aboutus' ? 'font-bold text-gray-800' : 'text-gray-100'} `}>About Us</button>
+                <PeopleIcon fill={current == 'aboutus' ? 'black' : 'white'} />
+                <button onClick={() => Router.push('/about-us')} className={`mx-2 ${current == 'aboutus' ? 'font-bold text-black' : 'text-gray-100'} `}>About Us</button>
               </span>
             </div>
           </div>

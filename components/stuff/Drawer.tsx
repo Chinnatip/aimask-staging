@@ -57,7 +57,7 @@ const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
                   <span className="text-orange-600 ml-2" > <Icon fill={faCaretRight}></Icon> </span>
                 </div>
                 <div className="text-white opacity-50 -mt-2 mt-3 text-xs font-thin">
-                  {subdistrict_name} - {district_name}
+                  แขวง{subdistrict_name} เขต{district_name}
                 </div>
                 <div
                   id="mask-meter"
