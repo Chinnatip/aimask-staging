@@ -66,7 +66,7 @@ const Content = ({setMark}: {setMark: any}) => {
             center={{ lat: center[0], lng: center[1] }}
             defaultZoom={12}
             onGoogleApiLoaded={handleGoogleMapApi}
-          >
+          >  n n
             {cameraPoints.map((data, index) => {
               // console.log(popNow)
               const { latitude , longitude } = data
