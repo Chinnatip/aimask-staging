@@ -101,9 +101,12 @@ const covidTimeline = async (collections) => {
         }
       }
     }
-    const end_data_string = new Date(end_date).toLocaleDateString()
-    const mask_today = maskByDate[end_data_string]
-    const mask_today_summary = {
+    const endDataString = new Date(end_date).toLocaleDateString()
+    const mask_today = maskByDate[endDataString]
+    const maskTodaySummary = {
+      no_correct_wear_mask: mask_today["no_correct_wear_mask"],
+      no_incorrect_wear_mask: mask_today["no_incorrect_wear_mask"],
+      no_not_wear_mask: mask_today["no_not_wear_mask"],
       no_correct_wear_mask_pct:
         (mask_today["no_correct_wear_mask"] / mask_today["total"]) * 100,
       no_incorrect_wear_mask_pct:
@@ -111,12 +114,11 @@ const covidTimeline = async (collections) => {
       no_not_wear_mask_pct:
         (mask_today["no_not_wear_mask"] / mask_today["total"]) * 100,
     }
-    console.log()
     const res = await axios.get("https://covid19.th-stat.com/api/open/timeline")
     const { data } = res
     return {
       timeline: formatTimeline(data, maskByDate, start_date, end_date),
-      mask_today_summary,
+      maskTodaySummary,
     }
   } catch (err) {
     throw err
@@ -130,8 +132,8 @@ export const fetchDashboard = async () => {
     const markers: CameraDetail[] = camDetails(cameras)
     const maskCounter: MaskType = maskCounting(markers)
     const today = await covidToday()
-    const { timeline, mask_today_summary } = await covidTimeline(collections)
-    return { today, timeline, maskCounter, mask_today_summary }
+    const { timeline, maskTodaySummary } = await covidTimeline(collections)
+    return { today, timeline, maskCounter, maskTodaySummary }
   } catch (err) {
     throw err
   }
