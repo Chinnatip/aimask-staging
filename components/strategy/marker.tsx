@@ -30,10 +30,10 @@ export const camDetails = (observer: Observation[]): CameraDetail[] => {
 }
 
 
-export const findCenter = (markers: CameraDetail[]) => {
-  const count = markers.length
-  const coordLAT = markers.reduce((sum, marker) => { return sum + marker.latitude}, 0)/count
-  const coordLNG = markers.reduce((sum, marker) => { return sum + marker.longitude}, 0)/count
+export const findCenter = () => {
+  // const count = markers.length
+  const coordLAT = 13.7037576 //markers.reduce((sum, marker) => { return sum + marker.latitude}, 0)/count
+  const coordLNG = 100.50617431875 //markers.reduce((sum, marker) => { return sum + marker.longitude}, 0)/count
   return [coordLAT, coordLNG]
 }
 

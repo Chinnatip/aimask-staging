@@ -49,7 +49,7 @@ const Content = ({setMark, mapStyle}: {setMark: any , mapStyle: any}) => {
         //   }
         // })
         const maskCounter: MaskType = maskCounting(markers)
-        setCenter(findCenter(markers))
+        setCenter(findCenter())
         setMark(maskCounter)
         return { markers, district_lists, maskCounter }
       })

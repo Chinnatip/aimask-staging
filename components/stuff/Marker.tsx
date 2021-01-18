@@ -28,6 +28,7 @@ export const Marker = (props: MarkerProps) => {
     const min =dt.substring(10,12)
     const hourTo =dt.substring(14,16)
     const minTo =dt.substring(16,18)
+    // console.log(day, month, year)
     return [`${day}/${month}/${year}`,`${hour}:${min} - ${hourTo}:${minTo}`]
   }
   const [collect_date, collect_time] = splitDateTime(data.collection_date)
