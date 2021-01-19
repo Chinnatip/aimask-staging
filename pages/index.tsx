@@ -44,7 +44,7 @@ const Content = () => {
           <div className="text-3xl mb-4 mt-16">
               รายงายสถานการณ์และสถิติในช่วงโควิด-19
             </div>
-          <div className="grid grid-cols-5 gap-5 pb-6">
+          <div className="grid lg:grid-cols-5 grid-cols-2 gap-5 pb-6">
             <div className="shadow-lg bg-pink-300 col-span-2 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
               <span className="text-md font-bold">ติดเชื้อสะสม</span>
               <h1 className="text-gray-800 text-3xl">{today.Confirmed}</h1>
@@ -67,17 +67,15 @@ const Content = () => {
             </div>
           </div>
           <p className="text-sm text-right text-gray-500">ข้อมูลอัปเดตเมื่อ: {DataDate} จากกรมควบคุมโรคhttps://covid19.th-stat.com/</p>
-
           <div className="h-16"></div>
-
-          <div className="grid grid-cols-2 grid-flow-col grid-rows-2 px-5 gap-2 -mx-8">
+          <div className="grid lg:grid-cols-2 lg:grid-flow-col grid-rows-4 grid-cols-1 lg:grid-rows-2 px-5 gap-2 -mx-8">
 
             {/* Map area */}
             <div className="flex-grow-0 p-2 max-w-screen-sm">
               <div className="text-3xl">สถิติการสวมหน้ากากอนามัย</div>
               <div
                 id="bordermap"
-                className="bg-white border-gray-900 p-2"
+                className="bg-white border-gray-900 p-2 w-full"
                 onMouseOver={() => {
                   let a = document.getElementById("bordermap")
                   if (a == null) return
@@ -96,10 +94,10 @@ const Content = () => {
             </div>
 
             {/* Statistic */}
-            <div className="mt-12 w-full flex flex-col lg:flex-row w-full">
+            <div className="lg:mt-12 -mt-12 w-full flex flex-col lg:flex-row w-full">
               {/* 2x2 Grid */}
               <div className="flex-grow lg:flex-grow-0 p-2 w-full">
-                <div className="grid grid-cols-2 grid-rows-2 gap-4">
+                <div className="grid lg:grid-cols-2 lg:grid-rows-2 grid-rows-2 gap-4">
                   <div className="border-2 flex-col rounded-xl py-6 flex text-center items-center justify-center">
                     <span className="text-sm">จำนวนเขตทั้งหมด</span>
                     <h1 className="font-bold text-4xl">{maskTodaySummary.no_correct_wear_mask + maskTodaySummary.no_incorrect_wear_mask +maskTodaySummary.no_not_wear_mask}</h1>
@@ -144,7 +142,6 @@ const Content = () => {
                 <img src="zoom_map.png" className="w-full" alt=""/>
               </button>
             </div>
-
             <div className="flex p-2 max-w-full " style={{ width: "48rem", height: "24rem" }}>
               <Chart timeline={timeline} />
             </div>
@@ -171,8 +168,8 @@ const IndexPage = () => {
       <>
         <div className="mt-32 w-full h-full justify-items-center items-center flex flex-col">
           <div className="max-w-full md:max-w-screen-lg flex">
-            <div className="w-full">
-              <div className="border border-gray-400 w-full bg-gray-200 shadow-xl rounded-xl p-8">
+            <div className="mx-8 lg:w-full lg:mx-0">
+              <div className="border border-gray-400 w-full bg-gray-200 shadow-xl rounded-xl p-8 xs:px-20">
                 <h1 className="text-3xl"> <span className="text-orange-600">DeepCare</span> by AI คืออะไร...</h1>
                 <div className="flex mt-4">
                   <div className="px-4 text-lg">DeepCare</div>
@@ -184,27 +181,9 @@ const IndexPage = () => {
                   </div>
                 </div>
               </div>
-              {/* <div
-                className={`bg-gray-100 p-2 shadow-md rounded-md border-gray-500 border-2 justify-items-center items-center flex flex-col flex-wrap`}
-                style={{ backgroundColor: "#F9F9F9" }}
-              >
-                <h1 className="text-3xl text-left w-full p-2">
-                  <span style={{ color: "#EF802D" }}>DeepCare</span> by AI
-                  คืออะไร...
-                </h1>
-                <div className="justify-items-between flex flex-row w-full text-lg items-baseline">
-                  <p className="min-w-min p-1">DeepCare</p>
-                  <p className=" p-1">
-                    คือ ระบบปัญญาประดิษฐ์ที่ถูกพัฒนาขึ้นมาเพื่อสนับสนุนการดูแลสุขภาพประชาชนร่วมกัน
-                    ในช่วงโควิด-19 DeepCare
-                    จะคอยรายงานสถิติการสวมใส่หน้ากากอนามัยของคนไทยโดย
-                    ตรวจจับจากระบบปัญญาประดิษฐ์
-                  </p>
-                </div>
-              </div> */}
               <Content />
 
-              <footer className="lg:flex h-16 bg-white w-full">
+              <footer className="lg:flex hidden lg:flex h-16 bg-white w-full">
                 <div className="flex-grow"></div>
                 <div className="flex items-center">
                   {corpLink.map(({logo, height=10}, index) =>
