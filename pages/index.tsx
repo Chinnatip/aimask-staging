@@ -5,56 +5,24 @@ import { MaskType } from "../interfaces/marker"
 import { fetchDashboard } from "../components/strategy/fetchDDC"
 import { useMachine } from "@xstate/react"
 import { useContent } from "../store/machine"
+import { useRouter } from 'next/router'
 
 let stateParser
 
-function CreateSmallBox(
-  txt: string,
-  amount: number,
-  color: string,
-  colorbox: string = "bg-white",
-  width: string = "w-40",
-  smallertext = true,
-  boldTitle = false,
-  captionText = ""
-) {
-  return (
-    <div
-      className={`${width} ${colorbox} h-32 p-2 shadow-md rounded-md border-gray-500 border-2 justify-items-between items-center flex flex-col flex-wrap`}
-    >
-      <div className="flex-1" />
-      <div
-        className={`flex ${smallertext ? "text-sm" : ""} ${
-          boldTitle ? "font-bold" : ""
-        }`}
-      >
-        {txt}
-      </div>
-      <div className={`flex text-4xl ${color}`}>
-        <strong>{amount}</strong>
-      </div>
-      <div className={`${captionText == "" ? "" : "none"} flex text-sm`}>
-        {captionText}
-      </div>
-      <div className="flex-1" />
-    </div>
-  )
-}
-
-// function OptionCatagory(text: string) {
-//   return <option value={text}>{text}</option>
-// }
-// function CreateList(text: string, percent: string, color: string) {
-//   return (
-//     <div className="p-2 justify-items-between items-center flex flex-col lg:flex-row w-full">
-//       <div className="flex">{text}</div>
-//       <div className="flex-1" />
-//       <div className={`flex ${color}`}>{percent}</div>
-//     </div>
-//   )
-// }
+const corpLink = [
+  {domain: 'https://www.thaigov.go.th/', logo: 'prime_minister_office.png'},
+  {domain: 'https://www.thaigov.go.th/', logo: 'CVP-23.png'},
+  {domain: 'https://www.moph.go.th/', logo: 'MOPH.png'},
+  {domain: 'https://www.nrct.go.th/', logo: 'worchor5G.png' , span: 2},
+  {domain: 'https://www.mhesi.go.th/', logo: 'orwo.png', custom: '-mr-5'},
+  {domain: 'https://www.tu.ac.th/', logo: 'tu.png'},
+  {domain: 'http://www.bangkok.go.th/', logo: 'bma_logo.png'},
+  {domain: 'https://www.ntplc.co.th/', logo: 'cat_logo.jpg', height: 6},
+  {domain: 'https://www.aiat.or.th/', logo: 'aiat_logo.png', height: 6},
+]
 
 const Content = () => {
+  const Router = useRouter()
   const DataDate = "17 มกราคม 2564"
   const Map = <img src="Map/Map.png" />
   const [current] = useMachine(useContent, {
@@ -73,125 +41,40 @@ const Content = () => {
       // setMarkType({ ...maskCounter })
       return (
         <>
-          <div className="w-full text-center">
-            <div className="text-4xl">
+          <div className="text-3xl mb-4 mt-16">
               รายงายสถานการณ์และสถิติในช่วงโควิด-19
             </div>
-          </div>
-          <div className="justify-items-between items-center flex flex-row">
-            <div className="pr-2 w-full">
-              {CreateSmallBox(
-                "ติดเชื้อสะสม",
-                today.Confirmed,
-                "text-white",
-                "bg-red-300",
-                "w-full",
-                undefined,
-                true,
-                `เพิ่มขึ้น ${today.NewConfirmed}`
-              )}
+          <div className="grid grid-cols-5 gap-5 pb-6">
+            <div className="shadow-lg bg-pink-300 col-span-2 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
+              <span className="text-md font-bold">ติดเชื้อสะสม</span>
+              <h1 className="text-gray-800 text-3xl">{today.Confirmed}</h1>
+              <p className="text-xs text-gray-600">เพิ่มขึ้น {today.NewRecovered}</p>
             </div>
-            <div className="p-2">
-              {CreateSmallBox(
-                "หายแล้ว",
-                today.Recovered,
-                "text-white",
-                "bg-green-400",
-                undefined,
-                undefined,
-                true,
-                `เพิ่มขึ้น ${today.NewRecovered}`
-              )}
+            <div className="shadow-lg bg-green-300 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
+              <span className="text-md font-bold">หายเเล้ว</span>
+              <h1 className="text-gray-800 text-3xl">{today.Recovered}</h1>
+              <p className="text-xs text-gray-600">เพิ่มขึ้น {today.NewRecovered}</p>
             </div>
-            <div className="p-2">
-              {CreateSmallBox(
-                "รักษาอยู่",
-                today.Hospitalized,
-                "text-white",
-                "bg-yellow-400",
-                undefined,
-                undefined,
-                true,
-                `เพิ่มขึ้น ${today.NewHospitalized}`
-              )}
+            <div className="shadow-lg bg-yellow-300 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
+              <span className="text-md font-bold">รักษาอยู่</span>
+              <h1 className="text-gray-800 text-3xl">{today.Hospitalized}</h1>
+              <p className="text-xs text-gray-600">เพิ่มขึ้น {today.NewHospitalized}</p>
             </div>
-            <div className="pl-2">
-              {CreateSmallBox(
-                "เสียชีวิต",
-                today.Deaths,
-                "text-white",
-                "bg-gray-400",
-                undefined,
-                undefined,
-                true,
-                `เพิ่มขึ้น ${today.NewDeaths}`
-              )}
+            <div className="shadow-lg bg-gray-300 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
+              <span className="text-md font-bold">เสียชีวิต</span>
+              <h1 className="text-gray-800 text-3xl">{today.Deaths}</h1>
+              <p className="text-xs text-gray-600">เพิ่มขึ้น {today.NewDeaths}</p>
             </div>
           </div>
-          <p className="w-full text-right">
-            ข้อมูลอัปเดตเมื่อ: {DataDate} จากกรมควบคุมโรค
-            https://covid19.th-stat.com/
-          </p>
-          {/* Mask Top Section */}
-          <div className="justify-items-between items-center flex flex-col lg:flex-row w-full">
-            {/* 2x2 Grid */}
-            <div className="flex-grow lg:flex-grow-0 p-2">
-              <div className="justify-items-between items-center flex flex-col">
-                <div className="justify-items-between items-center flex flex-row">
-                  <div className="text-4xl">ภาพรวม</div>
-                </div>
-                <div className="justify-items-between items-center flex flex-row">
-                  <div className="p-2">
-                    {CreateSmallBox(
-                      "จำนวนคนทั้งหมด",
-                      maskTodaySummary.no_correct_wear_mask +
-                        maskTodaySummary.no_incorrect_wear_mask +
-                        maskTodaySummary.no_not_wear_mask,
-                      "text-black"
-                    )}
-                  </div>
-                  <div className="p-2">
-                    {CreateSmallBox(
-                      "ใส่หน้ากากถูกต้อง",
-                      maskTodaySummary.no_correct_wear_mask,
-                      "text-green-500"
-                    )}
-                  </div>
-                </div>
-                <div className="justify-items-between items-center flex flex-row">
-                  <div className="p-2">
-                    {CreateSmallBox(
-                      "ใส่หน้ากากไม่ถูกต้อง",
-                      maskTodaySummary.no_incorrect_wear_mask,
-                      "text-yellow-500"
-                    )}
-                  </div>
-                  <div className="p-2">
-                    {CreateSmallBox(
-                      "ไม่ได้ใส่หน้ากาก",
-                      maskTodaySummary.no_not_wear_mask,
-                      "text-red-500"
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Chart Area */}
-            <div
-              className="flex p-2 max-w-full "
-              style={{ width: "48rem", height: "24rem" }}
-            >
-              <Chart timeline={timeline} />
-            </div>
-          </div>
-          {/* Mask Bottom Section*/}
-          <div className="justify-items-between items-center flex flex-col lg:flex-row w-full">
-            <div className="flex flex-1 h-1 p-2" />
-            {/* Map Area */}
+          <p className="text-sm text-right text-gray-500">ข้อมูลอัปเดตเมื่อ: {DataDate} จากกรมควบคุมโรคhttps://covid19.th-stat.com/</p>
+
+          <div className="h-16"></div>
+
+          <div className="grid grid-cols-2 grid-flow-col grid-rows-2 px-5 gap-2 -mx-8">
+
+            {/* Map area */}
             <div className="flex-grow-0 p-2 max-w-screen-sm">
-              {/* <div className="bg-gray-900">
-                                    <p className="text-white text-center h-48 w-64 lg:w-auto">CharArea<br />Can be as tall/wide as you like!</p>
-                                </div> */}
+              <div className="text-3xl">สถิติการสวมหน้ากากอนามัย</div>
               <div
                 id="bordermap"
                 className="bg-white border-gray-900 p-2"
@@ -211,75 +94,61 @@ const Content = () => {
                 </Link>
               </div>
             </div>
-            <div className="flex-grow-0 justify-items-between items-center flex flex-col lg:flex-row w-full">
+
+            {/* Statistic */}
+            <div className="mt-12 w-full flex flex-col lg:flex-row w-full">
               {/* 2x2 Grid */}
-              <div className="flex-grow-0 lg:flex-grow-0 p-2">
-                <div className="justify-items-between items-center flex flex-col">
-                  <div className="justify-items-between items-center flex flex-row">
-                    <div className="p-2">
-                      {CreateSmallBox(
-                        "จำนวนเขตทั้งหมด",
-                        maskCounter.green +
-                          maskCounter.yellow +
-                          maskCounter.red,
-                        "text-black"
-                      )}
-                    </div>
-                    <div className="p-2">
-                      {CreateSmallBox(
-                        "ใส่หน้ากาก 95-100%",
-                        maskCounter.green,
-                        "text-green-500"
-                      )}
-                    </div>
+              <div className="flex-grow lg:flex-grow-0 p-2 w-full">
+                <div className="grid grid-cols-2 grid-rows-2 gap-4">
+                  <div className="border-2 flex-col rounded-xl py-6 flex text-center items-center justify-center">
+                    <span className="text-sm">จำนวนเขตทั้งหมด</span>
+                    <h1 className="font-bold text-4xl">{maskTodaySummary.no_correct_wear_mask + maskTodaySummary.no_incorrect_wear_mask +maskTodaySummary.no_not_wear_mask}</h1>
                   </div>
-                  <div className="justify-items-between items-center flex flex-row">
-                    <div className="p-2">
-                      {CreateSmallBox(
-                        "ใส่หน้ากาก 90-95%",
-                        maskCounter.yellow,
-                        "text-yellow-500"
-                      )}
-                    </div>
-                    <div className="p-2">
-                      {CreateSmallBox(
-                        "ใส่หน้ากากน้อยกว่า 90%",
-                        maskCounter.red,
-                        "text-red-500",
-                        undefined,
-                        undefined,
-                        true
-                      )}
-                    </div>
+                  <div className="border-2 flex-col rounded-xl py-6 flex text-center items-center justify-center">
+                    <span className="text-sm">ใส่หน้ากาก 95-100%</span>
+                    <h1 className="font-bold text-green-700 text-4xl">{maskTodaySummary.no_not_wear_mask}</h1>
+                  </div>
+                  <div className="border-2 flex-col rounded-xl py-6 flex text-center items-center justify-center">
+                    <span className="text-sm">ใส่หน้ากาก 90-95%</span>
+                    <h1 className="font-bold text-yellow-500 text-4xl">{maskTodaySummary.no_incorrect_wear_mask}</h1>
+                  </div>
+                  <div className="border-2 flex-col rounded-xl py-6 flex text-center items-center justify-center">
+                    <span className="text-sm">ใส่หน้ากากน้อยกว่า 90%</span>
+                    <h1 className="font-bold text-red-600 text-4xl">{maskTodaySummary.no_not_wear_mask}</h1>
                   </div>
                 </div>
               </div>
-              {/* <div className="flex-grow lg:flex-1 max-w-screen-lg p-2">
-                                        <div className="justify-items-between items-center flex flex-row">
-                                            <div className={`p-2 justify-items-between items-center flex flex-col`} style={{ height: "17rem", width: "17rem" }}>
-                                                <div>
-                                                    <select>
-                                                        {OptionCatagory("พื้นที่สีเขียว")}
-                                                        {OptionCatagory("พื้นที่สีเหลือง")}
-                                                        {OptionCatagory("พื้นที่สีแดง")}
-                                                    </select>
-                                                </div>
-                                                <div className={`w-full bg-white shadow-md rounded-md border-gray-500 border-2 justify-items-between items-center flex flex-col`} style={{ height: "17rem" }}>
+            </div>
 
-                                                    {[
-                                                        CreateList("ก", "100%", "text-green-500"),
-                                                        CreateList("กท", "99%", "text-green-500"),
-                                                        CreateList("กทม", "98%", "text-green-500"),
-                                                        CreateList("กท", "97%", "text-green-500"),
-                                                        CreateList("ก", "96%", "text-green-500")
-                                                    ]}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> */}
+            <div className="mt-12 w-full">
+              {/* 2x2 Grid */}
+              <div className="flex-grow lg:flex-grow-0 p-2 w-full">
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="border-2 flex-col rounded-xl h-24 flex text-center items-center justify-center">
+                    <span className="text-sm">ใส่หน้ากากถูกต้อง</span>
+                    <h1 className="-mt-2 text-green-700 font-bold text-3xl">{maskCounter.green} จุด</h1>
+                  </div>
+                  <div className="border-2 flex-col rounded-xl h-24 flex text-center items-center justify-center">
+                    <span className="text-sm">ใส่หน้ากากไม่ถูกต้อง</span>
+                    <h1 className="-mt-2 text-yellow-500 font-bold text-3xl">{maskCounter.yellow} จุด</h1>
+                  </div>
+                  <div className="border-2 flex-col rounded-xl h-24 flex text-center items-center justify-center">
+                    <span className="text-sm">ไม่ใส่หน้ากาก</span>
+                    <h1 className="-mt-2 text-red-600 font-bold text-3xl">{maskCounter.red} จุด</h1>
+                  </div>
+                </div>
+              </div>
+              <div className="h-4"></div>
+              <div>คลิ๊กเพื่อเปิดแผนที่</div>
+              <button onClick={() => Router.push('/map')}>
+                <img src="zoom_map.png" className="w-full" alt=""/>
+              </button>
+            </div>
+
+            <div className="flex p-2 max-w-full " style={{ width: "48rem", height: "24rem" }}>
+              <Chart timeline={timeline} />
             </div>
           </div>
-          <div className="h-64" />
         </>
       )
     case "failure":
@@ -300,11 +169,22 @@ const IndexPage = () => {
     // <p>Hi</p>
     <Layout current="home" maskType={maskType} title="DeepCare - Covid Map">
       <>
-        <div className="h-20"></div> {/* Padding the top */}
-        <div className="w-full h-full justify-items-center items-center flex flex-col">
+        <div className="mt-32 w-full h-full justify-items-center items-center flex flex-col">
           <div className="max-w-full md:max-w-screen-lg flex">
-            <div className="p-4 w-full">
-              <div
+            <div className="w-full">
+              <div className="border border-gray-400 w-full bg-gray-200 shadow-xl rounded-xl p-8">
+                <h1 className="text-3xl"> <span className="text-orange-600">DeepCare</span> by AI คืออะไร...</h1>
+                <div className="flex mt-4">
+                  <div className="px-4 text-lg">DeepCare</div>
+                  <div>
+                    คือ ระบบปัญญาประดิษฐ์ที่ถูกพัฒนาขึ้นมาเพื่อสนับสนุนการดูแลสุขภาพประชาชนร่วมกัน
+                    ในช่วงโควิด-19 DeepCare
+                    จะคอยรายงานสถิติการสวมใส่หน้ากากอนามัยของคนไทยโดย
+                    ตรวจจับจากระบบปัญญาประดิษฐ์
+                  </div>
+                </div>
+              </div>
+              {/* <div
                 className={`bg-gray-100 p-2 shadow-md rounded-md border-gray-500 border-2 justify-items-center items-center flex flex-col flex-wrap`}
                 style={{ backgroundColor: "#F9F9F9" }}
               >
@@ -315,15 +195,22 @@ const IndexPage = () => {
                 <div className="justify-items-between flex flex-row w-full text-lg items-baseline">
                   <p className="min-w-min p-1">DeepCare</p>
                   <p className=" p-1">
-                    คือ
-                    ระบบปัญญาประดิษฐ์ที่ถูกพัฒนาขึ้นมาเพื่อสนับสนุนการดูแลสุขภาพประชาชนร่วมกัน
+                    คือ ระบบปัญญาประดิษฐ์ที่ถูกพัฒนาขึ้นมาเพื่อสนับสนุนการดูแลสุขภาพประชาชนร่วมกัน
                     ในช่วงโควิด-19 DeepCare
                     จะคอยรายงานสถิติการสวมใส่หน้ากากอนามัยของคนไทยโดย
                     ตรวจจับจากระบบปัญญาประดิษฐ์
                   </p>
                 </div>
-              </div>
+              </div> */}
               <Content />
+
+              <footer className="lg:flex h-16 bg-white w-full">
+                <div className="flex-grow"></div>
+                <div className="flex items-center">
+                  {corpLink.map(({logo, height=10}, index) =>
+                    <img key={index} className={`h-${height} mr-6`} src={logo} alt=""/> )}
+                </div>
+              </footer>
             </div>
           </div>
         </div>
