@@ -171,8 +171,8 @@ const IndexPage = () => {
             <div className="mx-8 lg:w-full lg:mx-0">
               <div className="border border-gray-400 w-full bg-gray-200 shadow-xl rounded-xl p-8 xs:px-20">
                 <h1 className="text-3xl"> <span className="text-orange-600">DeepCare</span> by AI คืออะไร...</h1>
-                <div className="flex mt-4">
-                  <div className="px-4 text-lg">DeepCare</div>
+                <div className="flex mt-4 flex-col lg:flex-row">
+                  <div className="hidden lg:block px-4 text-lg">DeepCare</div>
                   <div>
                     คือ ระบบปัญญาประดิษฐ์ที่ถูกพัฒนาขึ้นมาเพื่อสนับสนุนการดูแลสุขภาพประชาชนร่วมกัน
                     ในช่วงโควิด-19 DeepCare
