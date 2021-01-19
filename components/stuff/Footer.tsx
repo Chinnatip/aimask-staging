@@ -51,7 +51,7 @@ export default function Footer({current}: Props) {
         <div className="flex flex-wrap text-white text-center w-full h-full px-2">
           {CreateButton("หน้าเเรก",'home',  function onClick() { Router.push('/') })}
           {CreateButton("แผนที่",'map',  function onClick() { Router.push('/map') })}
-          <a href="https://deepcare.aiat.or.th/streamlit/" className="flex-col flex-1 w-full h-full">
+          <a target="_blank" href="https://deepcare.aiat.or.th/streamlit/" className="flex-col flex-1 w-full h-full">
             <button className={`flex flex-col items-center justify-center w-full h-full ${current=='report' && 'tab-active'} `}>
               <div className="flex align-middle"> <TableIcon fill={current=='report'?'#EF802D' : 'white'}/> </div>
               <div className={`ml-1 inline-block`} />

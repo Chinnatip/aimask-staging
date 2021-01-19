@@ -19,11 +19,11 @@ export default function Navbar({current, maskType}: Props) {
               <div className="text-4xl -mt-2">DeepCare</div>
               <span className="text-xs text-white -mt-2 block">ระบบเเสดงจำนวนผู้สวมใส่หน้ากากอนามัย</span>
             </button>
-            <div className="w-1/3 pl-12 hidden lg:grid grid-cols-3 px-5 gap-2  ">
+            { current != 'home' && <div className="w-1/3 pl-12 hidden lg:grid grid-cols-3 px-5 gap-2  ">
               <GridMask text_col="text-white" color="black" amount={maskType.green} criteria="95%-100%" image="m_green"  />
               <GridMask text_col="text-white" color="black" amount={maskType.yellow} criteria="90%-95%" image="m_yellow"  />
               <GridMask text_col="text-white" color="black" amount={maskType.red} criteria="ต่ำกว่า 90%" image="m_red"  />
-            </div>
+            </div>}
             <div className="flex-grow"></div>
             <div className="hidden lg:flex ">
               <span className="flex">
@@ -36,7 +36,7 @@ export default function Navbar({current, maskType}: Props) {
               </span>
               <span className="flex ml-4">
                 <TableIcon fill={current == 'report' ? 'black' : 'white'} />
-                <a href="https://deepcare.aiat.or.th/streamlit/" className={`mx-2 ${current == 'brief' ? 'font-bold text-black' : 'text-gray-100'} `}>สรุปข้อมูล</a>
+                <a target='_blank' href="https://deepcare.aiat.or.th/streamlit/" className={`mx-2 ${current == 'brief' ? 'font-bold text-black' : 'text-gray-100'} `}>สรุปข้อมูล</a>
               </span>
               <span className="flex ml-4">
                 <PeopleIcon fill={current == 'aboutus' ? 'black' : 'white'} />
