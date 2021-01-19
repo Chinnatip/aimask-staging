@@ -44,7 +44,7 @@ const participant = [
     {role: '',name: 'Tatchapong tanomsuk ', domain: ''},
     {role: '',name: 'Varadtha Junburom', domain: ''},
     {role: '',name: 'Wanna Dev', domain: 'https://wannadev.medium.com/'},
-    {role: 'DEVELOPER',name: 'Chinnatip Taemkaeo', domain: ''},
+    {role: 'DEVELOPER',name: 'Chinnatip Taemkaeo', domain: 'https://www.linkedin.com/in/chinnatip-taemkaeo/'},
     {role: '',name: 'Ponnipa Jantawong', domain: ''},
     {role: '',name: 'Pakin Siwatammarat', domain: 'https://ppirch.github.io/'},
     {role: '',name: 'Sirawich Smitsomboon', domain: 'http://sirawich.photoservicethai.com/index.html?spacial=superai'},

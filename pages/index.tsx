@@ -94,7 +94,7 @@ const Content = () => {
             </div>
 
             {/* Statistic */}
-            <div className="lg:mt-12 -mt-12 w-full flex flex-col lg:flex-row w-full">
+            <div className="lg:mt-12 -mt-32 w-full flex flex-col lg:flex-row w-full">
               {/* 2x2 Grid */}
               <div className="flex-grow lg:flex-grow-0 p-2 w-full">
                 <div className="grid lg:grid-cols-2 lg:grid-rows-2 grid-rows-2 gap-4">
@@ -118,10 +118,13 @@ const Content = () => {
               </div>
             </div>
 
-            <div className="mt-12 w-full">
+            <div className="lg:mt-12 w-full -mb-64">
               {/* 2x2 Grid */}
               <div className="flex-grow lg:flex-grow-0 p-2 w-full">
-                <div className="grid grid-cols-3 gap-4">
+                <div className="lg:hidden block text-2xl my-3">
+                  ข้อมูลจากกล้องสำรวจ
+                </div>
+                <div className="grid lg:grid-cols-3 grid-cols-2 gap-4">
                   <div className="border-2 flex-col rounded-xl h-24 flex text-center items-center justify-center">
                     <span className="text-sm">ใส่หน้ากากถูกต้อง</span>
                     <h1 className="-mt-2 text-green-700 font-bold text-3xl">{maskCounter.green} จุด</h1>
@@ -142,7 +145,7 @@ const Content = () => {
                 <img src="zoom_map.png" className="w-full" alt=""/>
               </button>
             </div>
-            <div className="flex p-2 max-w-full " style={{ width: "48rem", height: "24rem" }}>
+            <div className="hidden lg:flex flex p-2 max-w-full " style={{ width: "48rem", height: "24rem" }}>
               <Chart timeline={timeline} />
             </div>
           </div>
