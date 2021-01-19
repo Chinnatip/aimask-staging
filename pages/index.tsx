@@ -89,7 +89,7 @@ const Content = () => {
                   a.style.borderWidth = ""
                 }}
               >
-                <Link href="/index_old">
+                <Link href="/map">
                   <a>{Map}</a>
                 </Link>
               </div>
