@@ -100,19 +100,20 @@ const Content = () => {
                 <div className="grid lg:grid-cols-2 lg:grid-rows-2 grid-rows-2 gap-4">
                   <div className="border-2 flex-col rounded-xl py-6 flex text-center items-center justify-center">
                     <span className="text-sm">จำนวนเขตทั้งหมด</span>
-                    <h1 className="font-bold text-4xl">{maskTodaySummary.no_correct_wear_mask + maskTodaySummary.no_incorrect_wear_mask +maskTodaySummary.no_not_wear_mask}</h1>
+                    {/* <h1 className="font-bold text-4xl">{maskTodaySummary.no_correct_wear_mask + maskTodaySummary.no_incorrect_wear_mask +maskTodaySummary.no_not_wear_mask}</h1> */}
+                    <h1 className="font-bold text-4xl">50</h1>
                   </div>
                   <div className="border-2 flex-col rounded-xl py-6 flex text-center items-center justify-center">
                     <span className="text-sm">ใส่หน้ากาก 95-100%</span>
-                    <h1 className="font-bold text-green-700 text-4xl">{maskTodaySummary.no_not_wear_mask}</h1>
+                    <h1 className="font-bold text-green-700 text-4xl">{maskCounter.green}</h1>
                   </div>
                   <div className="border-2 flex-col rounded-xl py-6 flex text-center items-center justify-center">
                     <span className="text-sm">ใส่หน้ากาก 90-95%</span>
-                    <h1 className="font-bold text-yellow-500 text-4xl">{maskTodaySummary.no_incorrect_wear_mask}</h1>
+                    <h1 className="font-bold text-yellow-500 text-4xl">{maskCounter.yellow}</h1>
                   </div>
                   <div className="border-2 flex-col rounded-xl py-6 flex text-center items-center justify-center">
                     <span className="text-sm">ใส่หน้ากากน้อยกว่า 90%</span>
-                    <h1 className="font-bold text-red-600 text-4xl">{maskTodaySummary.no_not_wear_mask}</h1>
+                    <h1 className="font-bold text-red-600 text-4xl">{maskCounter.red}</h1>
                   </div>
                 </div>
               </div>
@@ -127,15 +128,15 @@ const Content = () => {
                 <div className="grid lg:grid-cols-3 grid-cols-2 gap-4">
                   <div className="border-2 flex-col rounded-xl h-24 flex text-center items-center justify-center">
                     <span className="text-sm">ใส่หน้ากากถูกต้อง</span>
-                    <h1 className="-mt-2 text-green-700 font-bold text-3xl">{maskCounter.green} จุด</h1>
+                    <h1 className="-mt-2 text-green-700 font-bold text-3xl">{maskTodaySummary.no_correct_wear_mask} ราย</h1>
                   </div>
                   <div className="border-2 flex-col rounded-xl h-24 flex text-center items-center justify-center">
                     <span className="text-sm">ใส่หน้ากากไม่ถูกต้อง</span>
-                    <h1 className="-mt-2 text-yellow-500 font-bold text-3xl">{maskCounter.yellow} จุด</h1>
+                    <h1 className="-mt-2 text-yellow-500 font-bold text-3xl">{maskTodaySummary.no_incorrect_wear_mask} ราย</h1>
                   </div>
                   <div className="border-2 flex-col rounded-xl h-24 flex text-center items-center justify-center">
                     <span className="text-sm">ไม่ใส่หน้ากาก</span>
-                    <h1 className="-mt-2 text-red-600 font-bold text-3xl">{maskCounter.red} จุด</h1>
+                    <h1 className="-mt-2 text-red-600 font-bold text-3xl">{maskTodaySummary.no_not_wear_mask} ราย</h1>
                   </div>
                 </div>
               </div>

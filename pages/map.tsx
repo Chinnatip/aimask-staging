@@ -86,7 +86,6 @@ const Content = ({setMark, mapStyle}: {setMark: any , mapStyle: any}) => {
               )}
             )}
           </GoogleMapReact>
-
           <button onClick={() => toggleDrawer()} style={{ bottom: '5rem'}} className="absolute flex items-center justify-center bottom-0 left-0 h-12 w-32 bg-white shadow-lg text-gray-800 bg-orange-500 rounded-full -mt-32 ml-2">
             เปิด Drawer
           </button>

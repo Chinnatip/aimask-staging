@@ -9,24 +9,29 @@ export const find_mask = (percentage: number) => {
 
 // Export camera-details method
 export const camDetails = (observer: Observation[]): CameraDetail[] => {
-  return observer.map(observe => {
+  let response: CameraDetail[] = []
+  observer.map(observe => {
     const {
       camera_latitude, camera_longtitude, camera_name, collection,
       province_name, district_name, subdistrict_name
     } = observe
     const lastday = Math.max( ...Object.keys(collection).map(key => parseInt(key)))
     const selectCollection = collection[lastday]
+    console.log(selectCollection)
     const { gpu_process_time_gmt, result } = selectCollection
-    return {
-      name: camera_name,
-      latitude: parseFloat( camera_latitude),
-      longitude: parseFloat( camera_longtitude),
-      collection_date: lastday.toString(),
-      detect_timestamp: gpu_process_time_gmt.toString(),
-      province_name, district_name, subdistrict_name ,
-      result
+    if(result.total >= 50) {
+      response.push({
+        name: camera_name,
+        latitude: parseFloat( camera_latitude),
+        longitude: parseFloat( camera_longtitude),
+        collection_date: lastday.toString(),
+        detect_timestamp: gpu_process_time_gmt.toString(),
+        province_name, district_name, subdistrict_name ,
+        result
+      })
     }
   })
+  return response
 }
 
 
