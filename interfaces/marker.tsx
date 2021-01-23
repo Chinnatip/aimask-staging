@@ -30,6 +30,7 @@ export interface Observation {
   camera_latitude: string
   camera_longtitude: string
   camera_name: string
+  selected?: boolean
   collection: Collection
 }
 

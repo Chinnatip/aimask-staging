@@ -17,9 +17,10 @@ export const camDetails = (observer: Observation[]): CameraDetail[] => {
     } = observe
     const lastday = Math.max( ...Object.keys(collection).map(key => parseInt(key)))
     const selectCollection = collection[lastday]
-    console.log(selectCollection)
+    // console.log(selectCollection)
     const { gpu_process_time_gmt, result } = selectCollection
-    if(result.total >= 50) {
+    if(observe.selected != undefined){
+
       response.push({
         name: camera_name,
         latitude: parseFloat( camera_latitude),
@@ -29,7 +30,9 @@ export const camDetails = (observer: Observation[]): CameraDetail[] => {
         province_name, district_name, subdistrict_name ,
         result
       })
+
     }
+
   })
   return response
 }
@@ -37,7 +40,7 @@ export const camDetails = (observer: Observation[]): CameraDetail[] => {
 
 export const findCenter = () => {
   // const count = markers.length
-  const coordLAT = 13.7037576 //markers.reduce((sum, marker) => { return sum + marker.latitude}, 0)/count
+  const coordLAT = 13.7037576 + 0.11 //markers.reduce((sum, marker) => { return sum + marker.latitude}, 0)/count
   const coordLNG = 100.50617431875 //markers.reduce((sum, marker) => { return sum + marker.longitude}, 0)/count
   return [coordLAT, coordLNG]
 }

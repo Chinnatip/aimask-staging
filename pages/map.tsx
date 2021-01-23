@@ -67,7 +67,7 @@ const Content = ({setMark, mapStyle}: {setMark: any , mapStyle: any}) => {
             options={{ styles: mapStyle , minZoom: 5 }}
             defaultCenter={{ lat: center[0], lng: center[1] }}
             center={{ lat: center[0], lng: center[1] }}
-            defaultZoom={12}
+            defaultZoom={11}
             onGoogleApiLoaded={handleGoogleMapApi}
           >
             {cameraPoints.map((data, index) => {
