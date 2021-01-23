@@ -19,8 +19,8 @@ const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
         style={{ background: "#1b1a19e6", transitionDuration: "0.5s" }}>
         <nav className="text-left h-full">
           <div className='text-white px-4 py-4 border-orange-400 border-b relative' >
-            <div className="text-xs"> ข้อมูลวันที่ 12-17 มกราคม 2564 </div>
-            <div className="text-xl mt-1"> ที่อยู่ของคุณ ณ ปัจุบัน </div>
+            <div className="text-xs"> ข้อมูลวันที่ 21 มกราคม 2564 </div>
+            <div className="text-xl mt-1"> ที่อยู่ของคุณ ณ ปัจจุบัน </div>
             <button onClick={() => toggleDrawer()} className="lg:hidden text-white absolute top-0 right-0 mr-3 mt-3 text-xl">X</button>
           </div>
           {markers.sort((a,b) => a.result.percentage - b.result.percentage).map((point, idx) => {

@@ -42,7 +42,7 @@ const Content = () => {
       return (
         <>
           <div className="text-3xl mb-4 mt-16">
-              รายงายสถานการณ์และสถิติในช่วงโควิด-19
+              รายงานสถานการณ์และสถิติในช่วงโควิด-19
             </div>
           <div className="grid lg:grid-cols-5 grid-cols-2 gap-5 pb-6">
             <div className="shadow-lg bg-pink-300 col-span-2 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
