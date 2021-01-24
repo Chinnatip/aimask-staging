@@ -27,7 +27,7 @@ const handleGoogleMapApi = (google: any) => {
   flightPath.setMap(google.map)
 }
 
-const Content = ({setMark, mapStyle}: {setMark: any , mapStyle: any}) => {
+const Content = ({setMark, mapStyle, setMapStyle}: {setMark: any , mapStyle: any, setMapStyle: any}) => {
   const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
   const [popNow, setPop] = useState("แนวถนนพระราม4-2")
   const [center, setCenter] = useState([13, 100])
@@ -55,7 +55,20 @@ const Content = ({setMark, mapStyle}: {setMark: any , mapStyle: any}) => {
       const cameraPoints : CameraDetail[] = markers
       const maskType: MaskType = maskCounter
       return (
-        <>
+        <div className="flex-grow relative">
+          <button onClick={() => mapStyle == localeStyle ? setMapStyle(darkTheme) : setMapStyle(localeStyle)}
+            className="flex px-2 py-1 absolute top-0 right-0 z-10 mt-24 mr-6 bg-white rounded-full shadow-xl"
+            style={{width: '4.4rem'}}>
+            { mapStyle == darkTheme && <div className="h-6 w-6 flex items-center justify-center text-gray-400 mr-auto">
+              <Icon fill={faSun} noMargin></Icon>
+            </div>}
+            <div className={`${mapStyle == darkTheme && 'ml-auto'} text-white h-6 flex items-center justify-center w-6 bg-blue-500 rounded-full`}>
+              <Icon fill={mapStyle == localeStyle ? faSun : faEye} noMargin></Icon>
+            </div>
+            { mapStyle == localeStyle && <div className="h-6 w-6 flex items-center justify-center text-gray-400 ml-auto">
+              <Icon fill={faEye} noMargin></Icon>
+            </div>}
+          </button>
           <div className="grid grid-cols-3 px-5 gap-2 lg:hidden mt-20 h-16 z-10 bg-white w-full">
             <GridMask color="green-600" amount={maskType.green} criteria="95%-100%" image="m_green"  />
             <GridMask color="yellow-600" amount={maskType.yellow} criteria="90%-95%" image="m_yellow"  />
@@ -90,13 +103,33 @@ const Content = ({setMark, mapStyle}: {setMark: any , mapStyle: any}) => {
             เปิด Drawer
           </button>
 
-        </>
+        </div>
       )
     case 'failure': return <h1>Reload</h1>
     default: return null
   }
 }
 
+const Notifier = () => {
+
+  const lists = [
+    {col: 'orange-800',text: ['ผู้สัญจรในที่สาธารณะ']},
+    {col: 'blue-600',text: ['ความหนาแน่น ','13.84 คนต่อ 100 ตร.ม.']},
+    {col: 'pink-600',text: ['อัตราการสวมหน้ากากอนามัย 95.55%']},
+    {col: 'teal-700',text: ['ความห่างโดยเฉลี่ย ','-']},
+    {col: 'purple-700',text: ['จำนวนคนที่มีอุณหภูมิสูง ','-']},
+    {col: 'gray-600',text: ['บริเวณที่คนหนาแน่นวันนี้','ป้ายรถอ่อนนุช เยาวราช']},
+  ]
+
+  return <div className="hidden lg:flex h-full bg-gray-800 flex-col pt-20 text-white text-xl" style={{width: '15rem'}}>
+    {  lists.map(({col, text}) => {
+      return <div className={`flex-grow bg-${col} flex flex-col justify-center px-4`}>
+        {text[0]}
+        {text[1] && <div>{text[1]}</div>}
+      </div>
+    })}
+  </div>
+}
 
 const MapPage = () => {
   const [maskType, setMaskType] = useState<MaskType>({red: 0, green: 0, yellow: 0})
@@ -106,20 +139,10 @@ const MapPage = () => {
       <Layout current="map" maskType={maskType} title="DeepCare - Covid Map">
         <>
           <div className="flex flex-col w-full h-full relative">
-            <button onClick={() => mapStyle == localeStyle ? setMapStyle(darkTheme) : setMapStyle(localeStyle)}
-              className="flex px-2 py-1 absolute top-0 right-0 z-10 mt-24 mr-6 bg-white rounded-full shadow-xl"
-              style={{width: '4.4rem'}}>
-              { mapStyle == darkTheme && <div className="h-6 w-6 flex items-center justify-center text-gray-400 mr-auto">
-                <Icon fill={faSun} noMargin></Icon>
-              </div>}
-              <div className={`${mapStyle == darkTheme && 'ml-auto'} text-white h-6 flex items-center justify-center w-6 bg-blue-500 rounded-full`}>
-                <Icon fill={mapStyle == localeStyle ? faSun : faEye} noMargin></Icon>
-              </div>
-              { mapStyle == localeStyle && <div className="h-6 w-6 flex items-center justify-center text-gray-400 ml-auto">
-                <Icon fill={faEye} noMargin></Icon>
-              </div>}
-            </button>
-            <Content setMark={setMaskType} mapStyle={mapStyle} />
+            <div className="w-full h-full flex">
+              <Content setMark={setMaskType} mapStyle={mapStyle} setMapStyle={setMapStyle}/>
+              <Notifier />
+            </div>
             <div className="block banner-bottom-height z-10 bg-white w-full"></div>
           </div>
         </>

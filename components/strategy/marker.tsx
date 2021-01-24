@@ -19,19 +19,17 @@ export const camDetails = (observer: Observation[]): CameraDetail[] => {
     const selectCollection = collection[lastday]
     // console.log(selectCollection)
     const { gpu_process_time_gmt, result } = selectCollection
-    if(observe.selected != undefined){
-
-      response.push({
-        name: camera_name,
-        latitude: parseFloat( camera_latitude),
-        longitude: parseFloat( camera_longtitude),
-        collection_date: lastday.toString(),
-        detect_timestamp: gpu_process_time_gmt.toString(),
-        province_name, district_name, subdistrict_name ,
-        result
-      })
-
-    }
+    // if(observe.selected != undefined){
+    response.push({
+      name: camera_name,
+      latitude: parseFloat( camera_latitude),
+      longitude: parseFloat( camera_longtitude),
+      collection_date: lastday.toString(),
+      detect_timestamp: gpu_process_time_gmt.toString(),
+      province_name, district_name, subdistrict_name ,
+      result
+    })
+    // }
 
   })
   return response
@@ -41,7 +39,7 @@ export const camDetails = (observer: Observation[]): CameraDetail[] => {
 export const findCenter = () => {
   // const count = markers.length
   const coordLAT = 13.7037576 + 0.11 //markers.reduce((sum, marker) => { return sum + marker.latitude}, 0)/count
-  const coordLNG = 100.50617431875 //markers.reduce((sum, marker) => { return sum + marker.longitude}, 0)/count
+  const coordLNG = 100.50617431875 - 0.07 //markers.reduce((sum, marker) => { return sum + marker.longitude}, 0)/count
   return [coordLAT, coordLNG]
 }
 
