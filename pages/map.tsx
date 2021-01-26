@@ -81,8 +81,8 @@ export const SelectBox = (props: SelectProps) => {
   }
   return <button className="appearance-none text-left focus:outline-none block w-full relative text-md" onClick={() => {setShow(!show)}}>
   <div className="flex items-center">
-    <label className="block text-gray-800 mb-1 text-sm w-10"> {title} </label>
-    <span className="block bg-white mb-2 bg-white rounded-lg w-32 py-2 pl-3 leading-6 text-left">
+    <label className="block bg-gray-400 h-10 rounded-bl-full flex items-center justify-center rounded-tl-full text-gray-800 -mt-2 text-sm w-10"> {title} </label>
+    <span className="block bg-white mb-2 bg-white rounded-br-full rounded-tr-full w-32 py-2 pl-3 leading-6 text-left">
       <span className={`${value != '-' ? 'text-black' : 'text-gray-500'}`}>{value}</span>
       <span className="mr-4 text-gray-600 pr-1">
       </span>
