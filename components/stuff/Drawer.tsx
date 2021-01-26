@@ -4,6 +4,7 @@ import { faCaretRight } from '@fortawesome/free-solid-svg-icons'
 import Icon from '../stuff/Icon'
 
 type Props = {
+  date: string
   markers: CameraDetail[]
   action: any
   pop?: any
@@ -11,7 +12,7 @@ type Props = {
   actionCenter?: any
 }
 
-const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
+const Drawer = ({date, markers, action, actionStatus, actionCenter ,pop}: Props) => {
   return (
     <>
       <div id="Drawer"
@@ -19,7 +20,7 @@ const Drawer = ({markers, action, actionStatus, actionCenter ,pop}: Props) => {
         style={{ background: "#1b1a19e6", transitionDuration: "0.5s" }}>
         <nav className="text-left h-full">
           <div className='text-white px-4 py-4 border-orange-400 border-b relative' >
-            <div className="text-xs"> ข้อมูลวันที่ 21 มกราคม 2564 </div>
+            <div className="text-xs"> ข้อมูลวันที่ {date} </div>
             <div className="text-xl mt-1"> ที่อยู่ของคุณ ณ ปัจจุบัน </div>
             <button onClick={() => toggleDrawer()} className="lg:hidden text-white absolute top-0 right-0 mr-3 mt-3 text-xl">X</button>
           </div>
