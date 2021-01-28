@@ -42,7 +42,7 @@ export default function Navbar({current, maskType}: Props) {
               <span className="flex ml-4">
                 <span className={` text-${current == 'report' ? 'black' : 'white'} `}  ><Icon fill={faChartLine} noMargin></Icon></span>
                 {/* <TableIcon fill={current == 'report' ? 'black' : 'white'} /> */}
-                <a target='_blank' href="http://deepcare.aiat.or.th:8100/docs" className={`mx-2 ${current == 'api' ? 'font-bold text-black' : 'text-gray-100'} `}>API</a>
+                <a target='_blank' href="http://deepcare.aiat.or.th:8100/redoc" className={`mx-2 ${current == 'api' ? 'font-bold text-black' : 'text-gray-100'} `}>API</a>
               </span>
               <span className="flex ml-4">
                 <PeopleIcon fill={current == 'aboutus' ? 'black' : 'white'} />
