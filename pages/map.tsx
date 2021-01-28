@@ -215,9 +215,9 @@ const Notifier = () => {
     {col: 'orange-800',text: ['ผู้สัญจรในที่สาธารณะ']},
     {col: 'blue-600',text: ['ความหนาแน่น ','13.84 คนต่อ 100 ตร.ม.']},
     {col: 'pink-600',text: ['อัตราการสวมหน้ากากอนามัย 95.55%']},
-    {col: 'teal-700',text: ['ความห่างโดยเฉลี่ย ','-']},
-    {col: 'purple-700',text: ['จำนวนคนที่มีอุณหภูมิสูง ','-']},
-    {col: 'gray-600',text: ['บริเวณที่คนหนาแน่นวันนี้','ป้ายรถอ่อนนุช เยาวราช']},
+    // {col: 'teal-700',text: ['ความห่างโดยเฉลี่ย ','-']},
+    // {col: 'purple-700',text: ['จำนวนคนที่มีอุณหภูมิสูง ','-']},
+    // {col: 'gray-600',text: ['บริเวณที่คนหนาแน่นวันนี้','ป้ายรถอ่อนนุช เยาวราช']},
   ]
   return <div className="hidden lg:flex h-full bg-gray-800 flex-col pt-20 text-white text-xl" style={{width: '15rem'}}>
     {  lists.map(({col, text},index) => {
@@ -226,6 +226,10 @@ const Notifier = () => {
         {text[1] && <div>{text[1]}</div>}
       </div>
     })}
+    <div className={`flex-grow bg-gray-600 flex flex-col justify-center px-4`}>
+        บริเวณที่คนหนาแน่นวันนี้
+        <div className="text-gray-800">ป้ายรถอ่อนนุช, เยาวราช</div>
+      </div>
   </div>
 }
 
