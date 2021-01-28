@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 import { MaskType } from '../../interfaces/marker'
-import { MarkerIcon, TableIcon, PeopleIcon, HomeIcon} from '../stuff/Icon'
+import Icon, { MarkerIcon, TableIcon, PeopleIcon, HomeIcon} from '../stuff/Icon'
 import {GridMask} from './GridMask'
+import { faChartLine } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   current: string,
@@ -37,6 +38,11 @@ export default function Navbar({current, maskType}: Props) {
               <span className="flex ml-4">
                 <TableIcon fill={current == 'report' ? 'black' : 'white'} />
                 <a target='_blank' href="https://deepcare.aiat.or.th/streamlit/" className={`mx-2 ${current == 'brief' ? 'font-bold text-black' : 'text-gray-100'} `}>สรุปข้อมูล</a>
+              </span>
+              <span className="flex ml-4">
+                <span className={` text-${current == 'report' ? 'black' : 'white'} `}  ><Icon fill={faChartLine} noMargin></Icon></span>
+                {/* <TableIcon fill={current == 'report' ? 'black' : 'white'} /> */}
+                <a target='_blank' href="http://deepcare.aiat.or.th:8100/docs" className={`mx-2 ${current == 'api' ? 'font-bold text-black' : 'text-gray-100'} `}>API</a>
               </span>
               <span className="flex ml-4">
                 <PeopleIcon fill={current == 'aboutus' ? 'black' : 'white'} />

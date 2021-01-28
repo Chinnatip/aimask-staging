@@ -31,6 +31,7 @@ const participant = [
     {role: 'AI DEVELOPER',name: 'Dr. Kobkrit Viriyayudhakorn',domain: 'https://kobkrit.com/'},
     {role: 'ADMIN',name: 'Suchathit Boonnag', domain: 'https://www.linkedin.com/in/sboonnag/'},
     {role: '',name: 'Natthakorn Kasamsumran', domain: 'http://www.nachod.me'},
+    {role: 'MODEL',name: 'Piyalitt Ittichaiwong', domain: ''},
     {role: 'DESIGN',name: 'Ananya Kuasakunrungroj', domain: ''},
     {role: '',name: 'Atichat Auppakansang', domain: 'https://atichat645.wixsite.com/port'},
     {role: '',name: 'Boonthicha Saejia', domain: ''},
