@@ -9,18 +9,6 @@ import { useRouter } from 'next/router'
 
 // let stateParser
 
-const corpLink = [
-  {domain: 'https://www.thaigov.go.th/', logo: 'prime_minister_office.png'},
-  {domain: 'https://www.thaigov.go.th/', logo: 'CVP-23.png'},
-  {domain: 'https://www.moph.go.th/', logo: 'MOPH.png'},
-  {domain: 'https://www.nrct.go.th/', logo: 'worchor5G.png' , span: 2},
-  {domain: 'https://www.mhesi.go.th/', logo: 'orwo.png', custom: '-mr-5'},
-  {domain: 'https://www.tu.ac.th/', logo: 'tu.png'},
-  {domain: 'http://www.bangkok.go.th/', logo: 'bma_logo.png'},
-  {domain: 'https://www.ntplc.co.th/', logo: 'cat_logo.jpg', height: 6},
-  {domain: 'https://www.aiat.or.th/', logo: 'aiat_logo.png', height: 6},
-]
-
 // const Content = () => {
 //   const Router = useRouter()
 //   const DataDate = "30 มกราคม 2564"
