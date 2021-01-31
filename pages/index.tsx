@@ -1,13 +1,13 @@
 import Layout from "@/layout/Layout"
 import { useState } from "react"
-import Chart from "./charts"
+// import Chart from "./charts"
 import { MaskType } from "../interfaces/marker"
-import { fetchDashboard } from "../components/strategy/fetchDDC"
-import { useMachine } from "@xstate/react"
-import { useContent } from "../store/machine"
+// import { fetchDashboard } from "../components/strategy/fetchDDC"
+// import { useMachine } from "@xstate/react"
+// import { useContent } from "../store/machine"
 import { useRouter } from 'next/router'
 
-let stateParser
+// let stateParser
 
 const corpLink = [
   {domain: 'https://www.thaigov.go.th/', logo: 'prime_minister_office.png'},
@@ -21,49 +21,88 @@ const corpLink = [
   {domain: 'https://www.aiat.or.th/', logo: 'aiat_logo.png', height: 6},
 ]
 
-const Content = () => {
-  const Router = useRouter()
+// const Content = () => {
+//   const Router = useRouter()
+//   const DataDate = "30 มกราคม 2564"
+//   const Map = <img src="Map/Map.png" />
+//   const [current] = useMachine(useContent, {
+//     services: {
+//       fetchData: () => fetchDashboard().then((res) => res),
+//     },
+//   })
+//   switch (current.value) {
+//     case "idle":
+//       return <h1>Blank</h1>
+//     case "loading":
+//       return <h1>Loading</h1>
+//     case "success":
+//       stateParser = current.context.data
+//       const { today, timeline } = stateParser
+//       // setMarkType({ ...maskCounter })
+//       return (
+
+//       )
+//     case "failure":
+//       return <h1>Reload</h1>
+//     default:
+//       return null
+//   }
+// }
+
+import Link from "next/link"
+const IndexPage = () => {
   const DataDate = "30 มกราคม 2564"
   const Map = <img src="Map/Map.png" />
-  const [current] = useMachine(useContent, {
-    services: {
-      fetchData: () => fetchDashboard().then((res) => res),
-    },
+  // const { today, timeline } = stateParser
+  const Router = useRouter()
+  const [maskType] = useState<MaskType>({
+    red: 0,
+    green: 0,
+    yellow: 0,
   })
-  switch (current.value) {
-    case "idle":
-      return <h1>Blank</h1>
-    case "loading":
-      return <h1>Loading</h1>
-    case "success":
-      stateParser = current.context.data
-      const { today, timeline } = stateParser
-      // setMarkType({ ...maskCounter })
-      return (
-        <>
+  return (
+    // <p>Hi</p>
+    <Layout current="home" maskType={maskType} title="DeepCare - Covid Map">
+      <>
+        <div className="mt-32 w-full h-full justify-items-center items-center flex flex-col">
+          <div className="max-w-full md:max-w-screen-lg flex">
+            <div className="mx-8 lg:w-full lg:mx-0">
+              <div className="border border-gray-400 w-full bg-gray-200 shadow-xl rounded-xl p-8 xs:px-20">
+                <h1 className="text-3xl"> <span className="text-orange-600">DeepCare</span> by AI คืออะไร...</h1>
+                <div className="flex mt-4 flex-col lg:flex-row">
+                  <div className="hidden lg:block px-4 text-lg">DeepCare</div>
+                  <div>
+                    คือ ระบบปัญญาประดิษฐ์ที่ถูกพัฒนาขึ้นมาเพื่อสนับสนุนการดูแลสุขภาพประชาชนร่วมกัน
+                    ในช่วงโควิด-19 DeepCare
+                    จะคอยรายงานสถิติการสวมใส่หน้ากากอนามัยของคนไทยโดย
+                    ตรวจจับจากระบบปัญญาประดิษฐ์
+                  </div>
+                </div>
+              </div>
+              <>
           <div className="text-3xl mb-4 mt-16">
               รายงานสถานการณ์และสถิติในช่วงโควิด-19
             </div>
           <div className="grid lg:grid-cols-5 grid-cols-2 gap-5 pb-6">
             <div className="shadow-lg bg-pink-300 col-span-2 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
               <span className="text-md font-bold">ติดเชื้อสะสม</span>
-              <h1 className="text-gray-800 text-3xl">{today.Confirmed}</h1>
-              <p className="text-xs text-gray-600">เพิ่มขึ้น {today.NewRecovered}</p>
+              <h1 className="text-gray-800 text-3xl">17,953</h1>
+              <p className="text-xs text-gray-600">เพิ่มขึ้น 109</p>
             </div>
             <div className="shadow-lg bg-green-300 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
               <span className="text-md font-bold">หายเเล้ว</span>
-              <h1 className="text-gray-800 text-3xl">{today.Recovered}</h1>
-              <p className="text-xs text-gray-600">เพิ่มขึ้น {today.NewRecovered}</p>
+              <h1 className="text-gray-800 text-3xl">11,505</h1>
+              <p className="text-xs text-gray-600">เพิ่มขึ้น 109</p>
             </div>
             <div className="shadow-lg bg-yellow-300 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
               <span className="text-md font-bold">รักษาอยู่</span>
-              <h1 className="text-gray-800 text-3xl">{today.Hospitalized}</h1>
-              <p className="text-xs text-gray-600">เพิ่มขึ้น {today.NewHospitalized}</p>
+              <h1 className="text-gray-800 text-3xl">6,371</h1>
+              <p className="text-xs text-gray-600">เพิ่มขึ้น 820</p>
             </div>
             <div className="shadow-lg bg-gray-300 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
               <span className="text-md font-bold">เสียชีวิต</span>
-              <h1 className="text-gray-800 text-3xl">{today.Deaths}</h1>
-              <p className="text-xs text-gray-600">เพิ่มขึ้น {today.NewDeaths}</p>
+              <h1 className="text-gray-800 text-3xl">77</h1>
+              <p className="text-xs text-gray-600">เพิ่มขึ้น 1</p>
             </div>
           </div>
           <p className="text-sm text-right text-gray-500">ข้อมูลอัปเดตเมื่อ: {DataDate} จากกรมควบคุมโรคhttps://covid19.th-stat.com/</p>
@@ -150,46 +189,11 @@ const Content = () => {
                 <img src="zoom_map.png" className="w-full" alt=""/>
               </button>
             </div>
-            <div className="hidden lg:flex flex p-2 max-w-full " style={{ width: "48rem", height: "24rem" }}>
+            {/* <div className="hidden lg:flex flex p-2 max-w-full " style={{ width: "48rem", height: "24rem" }}>
               <Chart timeline={timeline} />
-            </div>
+            </div> */}
           </div>
         </>
-      )
-    case "failure":
-      return <h1>Reload</h1>
-    default:
-      return null
-  }
-}
-
-import Link from "next/link"
-const IndexPage = () => {
-  const [maskType] = useState<MaskType>({
-    red: 0,
-    green: 0,
-    yellow: 0,
-  })
-  return (
-    // <p>Hi</p>
-    <Layout current="home" maskType={maskType} title="DeepCare - Covid Map">
-      <>
-        <div className="mt-32 w-full h-full justify-items-center items-center flex flex-col">
-          <div className="max-w-full md:max-w-screen-lg flex">
-            <div className="mx-8 lg:w-full lg:mx-0">
-              <div className="border border-gray-400 w-full bg-gray-200 shadow-xl rounded-xl p-8 xs:px-20">
-                <h1 className="text-3xl"> <span className="text-orange-600">DeepCare</span> by AI คืออะไร...</h1>
-                <div className="flex mt-4 flex-col lg:flex-row">
-                  <div className="hidden lg:block px-4 text-lg">DeepCare</div>
-                  <div>
-                    คือ ระบบปัญญาประดิษฐ์ที่ถูกพัฒนาขึ้นมาเพื่อสนับสนุนการดูแลสุขภาพประชาชนร่วมกัน
-                    ในช่วงโควิด-19 DeepCare
-                    จะคอยรายงานสถิติการสวมใส่หน้ากากอนามัยของคนไทยโดย
-                    ตรวจจับจากระบบปัญญาประดิษฐ์
-                  </div>
-                </div>
-              </div>
-              <Content />
 
               <footer className="lg:flex hidden lg:flex h-16 bg-white w-full">
                 <div className="flex-grow"></div>
