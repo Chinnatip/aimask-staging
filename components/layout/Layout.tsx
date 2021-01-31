@@ -32,12 +32,12 @@ const Layout = ({
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <header>
-        <Navbar maskType={maskType} current={current} />
+        {/* <Navbar maskType={maskType} current={current} /> */}
       </header>
       <div className={`fixed top-0 w-screen h-screen overflow-auto`}>
         {children}
       </div>
-      {!nofooter && <Footer current={current} />}
+      {/* {!nofooter && <Footer current={current} />} */}
     </>
   )
 }

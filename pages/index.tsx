@@ -23,7 +23,7 @@ const corpLink = [
 
 const Content = () => {
   const Router = useRouter()
-  const DataDate = "17 มกราคม 2564"
+  const DataDate = "30 มกราคม 2564"
   const Map = <img src="Map/Map.png" />
   const [current] = useMachine(useContent, {
     services: {
@@ -46,7 +46,7 @@ const Content = () => {
             </div>
           <div className="grid lg:grid-cols-5 grid-cols-2 gap-5 pb-6">
             <div className="shadow-lg bg-pink-300 col-span-2 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
-              <span className="text-md font-bold">ติดเชื้อสะสม</span>
+              <span className="text-md font-bold">ผุ้ป่วยยืนยันสะสม</span>
               <h1 className="text-gray-800 text-3xl">{today.Confirmed}</h1>
               <p className="text-xs text-gray-600">เพิ่มขึ้น {today.NewRecovered}</p>
             </div>

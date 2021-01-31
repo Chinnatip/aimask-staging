@@ -1,10 +1,10 @@
 
 export interface Result {
-  no_correct_wear_mask: number
-  no_incorrect_wear_mask: number
-  no_not_wear_mask: number
+  no_correct_wear_mask?: number
+  no_incorrect_wear_mask?: number
+  no_not_wear_mask?: number
   percentage: number
-  total: number
+  total?: number
 }
 
 export interface MaskType {
@@ -54,12 +54,8 @@ export interface MarkerProperty {
 export interface MarkerProps {
   lat: number
   lng: number
-  data: CameraDetail
-  action?: any
-  actionCenter?: any
-  pop?: string
-  status: boolean
-  actionStatus?: any
+  percentage: number
+  // data: CameraDetail
 }
 
 // interface Result {
@@ -92,13 +88,13 @@ export interface MarkerProps {
 // }
 
 export interface CameraDetail {
-  name: string
+  name?: string
   latitude: number
   longitude: number
-  collection_date: string
-  detect_timestamp: string
+  collection_date?: string
+  detect_timestamp?: string
   result: Result
-  province_name: string
-  district_name: string
-  subdistrict_name: string
+  province_name?: string
+  district_name?: string
+  subdistrict_name?: string
 }
