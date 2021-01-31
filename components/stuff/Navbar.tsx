@@ -9,6 +9,18 @@ type Props = {
   maskType: MaskType,
 }
 
+const corpLink = [
+  {domain: 'https://www.thaigov.go.th/', logo: 'prime_minister_office.png'},
+  {domain: 'https://www.thaigov.go.th/', logo: 'CVP-23.png'},
+  {domain: 'https://www.moph.go.th/', logo: 'MOPH.png'},
+  {domain: 'https://www.nrct.go.th/', logo: 'worchor.png' , span: 2},
+  {domain: 'https://www.mhesi.go.th/', logo: 'orwo.png', custom: '-mr-5'},
+  {domain: 'https://www.tu.ac.th/', logo: 'tu.png'},
+  {domain: 'http://www.bangkok.go.th/', logo: 'bma_logo.png'},
+  {domain: 'https://www.ntplc.co.th/', logo: 'cat_logo.png', height: 10},
+  // {domain: 'https://www.aiat.or.th/', logo: 'aiat_logo.png', height: 6},
+]
+
 export default function Navbar({current, maskType}: Props) {
   const Router = useRouter()
   return (
@@ -25,7 +37,10 @@ export default function Navbar({current, maskType}: Props) {
               <GridMask text_col="text-white" color="black" amount={maskType.yellow} criteria="90%-95%" image="m_yellow"  />
               <GridMask text_col="text-white" color="black" amount={maskType.red} criteria="ต่ำกว่า 90%" image="m_red"  />
             </div>}
-            <div className="flex-grow"></div>
+            { current == 'home' ? <div className="flex-grow flex text-right justify-center items-center">
+              {corpLink.map(({logo, height=10}, index) =>
+                <img key={index} className={`h-${height} mr-6`} src={logo} alt=""/> )}
+            </div> : <div className="flex-grow"></div>}
             <div className="hidden lg:flex ">
               <span className="flex">
                 <HomeIcon fill={current == 'home' ? 'black' : 'white'} />
