@@ -23,7 +23,7 @@ const corpLink = [
 
 const Content = () => {
   const Router = useRouter()
-  const DataDate = "17 มกราคม 2564"
+  const DataDate = "30 มกราคม 2564"
   const Map = <img src="Map/Map.png" />
   const [current] = useMachine(useContent, {
     services: {
