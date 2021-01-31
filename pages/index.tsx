@@ -197,14 +197,6 @@ const IndexPage = () => {
             </div> */}
           </div>
         </>
-
-              <footer className="lg:flex hidden lg:flex h-16 bg-white w-full">
-                <div className="flex-grow"></div>
-                <div className="flex items-center">
-                  {corpLink.map(({logo, height=10}, index) =>
-                    <img key={index} className={`h-${height} mr-6`} src={logo} alt=""/> )}
-                </div>
-              </footer>
             </div>
           </div>
         </div>
