@@ -23,6 +23,44 @@ export interface Collection {
   }
 }
 
+export interface Collections {
+  [key: string]: {
+    date: string
+    gpu_process_time_gmt: number
+    gpu_server: string
+    record_end_date_gmt: number
+    record_start_date_gmt: number
+    result: {
+      no_correct_wear_mask: number
+      no_incorrect_wear_mask: number
+      no_not_wear_mask: number
+      percentage: number
+      total: number
+    }
+    time: string
+    timeRange: string
+  }
+}
+
+export interface Cameras {
+  [key: string]: {
+    district: string
+    latitude: number
+    location: string
+    longitude: number
+    note: string
+    path: string
+    province: string
+    sub_district: string
+  }
+}
+
+export interface Observes {
+  [key: string]: {
+    collection: Collections
+  }
+}
+
 export interface Observation {
   province_name: string
   district_name: string
@@ -101,4 +139,7 @@ export interface CameraDetail {
   province_name: string
   district_name: string
   subdistrict_name: string
+  time: string
+  timeRange: string
+  date: string
 }

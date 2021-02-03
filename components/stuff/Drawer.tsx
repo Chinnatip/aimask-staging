@@ -27,6 +27,8 @@ const Drawer = ({date, markers, action, actionStatus, actionCenter ,pop}: Props)
           {markers.sort((a,b) => a.result.percentage - b.result.percentage).map((point, idx) => {
             const {
               name,
+              date,
+              time,
               latitude,
               longitude,
               district_name,
@@ -89,6 +91,7 @@ const Drawer = ({date, markers, action, actionStatus, actionCenter ,pop}: Props)
                     {no_correct_wear_mask_pct > 0 ? "1" : ""}
                   </div>
                 </div>
+                <div className="mt-1 opacity-50 text-white font-thin" style={{ fontSize: '0.6rem' }}>วันที่ {date} {time}</div>
               </button>
             )
           })}

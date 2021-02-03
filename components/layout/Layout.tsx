@@ -13,15 +13,14 @@ type Props = {
   navTransparent?: boolean
   nofooter?: boolean
   current?: string
-  maskType: MaskType
-  // markers?: CameraDetail[]
+  maskType?: MaskType
 }
 
 const Layout = ({
   children,
   title = '',
   current = '/',
-  maskType ,
+  maskType,
   nofooter = false,
 }: Props) => {
   return (

@@ -6,7 +6,7 @@ import { faChartLine } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   current: string,
-  maskType: MaskType,
+  maskType?: MaskType,
 }
 
 const corpLink = [
@@ -21,7 +21,7 @@ const corpLink = [
   // {domain: 'https://www.aiat.or.th/', logo: 'aiat_logo.png', height: 6},
 ]
 
-export default function Navbar({current}: Props) {
+export default function Navbar({current, maskType}: Props) {
   const Router = useRouter()
   return (
     <>
@@ -32,10 +32,10 @@ export default function Navbar({current}: Props) {
               <div className="text-4xl -mt-2">DeepCare</div>
               <span className="text-xs text-white -mt-2 block">ระบบเเสดงจำนวนผู้สวมใส่หน้ากากอนามัย</span>
             </button>
-            { current != 'home' && <div className="w-1/3 pl-12 hidden lg:grid grid-cols-3 px-5 gap-2  ">
-              <GridMask text_col="text-white" color="black" amount={13} criteria="95%-100%" image="m_green"  />
-              <GridMask text_col="text-white" color="black" amount={1} criteria="90%-95%" image="m_yellow"  />
-              <GridMask text_col="text-white" color="black" amount={1} criteria="ต่ำกว่า 90%" image="m_red"  />
+            { current == 'map' && <div className="w-1/3 pl-12 hidden lg:grid grid-cols-3 px-5 gap-2  ">
+              <GridMask text_col="text-white" color="black" amount={maskType ? maskType?.green: 0} criteria="95%-100%" image="m_green"  />
+              <GridMask text_col="text-white" color="black" amount={maskType ? maskType?.yellow: 0} criteria="90%-95%" image="m_yellow"  />
+              <GridMask text_col="text-white" color="black" amount={maskType ? maskType?.red: 0} criteria="ต่ำกว่า 90%" image="m_red"  />
             </div>}
             { current == 'home' ? <div className="flex-grow flex text-right justify-center items-center">
               {corpLink.map(({logo, height=10}, index) =>

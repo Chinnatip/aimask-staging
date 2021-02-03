@@ -1,10 +1,11 @@
+import dayjs from 'dayjs'
 import Layout from '@/layout/Layout'
 import GoogleMapReact from 'google-map-react'
 import Drawer from '../components/stuff/Drawer'
 import firebase from '../components/strategy/firebase'
 import { bangkokMap, localeStyle, darkTheme } from '../components/static/bangkokLine'
 import { useState } from 'react'
-import { CameraDetail, Observation, MaskType } from '../interfaces/marker'
+import { CameraDetail, MaskType, Observes, Cameras } from '../interfaces/marker'
 import { Marker }  from '../components/stuff/Marker'
 import { GridMask } from '../components/stuff/GridMask'
 import { useMachine } from '@xstate/react'
@@ -13,7 +14,7 @@ import { maskCounting, findCenter, camDetails } from '../components/strategy/mar
 import { faSun, faEye } from '@fortawesome/free-solid-svg-icons'
 import Icon from '../components/stuff/Icon'
 import { toggleDrawer } from '../components/strategy/toggle'
-import dayjs from 'dayjs'
+
 
 let stateParser
 
@@ -25,13 +26,15 @@ type KV = {
 
 type SelectProps = {
   text: string
+  mapStyle: any
   title: string
   action?: any
   varient: KV[]
   dataAction: any
   setCamera: any
   setMark: any
-  cameras: Observation[]
+  observer: Observes
+  cameras: Cameras
 }
 
 const handleGoogleMapApi = (google: any) => {
@@ -57,7 +60,7 @@ const handleGoogleMapApi = (google: any) => {
 }
 
 export const SelectBox = (props: SelectProps) => {
-  const { text, varient, title, action, dataAction, setMark, setCamera,cameras } = props
+  const { text, varient, mapStyle, title, action, dataAction, setMark, setCamera, cameras, observer } = props
   const [value, setValue] = useState(text)
   const [show, setShow] = useState(false)
   const cellCal = (num: number) => {
@@ -71,13 +74,11 @@ export const SelectBox = (props: SelectProps) => {
     setValue(val)
     if(action != undefined){action(key)}
     const get_date = varient.find(v => v.key == key )
-    // console.log(get_date?.date_string)
-    const markers: CameraDetail[] = camDetails(cameras, get_date?.date_string)
+    const markers: CameraDetail[] = camDetails(observer, cameras, get_date?.date_string, mapStyle.title)
     const maskCounter: MaskType = maskCounting(markers)
     setMark(maskCounter)
     setCamera(markers)
-
-    dataAction(get_date?.val)
+    dataAction(get_date)
   }
   return <button className="appearance-none text-left focus:outline-none block w-full relative text-md" onClick={() => {setShow(!show)}}>
   <div className="flex items-center">
@@ -108,40 +109,70 @@ const processDate = (day: string) => {
 
 const Content = ({setMark, mapStyle, setMapStyle}: {setMark: any , mapStyle: any, setMapStyle: any}) => {
   const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
-  const [popNow, setPop] = useState("แนวถนนพระราม4-2")
+  const [popNow, setPop] = useState("แยกพหลโยธิน62")
   const [center, setCenter] = useState([13, 100])
   const [pick, setPick] = useState(false)
   const [dateVarient, setDateVarient] = useState<KV[]>([])
   const [cameraPoints, setCameraPoint] = useState<CameraDetail[]>([])
-  const [date, setDate] = useState(dayjs().format('DD MMM YYYY'))
+  const [date, setDate] = useState<KV>({
+    key: 0,
+    date_string: 'ล่าสุด',
+    val: 'ล่าสุด'
+  })
   const [current] = useMachine(useContent, {
     services: {
       fetchData: () =>
-      firebase.firestore().collection('hours').get().then(res => {
-        let date_lists: string[] = []
-        let date_use: KV[] = []
-        const parcel: any = res.docs.map(item => item.data())
-        const cameras: Observation[] = parcel
-        const district_lists: string[] = [ ...new Set(cameras.map(cam => cam.district_name))].sort()
-        //
-        cameras.map(cam => Object.keys(cam.collection).map(day => date_lists.push( day.substr(0,8) )))
-        const uniqueDate = [...new Set(date_lists)].sort((a,b) => { return parseInt(b)-parseInt(a)})
-        uniqueDate.map((date,index) => {
-          date_use.push({
-            key: index + 1,
-            val: processDate(date),
-            date_string: date.substr(0,8)
+      firebase.firestore().collection('cameras').get().then(res => {
+        return firebase.firestore().collection('collections').get().then(col => {
+          let date_lists: string[] = []
+          let district_lists: string[] = []
+          let observer: Observes = {}
+          let cameras:  Cameras = {}
+          let date_use: KV[] = [{
+            key: 0,
+            date_string: 'ล่าสุด',
+            val: 'ล่าสุด'
+          }]
+
+          // date_use.push(date)
+
+          res.docs.map(item => {
+            const data: any = item.data()
+            cameras[item.id] = data
+            district_lists.push(data.district)
           })
+
+          col.docs.map(item => {
+            const data = item.data()
+            if(data.collection != undefined){
+              Object.keys(data.collection).map(day => date_lists.push( day.substr(0,8) ))
+              observer[item.id] = {
+                collection: data.collection
+              }
+            }
+          })
+          //
+          district_lists = [ ...new Set(district_lists)]
+          //
+          const uniqueDate = [...new Set(date_lists)].sort((a,b) => { return parseInt(b)-parseInt(a)})
+          uniqueDate.map((date,index) => {
+            date_use.push({
+              key: index + 1,
+              val: processDate(date),
+              date_string: date.substr(0,8)
+            })
+          })
+          const markers: CameraDetail[] = camDetails(observer, cameras, date.date_string, mapStyle.title)
+          const maskCounter: MaskType = maskCounting(markers)
+          //
+          setCenter(findCenter())
+          setMark(maskCounter)
+          setCameraPoint(markers)
+          setDateVarient(date_use)
+          // console.log(markers)
+          // console.log(maskCounter)
+          return { cameras, observer, markers, district_lists, maskCounter }
         })
-        //
-        const markers: CameraDetail[] = camDetails(cameras)
-        const maskCounter: MaskType = maskCounting(markers)
-        //
-        setCenter(findCenter())
-        setMark(maskCounter)
-        setCameraPoint(markers)
-        setDateVarient(date_use)
-        return { cameras, markers, district_lists, maskCounter }
       })
     },
   })
@@ -149,14 +180,20 @@ const Content = ({setMark, mapStyle, setMapStyle}: {setMark: any , mapStyle: any
     case 'idle': return <h1>Blank</h1>
     case 'loading': return <h1>Loading</h1>
     case 'success': stateParser = current.context.data;
-      const { cameras, maskCounter } = stateParser
+      const { cameras,observer, maskCounter } = stateParser
       const maskType: MaskType = maskCounter
       return (
         <div className="flex-grow relative">
           <div className="flex px-2 py-1 absolute top-0 right-0 z-10 mt-20 pt-3 mr-24">
-            <SelectBox cameras={cameras} dataAction={setDate} text={date} title="วันที่" varient={dateVarient} setMark={setMark} setCamera={setCameraPoint} />
+            <SelectBox mapStyle={mapStyle} observer={observer} cameras={cameras} dataAction={setDate} text={date.date_string != undefined ? date.date_string : ''} title="วันที่" varient={dateVarient} setMark={setMark} setCamera={setCameraPoint} />
           </div>
-          <button onClick={() => mapStyle == localeStyle ? setMapStyle(darkTheme) : setMapStyle(localeStyle)}
+          <button onClick={() => {
+            mapStyle == localeStyle ? setMapStyle(darkTheme) : setMapStyle(localeStyle);
+            const markers: CameraDetail[] = camDetails(observer, cameras, date.date_string, mapStyle.title == 'เช้า' ? 'เย็น' : 'เช้า')
+            const maskCounter: MaskType = maskCounting(markers)
+            setMark(maskCounter)
+            setCameraPoint(markers)
+          }}
             className="flex px-2 py-1 absolute top-0 right-0 z-10 mt-24 mr-6 bg-white rounded-full shadow-xl"
             style={{width: '4.4rem'}}>
             { mapStyle == darkTheme && <div className="h-6 w-6 flex items-center justify-center text-gray-400 mr-auto">
@@ -174,10 +211,10 @@ const Content = ({setMark, mapStyle, setMapStyle}: {setMark: any , mapStyle: any
             <GridMask color="yellow-600" amount={maskType.yellow} criteria="90%-95%" image="m_yellow"  />
             <GridMask color="red-600" amount={maskType.red} criteria="ต่ำกว่า 90%" image="m_red"  />
           </div>
-          <Drawer date={date} markers={cameraPoints} action={setPop} actionCenter={setCenter} actionStatus={setPick} pop={popNow} />
+          <Drawer date={date.val} markers={cameraPoints} action={setPop} actionCenter={setCenter} actionStatus={setPick} pop={popNow} />
           <GoogleMapReact
             bootstrapURLKeys={{ key: keyString}}
-            options={{ styles: mapStyle , minZoom: 5 }}
+            options={{ styles: mapStyle.style , minZoom: 5 }}
             defaultCenter={{ lat: center[0], lng: center[1] }}
             center={{ lat: center[0], lng: center[1] }}
             defaultZoom={11}

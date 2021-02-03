@@ -1,7 +1,6 @@
 import Layout from "@/layout/Layout"
-import { useState } from "react"
+// import { useState } from "react"
 // import Chart from "./charts"
-import { MaskType } from "../interfaces/marker"
 // import { fetchDashboard } from "../components/strategy/fetchDDC"
 // import { useMachine } from "@xstate/react"
 // import { useContent } from "../store/machine"
@@ -43,14 +42,9 @@ const IndexPage = () => {
   const Map = <img src="Map/Map.png" />
   // const { today, timeline } = stateParser
   const Router = useRouter()
-  const [maskType] = useState<MaskType>({
-    red: 0,
-    green: 0,
-    yellow: 0,
-  })
   return (
     // <p>Hi</p>
-    <Layout current="home" maskType={maskType} title="DeepCare - Covid Map">
+    <Layout current="home" title="DeepCare - Covid Map">
       <>
         <div className="mt-32 w-full h-full justify-items-center items-center flex flex-col">
           <div className="max-w-full md:max-w-screen-lg flex">

@@ -1,4 +1,4 @@
-import {Observation,MaskType, CameraDetail} from '../../interfaces/marker'
+import { Observes, Cameras, MaskType, CameraDetail } from '../../interfaces/marker'
 
 export const find_mask = (percentage: number) => {
   if( percentage > 94.999 ){ return 'm_green' }
@@ -8,30 +8,42 @@ export const find_mask = (percentage: number) => {
 
 
 // Export camera-details method
-export const camDetails = (observer: Observation[],select='lastest'): CameraDetail[] => {
+export const camDetails = (observer: Observes, cameras: Cameras, select='ล่าสุด', timeIs='เช้า'): CameraDetail[] => {
   let response: CameraDetail[] = []
-  observer.map(observe => {
-    const {
-      camera_latitude, camera_longtitude, camera_name, collection,
-      province_name, district_name, subdistrict_name
-    } = observe
-    const date_keys = Object.keys(collection)
-    const pick_day = select == 'lastest' ? Math.max( ...date_keys.map(key => parseInt(key)) ) : date_keys.filter(date => date.substr(0,8) == select)[0]
-    const selectCollection = collection[pick_day]
-    if(selectCollection != undefined){
-      const { gpu_process_time_gmt, result } = selectCollection
-      response.push({
-        name: camera_name,
-        latitude: parseFloat( camera_latitude),
-        longitude: parseFloat( camera_longtitude),
-        collection_date: pick_day.toString(),
-        detect_timestamp: gpu_process_time_gmt.toString(),
-        province_name, district_name, subdistrict_name ,
-        result
+  const observer_list = Object.keys(cameras)
+  observer_list.map(key => {
+    if(observer[key] != undefined){
+      const { location, latitude, longitude, district, sub_district, province } = cameras[key]
+      const date_keys = Object.keys(observer[key].collection)
+      const trigger_date = (select: string ) => date_keys.filter(date => {
+        return date.substr(0,8) == select &&
+          observer[key]
+            .collection[date]
+            .timeRange == timeIs
       })
+      const pickSelect = select == 'ล่าสุด' ? ( Math.max( ...date_keys.map(key => parseInt(key)))).toString().substr(0,8) : select
+      const pick_day = trigger_date(pickSelect)[0]
+      try{
+        const { gpu_process_time_gmt,timeRange, time, date, result } = observer[key].collection[pick_day]
+        response.push({
+          name: location,
+          latitude,
+          longitude,
+          collection_date: pick_day.toString(),
+          detect_timestamp: gpu_process_time_gmt.toString(),
+          province_name: province,
+          district_name: district,
+          subdistrict_name: sub_district,
+          timeRange, time, date,
+          result
+        })
+      }catch(err){
+        // console.log(err)
+      }
     }
   })
   return response
+
 }
 
 
