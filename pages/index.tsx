@@ -1,7 +1,7 @@
 import Layout from "@/layout/Layout"
 // import { useState } from "react"
 // import Chart from "./charts"
-// import { fetchDashboard } from "../components/strategy/fetchDDC"
+import { fetchDashboard } from "../components/strategy/fetchDDC"
 // import { useMachine } from "@xstate/react"
 // import { useContent } from "../store/machine"
 import { useRouter } from 'next/router'
