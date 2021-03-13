@@ -1,4 +1,4 @@
-import { MarkerProps } from '../../interfaces/marker'
+import { MarkerProps, BasicMarkerProps } from '../../interfaces/marker'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { find_mask } from  '../strategy/marker'
 import dayjs from 'dayjs'
@@ -63,6 +63,18 @@ export const Marker = (props: MarkerProps) => {
         </span>
       </div>}
       <button onClick={() => { actionStatus(true); actionCenter([latitude,longitude]); action(data.name)}}>
+        <img src={`mask_icon/${find_mask(percentage)}.png`} className="-mt-2 -ml-2 rounded-full" style={{height: '26px', boxShadow: '0 4px 3px rgba(0, 0, 0, 0.25)'}} alt=""/>
+      </button>
+    </div>
+  )
+}
+
+
+export const BasicMark = (props: BasicMarkerProps) => {
+  const { percentage } = props
+  return (
+    <div className="text-b relative overflow-scroll-y">
+      <button>
         <img src={`mask_icon/${find_mask(percentage)}.png`} className="-mt-2 -ml-2 rounded-full" style={{height: '26px', boxShadow: '0 4px 3px rgba(0, 0, 0, 0.25)'}} alt=""/>
       </button>
     </div>

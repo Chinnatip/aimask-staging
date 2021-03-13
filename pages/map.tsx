@@ -85,8 +85,7 @@ export const SelectBox = (props: SelectProps) => {
     <label className="block bg-gray-400 h-10 rounded-bl-full flex items-center justify-center rounded-tl-full text-gray-800 -mt-2 text-sm w-10"> {title} </label>
     <span className="block bg-white mb-2 bg-white rounded-br-full rounded-tr-full w-32 py-2 pl-3 leading-6 text-left">
       <span className={`${value != '-' ? 'text-black' : 'text-gray-500'}`}>{value}</span>
-      <span className="mr-4 text-gray-600 pr-1">
-      </span>
+      <span className="mr-4 text-gray-600 pr-1"/>
     </span>
   </div>
 
@@ -121,61 +120,64 @@ const Content = ({setMark, mapStyle, setMapStyle}: {setMark: any , mapStyle: any
   })
   const [current] = useMachine(useContent, {
     services: {
-      fetchData: () =>
-      firebase.firestore().collection('cameras').get().then(res => {
-        return firebase.firestore().collection('collections').get().then(col => {
-          let date_lists: string[] = []
-          let district_lists: string[] = []
-          let observer: Observes = {}
-          let cameras:  Cameras = {}
-          let date_use: KV[] = [{
-            key: 0,
-            date_string: 'ล่าสุด',
-            val: 'ล่าสุด'
-          }]
+      fetchData: () => {
+        return firebase.firestore().collection('cameras').get().then(res => {
+          return firebase.firestore().collection('collections').get().then(col => {
+            let date_lists: string[] = []
+            let district_lists: string[] = []
+            let observer: Observes = {}
+            let cameras:  Cameras = {}
+            let date_use: KV[] = [{
+              key: 0,
+              date_string: 'ล่าสุด',
+              val: 'ล่าสุด'
+            }]
 
-          // date_use.push(date)
-
-          res.docs.map(item => {
-            const data: any = item.data()
-            cameras[item.id] = data
-            district_lists.push(data.district)
-          })
-
-          col.docs.map(item => {
-            const data = item.data()
-            if(data.collection != undefined){
-              Object.keys(data.collection).map(day => date_lists.push( day.substr(0,8) ))
-              observer[item.id] = {
-                collection: data.collection
-              }
-            }
-          })
-          //
-          district_lists = [ ...new Set(district_lists)]
-          //
-          const uniqueDate = [...new Set(date_lists)].sort((a,b) => { return parseInt(b)-parseInt(a)})
-          uniqueDate.map((date,index) => {
-            date_use.push({
-              key: index + 1,
-              val: processDate(date),
-              date_string: date.substr(0,8)
+            // date_use.push(date)
+            res.docs.map(item => {
+              const data: any = item.data()
+              cameras[item.id] = data
+              district_lists.push(data.district)
             })
+
+            col.docs.map(item => {
+              const data = item.data()
+              if(data.collection != undefined){
+                Object.keys(data.collection).map(day => date_lists.push( day.substr(0,8) ))
+                observer[item.id] = {
+                  collection: data.collection
+                }
+              }
+            })
+            //
+            district_lists = [ ...new Set(district_lists)]
+            //
+            const uniqueDate = [...new Set(date_lists)].sort((a,b) => { return parseInt(b)-parseInt(a)})
+            uniqueDate.map((date,index) => {
+              date_use.push({
+                key: index + 1,
+                val: processDate(date),
+                date_string: date.substr(0,8)
+              })
+            })
+            const markers: CameraDetail[] = camDetails(observer, cameras, date.date_string, mapStyle.title)
+            const maskCounter: MaskType = maskCounting(markers)
+            //
+            setCenter(findCenter())
+            setMark(maskCounter)
+            setCameraPoint(markers)
+            setDateVarient(date_use)
+            // console.log(markers)
+            // console.log(maskCounter)
+            return { cameras, observer, markers, district_lists, maskCounter }
           })
-          const markers: CameraDetail[] = camDetails(observer, cameras, date.date_string, mapStyle.title)
-          const maskCounter: MaskType = maskCounting(markers)
-          //
-          setCenter(findCenter())
-          setMark(maskCounter)
-          setCameraPoint(markers)
-          setDateVarient(date_use)
-          // console.log(markers)
-          // console.log(maskCounter)
-          return { cameras, observer, markers, district_lists, maskCounter }
         })
-      })
+
+      }
+
     },
   })
+
   switch (current.value) {
     case 'idle': return <h1>Blank</h1>
     case 'loading': return <h1>Loading</h1>
@@ -239,7 +241,6 @@ const Content = ({setMark, mapStyle, setMapStyle}: {setMark: any , mapStyle: any
           <button onClick={() => toggleDrawer()} style={{ bottom: '5rem'}} className="absolute flex items-center justify-center bottom-0 left-0 h-12 w-32 bg-white shadow-lg text-gray-800 bg-orange-500 rounded-full -mt-32 ml-2">
             เปิด Drawer
           </button>
-
         </div>
       )
     case 'failure': return <h1>Reload</h1>
@@ -269,6 +270,7 @@ const Notifier = () => {
 const MapPage = () => {
   const [maskType, setMaskType] = useState<MaskType>({red: 0, green: 0, yellow: 0})
   const [mapStyle, setMapStyle] = useState<any>(localeStyle)
+  // const [center] = useState([13, 100])
   return (
     <>
       <Layout current="map" maskType={maskType} title="DeepCare - Covid Map">
@@ -276,6 +278,10 @@ const MapPage = () => {
           <div className="flex flex-col w-full h-full relative">
             <div className="w-full h-full flex">
               <Content setMark={setMaskType} mapStyle={mapStyle} setMapStyle={setMapStyle}/>
+              {/* <GoogleMapReact
+                bootstrapURLKeys={{ key: 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'}}
+                center={{ lat: center[0], lng: center[1] }}
+                defaultZoom={11} /> */}
               <Notifier />
             </div>
             <div className="block banner-bottom-height z-10 bg-white w-full"></div>

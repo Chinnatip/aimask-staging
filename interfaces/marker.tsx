@@ -100,6 +100,12 @@ export interface MarkerProps {
   actionStatus?: any
 }
 
+export interface BasicMarkerProps {
+  lat: number
+  lng: number
+  percentage: number
+}
+
 // interface Result {
 //   total: number
 //   no_correct_wear_mask: number

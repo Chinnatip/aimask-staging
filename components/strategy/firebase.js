@@ -1,4 +1,7 @@
-import firebase from 'firebase';
+// import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
 const firebaseConfig =  {
   apiKey: "AIzaSyDPxHB7IEGbMdo42t4rLbxDB6uhTDblBzw",
   authDomain: "deepcare-302007.firebaseapp.com",
