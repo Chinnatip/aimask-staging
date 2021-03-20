@@ -1,6 +1,6 @@
 import { GooglemapComponent } from './map_secret'
 
-const Navbar = () => {
+export const Navbar = () => {
   const icons = [
     '../CVP-23.png',
     '../orwo.png',
@@ -24,20 +24,30 @@ const Navbar = () => {
 }
 
 
-const district = {
-  red: ['ยานาวา','บางคอแหลม','สาธร','จอมทอง','คลองสาน'],
-  yellow: ['ยานาวา','บางคอแหลม','สาธร','จอมทอง','คลองสาน','ยานาวา','บางคอแหลม','สาธร','จอมทอง','คลองสาน','ยานาวา','บางคอแหลม','สาธร','จอมทอง'],
+const data ={
+  report_period: '7 - 17 มีค. 2564',
+  previous_period: '20 กพ. - 4 มีค. 2564',
+  sampling: 158050,
+  total: {
+    district: 29,
+    camera: 30
+  },
+  district:{
+    red: ['ยานาวา','บางคอแหลม','สาธร','จอมทอง','คลองสาน'],
+    yellow: ['ยานาวา','บางคอแหลม','สาธร','จอมทอง','คลองสาน','ยานาวา','บางคอแหลม','สาธร','จอมทอง','คลองสาน','ยานาวา','บางคอแหลม','สาธร','จอมทอง'],
+  }
 }
 
 const Page = () => {
+  const { district, total,report_period, previous_period, sampling } = data
   return <div className="flex flex-col w-screen h-screen overflow-x-hidden overflow-y-hidden " style={{ fontFamily: 'Sukhumvit Set' }}>
     <Navbar />
     <div className="flex-grow w-full p-4 flex">
       <div className="h-full w-3/5 relative mr-4">
         <div className="absolute top-0 left-0 flex w-3/5 bg-gray-300 z-10 text-center text-lg shadow-2xl">
           <span className="w-4/6 p-3 pt-4" >แผนที่เเสดง <span className="font-bold">การใส่หน้ากากอนามัย</span> <br/> ในเขตกรุงเทพมหานคร ทั้งหมด</span>
-          <span className="w-1/6 p-2 border-l border-gray-400 font-bold "> <div className="text-3xl -mb-2">29</div>เขต</span>
-          <span className="w-1/6 p-2 border-l border-gray-400 font-bold "> <div className="text-3xl -mb-2">30</div>จุด</span>
+          <span className="w-1/6 p-2 border-l border-gray-400 font-bold "> <div className="text-3xl -mb-2">{total.district}</div>เขต</span>
+          <span className="w-1/6 p-2 border-l border-gray-400 font-bold "> <div className="text-3xl -mb-2">{total.camera}</div>จุด</span>
         </div>
         {/* Google Map */}
         <GooglemapComponent/>
@@ -63,7 +73,7 @@ const Page = () => {
         {/* report title */}
         <div>
           <p>รายงานประจำวันที่</p>
-          <p className="ml-6 font-bold text-5xl -mt-3">7 - 17 มีค. 2564</p>
+          <p className="ml-6 font-bold text-5xl -mt-3">{report_period}</p>
         </div>
         {/* labelling */}
         <div className="h-12 flex relative">
@@ -74,7 +84,7 @@ const Page = () => {
             ร้อยละการใส่หน้ากากอนามัยในกรุงเทพมหานคร
           </p>
         </div>
-        <div className="text-right font-bold mt-1 text-md">กลุ่มตัวอย่าง 158,050 คน</div>
+        <div className="text-right font-bold mt-1 text-md">กลุ่มตัวอย่าง {sampling} คน</div>
         <div className="flex-grow">
           <div className="w-full flex items-center border-b-2 px-8" style={{ height: '33.33%' }}>
             <img src="mask_face/mask-green.png" style={{ height: '80%'}}/>
@@ -98,16 +108,9 @@ const Page = () => {
             </div>
           </div>
         </div>
-        <div className="text-right font-semibold mt-1 text-md">*เปรียบเทียบกับข้อมูลช่วงวันที่  20 กพ. - 4 มีค. 2564</div>
+        <div className="text-right font-semibold mt-1 text-md">*เปรียบเทียบกับข้อมูลช่วงวันที่ {previous_period}</div>
       </div>
-
-
-
     </div>
-
-
-
-
   </div>
 }
 
