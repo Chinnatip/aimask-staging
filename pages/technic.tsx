@@ -1,4 +1,4 @@
-import {Navbar} from './overview'
+import {Navbar} from './present'
 
 const Page = () => {
   return <div className="flex flex-col w-screen h-screen overflow-x-hidden overflow-y-hidden " style={{ fontFamily: 'Sukhumvit Set' }}>
