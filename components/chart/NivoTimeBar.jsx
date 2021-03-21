@@ -12,48 +12,14 @@ const Bar = ({ data , color }) => {
   return (
     <ResponsiveBar
         data={data}
-        keys={[ 'hot dog']}
-        indexBy="country"
+        keys={[ 'value']}
+        indexBy="date"
         margin={{ top: 10, right: 0, bottom: 25, left: 30 }}
-        padding={0.3}
+        padding={0.5}
+        colors={({ id, data }) => data['color']}
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
-        colors={{ scheme: 'nivo' }}
         theme={lineGraphSettings.theme}
-        defs={[
-            {
-                id: 'dots',
-                type: 'patternDots',
-                background: 'inherit',
-                color: '#38bcb2',
-                size: 4,
-                padding: 1,
-                stagger: true
-            },
-            {
-                id: 'lines',
-                type: 'patternLines',
-                background: 'inherit',
-                color: '#eed312',
-                rotation: -45,
-                lineWidth: 6,
-                spacing: 10
-            }
-        ]}
-        fill={[
-            {
-                match: {
-                    id: 'fries'
-                },
-                id: 'dots'
-            },
-            {
-                match: {
-                    id: 'sandwich'
-                },
-                id: 'lines'
-            }
-        ]}
         borderColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
         axisTop={null}
         axisRight={null}

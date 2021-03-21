@@ -1,131 +1,34 @@
 import {Navbar} from './present'
 import Bar from '../components/chart/NivoTimeBar'
 import Line from '../components/chart/NivoLineChart'
+import {dayNightData} from '../components/static/aimask_static'
 
 const lineData = [
   {
-    "id": "japan",
-    "color": "hsl(75, 70%, 50%)",
-    "data": [
-      {
-        "x": "plane",
-        "y": 298
-      },
-      {
-        "x": "helicopter",
-        "y": 52
-      },
-      {
-        "x": "boat",
-        "y": 204
-      },
-      {
-        "x": "train",
-        "y": 138
-      },
-      {
-        "x": "subway",
-        "y": 127
-      },
-      {
-        "x": "bus",
-        "y": 16
-      },
-      {
-        "x": "car",
-        "y": 271
-      },
-      {
-        "x": "moto",
-        "y": 285
-      },
-      {
-        "x": "bicycle",
-        "y": 205
-      },
-      {
-        "x": "horse",
-        "y": 266
-      },
-      {
-        "x": "skateboard",
-        "y": 272
-      },
-      {
-        "x": "others",
-        "y": 108
+    "id": "daily",
+    "data": dayNightData.filter(row => row['unix'] > 242569).map(row => {
+      return {
+        x: row['วัน'],
+        y: row['รวม']
       }
-    ]
+    })
   }
 ]
+const dayData = dayNightData.filter(row => row.unix > 242588 ).map(row => {
+  return {
+    date: row['วัน'],
+    value: row['เช้า'],
+    color:  row['weekday'] == 3 ? '#DA4D3A' : "#FF9900"
+  }
+})
 
-const barData = [
-  {
-    "country": "5/3",
-    "hot dog": 94,
-    "hot dogColor": "hsl(238, 70%, 50%)",
-  },
-  {
-    "country": "6/3",
-    "hot dog": 47,
-    "hot dogColor": "hsl(293, 70%, 50%)",
-  },
-  {
-    "country": "7/3",
-    "hot dog": 150,
-    "hot dogColor": "hsl(204, 70%, 50%)",
-  },
-  {
-    "country": "8/3",
-    "hot dog": 181,
-    "hot dogColor": "hsl(180, 70%, 50%)",
-  },
-  {
-    "country": "9/3",
-    "hot dog": 92,
-    "hot dogColor": "hsl(177, 70%, 50%)",
-  },
-  {
-    "country": "10/3",
-    "hot dog": 73,
-    "hot dogColor": "hsl(142, 70%, 50%)",
-  },
-  {
-    "country": "11/3",
-    "hot dog": 102,
-    "hot dogColor": "hsl(263, 70%, 50%)",
-  },
-  {
-    "country": "12/3",
-    "hot dog": 47,
-    "hot dogColor": "hsl(293, 70%, 50%)",
-  },
-  {
-    "country": "13/3",
-    "hot dog": 150,
-    "hot dogColor": "hsl(204, 70%, 50%)",
-  },
-  {
-    "country": "14/3",
-    "hot dog": 181,
-    "hot dogColor": "hsl(180, 70%, 50%)",
-  },
-  {
-    "country": "15/3",
-    "hot dog": 92,
-    "hot dogColor": "hsl(177, 70%, 50%)",
-  },
-  {
-    "country": "16/3",
-    "hot dog": 73,
-    "hot dogColor": "hsl(142, 70%, 50%)",
-  },
-  {
-    "country": "17/3",
-    "hot dog": 102,
-    "hot dogColor": "hsl(263, 70%, 50%)",
+const nightData = dayNightData.filter(row => row.unix > 242588 ).map(row => {
+  return {
+    date: row['วัน'],
+    value: row['เช้า'],
+    color: row['weekday'] == 3 ? '#DA4D3A' : "#FFFFFF"
   }
-]
+})
 
 const data ={
   report_period: '7 - 17 มีค. 2564',
@@ -158,7 +61,7 @@ const Page = () => {
           </div>
           {/* Sunny Chart */}
           <div className="-mt-12 flex items-center justify-center" style={{height: '75%', width: '70%'}}>
-            <Bar data={barData} color="#383838"></Bar>
+            <Bar data={dayData} color="#383838"></Bar>
           </div>
         </div>
         <div className="w-full relative flex items-center pl-6" style={{height: '50%', background: '#212E60'}}>
@@ -182,7 +85,7 @@ const Page = () => {
           </div>
           {/* Nightly Chart */}
           <div className="mt-8 flex items-center justify-center" style={{height: '75%', width: '70%'}}>
-            <Bar data={barData} color="#ffffff"></Bar>
+            <Bar data={nightData} color="#ffffff"></Bar>
           </div>
         </div>
       </div>

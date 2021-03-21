@@ -1,5 +1,12 @@
 import { ResponsiveLine } from '@nivo/line'
 
+const lineGraphSettings = {
+  theme: {
+      fontSize: '10px',
+      color: '#ffc800'
+  },
+};
+
 const Line = ({ data }) => (
     <ResponsiveLine
         data={data}
@@ -7,6 +14,8 @@ const Line = ({ data }) => (
         xScale={{ type: 'point' }}
         yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
         yFormat=" >-.2f"
+        theme={lineGraphSettings.theme}
+        colors={({ id, data }) => '#E16407'}
         axisTop={null}
         axisRight={null}
         axisBottom={{
