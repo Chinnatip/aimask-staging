@@ -1,51 +1,205 @@
 import {Navbar} from './present'
+import { useState, useEffect } from 'react'
 import Bar from '../components/chart/NivoTimeBar'
 import Line from '../components/chart/NivoLineChart'
-import {dayNightData} from '../components/static/aimask_static'
+import { readRemoteFile } from 'react-papaparse'
+import { mainData } from '../components/static/aimask_static'
 
-const lineData = [
-  {
-    "id": "daily",
-    "data": dayNightData.filter(row => row['unix'] > 242569).map(row => {
-      return {
-        x: row['วัน'],
-        y: row['รวม']
-      }
-    })
-  }
-]
-const dayData = dayNightData.filter(row => row.unix > 242588 ).map(row => {
-  return {
-    date: row['วัน'],
-    value: row['เช้า'],
-    color:  row['weekday'] == 3 ? '#DA4D3A' : "#FF9900"
-  }
-})
+type DNDatatype = {
+  "วันที่": string
+  "unix": number
+  "weekday": number
+  "วัน": string
+  "เช้า": number
+  "เย็น": number
+  "รวม": number
+}
 
-const nightData = dayNightData.filter(row => row.unix > 242588 ).map(row => {
-  return {
-    date: row['วัน'],
-    value: row['เช้า'],
-    color: row['weekday'] == 3 ? '#DA4D3A' : "#FFFFFF"
-  }
-})
-
-const data ={
-  report_period: '7 - 17 มีค. 2564',
-  previous_period: '20 กพ. - 4 มีค. 2564',
-  sampling: 158050,
-  total: {
-    district: 29,
-    camera: 30
-  },
-  district:{
-    red: ['ยานาวา','บางคอแหลม','สาธร','จอมทอง','คลองสาน'],
-    yellow: ['ยานาวา','บางคอแหลม','สาธร','จอมทอง','คลองสาน','ยานาวา','บางคอแหลม','สาธร','จอมทอง','คลองสาน','ยานาวา','บางคอแหลม','สาธร','จอมทอง'],
-  }
+type MarkerType = {
+  "จุดตั้งกล้อง": string
+  "เขต": string
+  "lattitude": number
+  "longitude": number
+  "นับกล้องต่อหนึ่งสถานที่": number
+  "ใส่หน้ากาก": number
+  "ใส่ไม่ถูกต้อง": number
+  "ไม่ใส่หน้ากาก": number
+  "รวม": number
+  "ใส่หน้ากาก%": number
+  "ใส่ไม่ถูกต้อง%": number
+  "ไม่ใส่หน้ากาก%": number
+  "note": string
 }
 
 const Page = () => {
-  const { total,report_period } = data
+  const [DNdata, setDNdata] = useState<DNDatatype[]>([])
+  const [data, setData] = useState({
+    report_period: '',
+    previous_period: '',
+    result: {
+      total: 0,
+      correct_percent: 0,
+      in_correct_percent: 0,
+      no_mask_percent: 0,
+      district: 0,
+      camera: 0
+    },
+    sort_district:{
+      red:  [''],
+      yellow: ['']
+    }
+  })
+
+  useEffect(() => {
+    readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/AI+MASK+-+export_daynight.csv', {
+      download: true,
+      complete: (results: any) => {
+        const [ r, ...rows ] = results.Data
+        console.log(r)
+        let objects : DNDatatype[] = []
+        rows.map((row: any[]) => {
+          let response = {
+            "วันที่": '',
+            "unix": 0,
+            "weekday": 0,
+            "วัน": '',
+            "เช้า": 0,
+            "เย็น": 0,
+            "รวม": 0
+          }
+          row.map((property,index) => {
+            switch(index){
+              case 0:
+                response["วันที่"] = property
+                break;
+              case 1:
+                response["unix"] = parseInt( property)
+                break;
+              case 2:
+                response["weekday"] = parseInt( property)
+                break;
+              case 3:
+                response["วัน"] = property
+                break;
+              case 4:
+                response["เช้า"] = parseInt( property)
+                break;
+              case 5:
+                response["เย็น"] = parseInt( property)
+                break;
+              default:
+                response['รวม'] = parseInt( property)
+                break;
+            }
+          })
+          objects.push(response)
+        })
+        setDNdata(objects)
+        readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/AI+MASK+-+export_location.csv', {
+          download: true,
+          complete: (results: any) => {
+            const [ r, ...rows ] = results.Data
+            console.log(r)
+            let objects : MarkerType[] = []
+            rows.map((row: any[]) => {
+              let response = {
+                "จุดตั้งกล้อง": '',
+                "เขต": '',
+                "lattitude": 0,
+                "longitude": 0,
+                "นับกล้องต่อหนึ่งสถานที่": 0,
+                "ใส่หน้ากาก": 0,
+                "ใส่ไม่ถูกต้อง": 0,
+                "ไม่ใส่หน้ากาก": 0,
+                "รวม": 0,
+                "ใส่หน้ากาก%": 0,
+                "ใส่ไม่ถูกต้อง%": 0,
+                "ไม่ใส่หน้ากาก%": 0,
+                "note": ''
+              }
+              row.map((property,index) => {
+                switch(index){
+                  case 0:
+                    response["จุดตั้งกล้อง"] = property
+                    break;
+                  case 1:
+                    response["เขต"] = property
+                    break;
+                  case 2:
+                    response["lattitude"] = parseFloat( property)
+                    break;
+                  case 3:
+                    response["longitude"] = parseFloat( property)
+                    break;
+                  case 4:
+                    response["นับกล้องต่อหนึ่งสถานที่"] = parseInt( property)
+                    break;
+                  case 5:
+                    response["ใส่หน้ากาก"] = parseInt( property)
+                    break;
+                  case 6:
+                    response["ใส่ไม่ถูกต้อง"] = parseInt( property)
+                    break;
+                  case 7:
+                    response["ไม่ใส่หน้ากาก"] = parseInt( property)
+                    break;
+                  case 8:
+                    response["รวม"] = parseInt( property)
+                    break;
+                  case 9:
+                    response["ใส่หน้ากาก%"] = parseFloat(property)
+                    break;
+                  case 10:
+                    response["ใส่ไม่ถูกต้อง%"] = parseFloat(property)
+                    break;
+                  case 11:
+                    response["ไม่ใส่หน้ากาก%"] = parseFloat(property)
+                    break;
+                  default:
+                    response['note'] = property
+                    break;
+                }
+              })
+              objects.push(response)
+            })
+            setData(mainData(objects))
+          }
+        })
+      }
+    })
+  }, []);
+  const lineData = (data: DNDatatype[]) => {
+    return [
+      {
+        "id": "daily",
+        "data": data.filter(row => row['unix'] > 242569).map(row => {
+          return {
+            x: row['วัน'],
+            y: row['รวม']
+          }
+        })
+      }
+    ]
+  }
+  const dayData = (data: DNDatatype[]) => {
+    return data.filter(row => row.unix > 242588 ).map(row => {
+      return {
+        date: row['วัน'],
+        value: row['เช้า'],
+        color:  row['weekday'] == 3 ? '#DA4D3A' : "#FF9900"
+      }
+    })
+  }
+  const nightData = (data: DNDatatype[]) => {
+    return data.filter(row => row.unix > 242588 ).map(row => {
+      return {
+        date: row['วัน'],
+        value: row['เช้า'],
+        color: row['weekday'] == 3 ? '#DA4D3A' : "#FFFFFF"
+      }
+    })
+  }
+  const { result: { camera } ,report_period } = data
   return <div className="flex flex-col w-screen h-screen overflow-x-hidden overflow-y-hidden " style={{ fontFamily: 'Sukhumvit Set' }}>
     <Navbar />
     <div className="flex-grow w-full flex">
@@ -61,7 +215,7 @@ const Page = () => {
           </div>
           {/* Sunny Chart */}
           <div className="-mt-12 flex items-center justify-center" style={{height: '75%', width: '70%'}}>
-            <Bar data={dayData} color="#383838"></Bar>
+            <Bar data={dayData(DNdata)} color="#383838"></Bar>
           </div>
         </div>
         <div className="w-full relative flex items-center pl-6" style={{height: '50%', background: '#212E60'}}>
@@ -85,7 +239,7 @@ const Page = () => {
           </div>
           {/* Nightly Chart */}
           <div className="mt-8 flex items-center justify-center" style={{height: '75%', width: '70%'}}>
-            <Bar data={nightData} color="#ffffff"></Bar>
+            <Bar data={nightData(DNdata)} color="#ffffff"></Bar>
           </div>
         </div>
       </div>
@@ -99,12 +253,12 @@ const Page = () => {
         <div className="h-20 bg-gray-300 w-full flex items-center px-8">
           <div className="border-gray-400  text-lg">
             <p className="ml-3 text-xl font-bold">ร้อยละการใส่หน้ากาก <span className="text-orange-600 underline">ไม่ถูกต้อง + ไม่ใส่หน้ากาก </span></p>
-            <p className="ml-3 text-sm">( วิเคราะห์จากกล้องวงจรปิดทั้งหมด {total.camera} จุดในกรุงเทพมหานครฯ )</p>
+            <p className="ml-3 text-sm">( วิเคราะห์จากกล้องวงจรปิดทั้งหมด {camera} จุดในกรุงเทพมหานครฯ )</p>
           </div>
         </div>
         <div className="flex-grow p-5">
           <div className="w-full h-full">
-            <Line data={lineData}></Line>
+            <Line data={lineData(DNdata)}></Line>
           </div>
         </div>
         <div className="px-20 flex pb-6 pt-2">

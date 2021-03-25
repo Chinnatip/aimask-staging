@@ -2,7 +2,22 @@ import GoogleMapReact from 'google-map-react'
 import { bangkokMap, localeStyle } from '../components/static/bangkokLine'
 import { useState } from 'react'
 import { BasicMark }  from '../components/stuff/Marker'
-import {markerBKK} from '../components/static/markerBKK'
+
+type MarkerType = {
+  "จุดตั้งกล้อง": string
+  "เขต": string
+  "lattitude": number
+  "longitude": number
+  "นับกล้องต่อหนึ่งสถานที่": number
+  "ใส่หน้ากาก": number
+  "ใส่ไม่ถูกต้อง": number
+  "ไม่ใส่หน้ากาก": number
+  "รวม": number
+  "ใส่หน้ากาก%": number
+  "ใส่ไม่ถูกต้อง%": number
+  "ไม่ใส่หน้ากาก%": number
+  "note": string
+}
 
 const handleGoogleMapApi = (google: any) => {
   var flightPath = new google.maps.Polyline({
@@ -26,9 +41,9 @@ const handleGoogleMapApi = (google: any) => {
   flightPath.setMap(google.map)
 }
 
-export const GooglemapComponent = () => {
-  const [mapStyle] = useState<any>(localeStyle)
+export const GooglemapComponent = ({ markers }: { markers: MarkerType[] }) => {
   const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
+  const [mapStyle] = useState<any>(localeStyle)
   const [center] = useState([13.756457,100.515556])
   return <GoogleMapReact
     bootstrapURLKeys={{ key: keyString}}
@@ -38,7 +53,7 @@ export const GooglemapComponent = () => {
     defaultZoom={11}
     onGoogleApiLoaded={handleGoogleMapApi}
   >
-    {markerBKK.map((data, index) => {
+    {markers.map((data, index) => {
       const percentage = data["ใส่หน้ากาก%"] * 100
       const color = percentage >= 95 ? 'เขียว' :  percentage > 90 ? 'เหลือง' : 'แดง'
       if(color == 'เหลือง'){
@@ -47,8 +62,8 @@ export const GooglemapComponent = () => {
       return (
         <BasicMark
           key={index}
-          percentage={data["ใส่หน้ากาก%"] * 100}
-          lat={data["latitude"]}
+          percentage={data["ใส่หน้ากาก%"]}
+          lat={data["lattitude"]}
           lng={data["longitude"]}/>
       )}
     )}
@@ -61,7 +76,7 @@ export const MapPage = () => {
     <>
       <div className="w-screen h-screen flex">
         <div className="flex-grow relative">
-          <GooglemapComponent />
+          <h1>Map secret</h1>
         </div>
       </div>
     </>
