@@ -51,10 +51,10 @@ const Page = () => {
   })
 
   useEffect(() => {
-    readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/AI+MASK+-+export_daynight.csv', {
+    readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present6/AI+MASK+-+export_daynight.csv', {
       download: true,
       complete: (results: any) => {
-        const [ r, ...rows ] = results.Data
+        const [ r, ...rows ] = results.data
         console.log(r)
         let objects : DNDatatype[] = []
         rows.map((row: any[]) => {
@@ -95,10 +95,10 @@ const Page = () => {
           objects.push(response)
         })
         setDNdata(objects)
-        readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/AI+MASK+-+export_location.csv', {
+        readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present6/AI+MASK+-+export_location.csv', {
           download: true,
           complete: (results: any) => {
-            const [ r, ...rows ] = results.Data
+            const [ r, ...rows ] = results.data
             console.log(r)
             let objects : MarkerType[] = []
             rows.map((row: any[]) => {
@@ -182,7 +182,8 @@ const Page = () => {
     ]
   }
   const dayData = (data: DNDatatype[]) => {
-    return data.filter(row => row.unix > 242588 ).map(row => {
+    // TODO: add date filter
+    return data.filter(row => row.unix > 242599 ).map(row => {
       return {
         date: row['วัน'],
         value: row['เช้า'],
@@ -191,7 +192,8 @@ const Page = () => {
     })
   }
   const nightData = (data: DNDatatype[]) => {
-    return data.filter(row => row.unix > 242588 ).map(row => {
+    // TODO: add date filter
+    return data.filter(row => row.unix > 242599 ).map(row => {
       return {
         date: row['วัน'],
         value: row['เช้า'],

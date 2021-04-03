@@ -50,9 +50,10 @@ const Page = () => {
   })
 
   useEffect(() => {
-    readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/AI+MASK+-+export_district.csv', {
+    readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present6/AI+MASK+-+export_district.csv', {
       download: true,
       complete: (results: any) => {
+        console.log(results)
         const [ r, ...rows ] = results.data
         console.log(r)
         let objects : DistrictType[] = []
@@ -94,10 +95,10 @@ const Page = () => {
           objects.push(response)
         })
         setDistrictData(objects)
-        readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/AI+MASK+-+export_location.csv', {
+        readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present6/AI+MASK+-+export_location.csv', {
           download: true,
           complete: (results: any) => {
-            const [ r, ...rows ] = results.Data
+            const [ r, ...rows ] = results.data
             console.log(r)
             let objects : MarkerType[] = []
             rows.map((row: any[]) => {

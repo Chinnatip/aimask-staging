@@ -36,8 +36,8 @@ export const mainData = (markers: MarkerType[]) => {
     }
   })
   return {
-    report_period: '7 - 17 มีค. 2564',
-    previous_period: '20 กพ. - 4 มีค. 2564',
+    report_period: '18 - 31 มีค. 2564',
+    previous_period: '7 - 17 มีค. 2564',
     result: {
       total,
       correct_percent: brief( correct/total ),
