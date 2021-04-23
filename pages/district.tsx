@@ -50,7 +50,7 @@ const Page = () => {
   })
 
   useEffect(() => {
-    readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present6/AI+MASK+-+export_district.csv', {
+    readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present7/AI+MASK+-+export_district.csv', {
       download: true,
       complete: (results: any) => {
         console.log(results)
@@ -181,12 +181,12 @@ const Page = () => {
     <Navbar />
     <div className="flex-grow w-full flex">
       <div className="h-full w-1/2 relative mr-4 border-r-8 flex flex-col relative">
-        <div className="h-20 bg-gray-300 w-full flex items-center px-8">
+        <div className="h-20 bg-gray-300 w-full flex items-center px-4">
           <div className="w-2/5">
             <p>รายงานประจำวันที่</p>
-            <p className="ml-4 font-bold text-3xl -mt-2">{report_period}</p>
+            <p className="ml-0 font-bold text-3xl -mt-2">{report_period}</p>
           </div>
-          <div className="w-3/5 border-l-4 border-gray-400 font-bold text-lg">
+          <div className="ml-4 w-3/ border-l-4 border-gray-400 font-bold text-lg">
             <p className="ml-4">ประเมินการ</p>
             <p className="ml-4 text-xl"><span className="text-green-600">ใส่หน้ากากอนามัย</span> ของ {result.district} เขต ใน กทม. </p>
           </div>

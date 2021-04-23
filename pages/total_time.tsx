@@ -5,11 +5,6 @@ import Line from '../components/chart/NivoLineChart'
 import { readRemoteFile } from 'react-papaparse'
 import { mainData } from '../components/static/aimask_static'
 
-//-- Setup date range --//
-const small_range = 242623
-const full_range = 242613
-
-
 type DNDatatype = {
   "วันที่": string
   "unix": number
@@ -205,7 +200,7 @@ const Page = () => {
     return [
       {
         "id": "daily",
-        "data": data.filter(row => row['unix'] > full_range ).map(row => {
+        "data": data.filter(row => row['unix'] > 242543).map(row => {
           return {
             x: row['วัน'],
             y: row['รวม%']
@@ -216,7 +211,7 @@ const Page = () => {
   }
   const dayData = (data: DNDatatype[]) => {
     // TODO: add date filter
-    return data.filter(row => row.unix > small_range ).map(row => {
+    return data.filter(row => row.unix > 242599 ).map(row => {
       console.log(row)
       return {
         date: row['วัน'],
@@ -227,7 +222,7 @@ const Page = () => {
   }
   const nightData = (data: DNDatatype[]) => {
     // TODO: add date filter
-    return data.filter(row => row.unix > small_range ).map(row => {
+    return data.filter(row => row.unix > 242599 ).map(row => {
       return {
         date: row['วัน'],
         value: row['เย็น%'],
@@ -235,18 +230,17 @@ const Page = () => {
       }
     })
   }
-  const { result: { camera } ,report_period } = data
-  const mornSum = DNdata.filter(row => row.unix > small_range ).reduce((a,b) =>  a + b.เช้าไม่ถูก  , 0)
-  const eveningSum = DNdata.filter(row => row.unix > small_range ).reduce((a,b) =>  a + b.เย็นไม่ถูก  , 0)
-  const mornTotalSum = DNdata.filter(row => row.unix > small_range ).reduce((a,b) =>  a + b.เช้า  , 0)
-  const eveningTotalSum = DNdata.filter(row => row.unix > small_range ).reduce((a,b) =>  a + b.เย็น  , 0)
-  console.log(mornSum, mornTotalSum)
+  // const { result: { camera } ,report_period } = data
+  const mornSum = DNdata.filter(row => row.unix > 242599 ).reduce((a,b) =>  a + b.เช้าไม่ถูก  , 0)
+  const eveningSum = DNdata.filter(row => row.unix > 242599 ).reduce((a,b) =>  a + b.เย็นไม่ถูก  , 0)
+  const mornTotalSum = DNdata.filter(row => row.unix > 242599 ).reduce((a,b) =>  a + b.เช้า  , 0)
+  const eveningTotalSum = DNdata.filter(row => row.unix > 242599 ).reduce((a,b) =>  a + b.เย็น  , 0)
   return <div className="flex flex-col w-screen h-screen overflow-x-hidden overflow-y-hidden " style={{ fontFamily: 'Sukhumvit Set' }}>
     <Navbar />
     <div className="flex-grow w-full flex">
-      <div className="w-2/5 h-full flex flex-col ">
+      {/* <div className="w-2/5 h-full flex flex-col ">
         <div className="w-full border-r-4 flex items-center pl-6" style={{height: '50%'}}>
-          {/* Sunny Data */}
+
           <div className="" style={{width: '27%'}}>
             <img className="w-24 mr-3 -mt-12" src="technic/time_day.png" alt=""/>
             <p className="text-sm mt-3">ค่าเฉลี่ย</p>
@@ -256,13 +250,13 @@ const Page = () => {
              {(mornSum*100/mornTotalSum).toFixed(2)} %
             </span>
           </div>
-          {/* Sunny Chart */}
+
           <div className="-mt-12 flex items-center justify-center" style={{height: '75%', width: '70%'}}>
             <Bar data={dayData(DNdata)} color="#383838"></Bar>
           </div>
         </div>
         <div className="w-full relative flex items-center pl-6" style={{height: '50%', background: '#212E60'}}>
-          {/* Hint Box */}
+
           <div className="-mt-10 h-20 absolute top-0 left-0 w-full flex">
             <div className=" m-auto flex justify-center flex-col bg-white border-4 border-black py-1 px-5 text-lg relative">
               <span className="absolute top-0 left-0 -mt-6 opacity-50 text-sm">ร้อยละการใส่หน้ากาก ไม่ถูกต้อง และ ไม่ใส่หน้ากาก</span>
@@ -270,7 +264,7 @@ const Page = () => {
               <p className="font-semibold">ใส่หน้ากากถูกน้อยลงในช่วงเย็นยกเว้น วันอาทิตย์</p>
             </div>
           </div>
-          {/* Night Data */}
+
           <div className="" style={{ width: '27%', color: '#FFF5C6' }}>
             <img className="w-24 mr-3 mt-8" src="technic/time_nightly.png" alt=""/>
             <p className="text-sm mt-3">ค่าเฉลี่ย</p>
@@ -280,23 +274,23 @@ const Page = () => {
               {(eveningSum*100/eveningTotalSum).toFixed(2)} %
             </span>
           </div>
-          {/* Nightly Chart */}
+
           <div className="mt-8 flex items-center justify-center" style={{height: '75%', width: '70%'}}>
             <Bar data={nightData(DNdata)} color="#ffffff"></Bar>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="flex-grow flex flex-col">
         {/* report title */}
         <div className="p-4 pb-0">
           <p>รายงานประจำวันที่</p>
-          <p className="ml-6 font-bold text-4xl -mt-2">{report_period}</p>
+          {/* <p className="ml-6 font-bold text-4xl -mt-2">{report_period}</p> */}
         </div>
         {/*  */}
         <div className="h-20 bg-gray-300 w-full flex items-center px-8">
           <div className="border-gray-400  text-lg">
             <p className="ml-3 text-xl font-bold">ร้อยละการใส่หน้ากาก <span className="text-orange-600 underline">ไม่ถูกต้อง + ไม่ใส่หน้ากาก </span></p>
-            <p className="ml-3 text-sm">( วิเคราะห์จากกล้องวงจรปิดทั้งหมด {camera} จุดในกรุงเทพมหานครฯ )</p>
+            {/* <p className="ml-3 text-sm">( วิเคราะห์จากกล้องวงจรปิดทั้งหมด {camera} จุดในกรุงเทพมหานครฯ )</p> */}
           </div>
         </div>
         <div className="flex-grow p-5">

@@ -2,7 +2,7 @@ import { ResponsiveLine } from '@nivo/line'
 
 const lineGraphSettings = {
   theme: {
-      fontSize: '10px',
+      fontSize: '9px',
       color: '#ffc800'
   },
 };

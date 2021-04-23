@@ -61,7 +61,7 @@ const Page = () => {
     }
   })
   useEffect(() => {
-    readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present6/AI+MASK+-+export_location.csv', {
+    readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present7/AI+MASK+-+export_location.csv', {
       download: true,
       complete: (results: any) => {
         console.log(results)
