@@ -15,13 +15,12 @@ type MarkerType = {
 }
 
 export const mainData = (markers: MarkerType[]) => {
-
   const correct = markers.map(a => a.ใส่หน้ากาก ).reduce((a,b) => a+b ,0)
   const in_correct = markers.map(a => a.ใส่ไม่ถูกต้อง).reduce((a,b) => a+b ,0)
   const no_mask = markers.map(a =>a.ไม่ใส่หน้ากาก ).reduce((a,b) => a+b ,0)
   const total = correct + in_correct + no_mask
   const brief = (float: number) => {
-    return Math.floor( float * 1000)/10
+    return  Math.round(float * 10000) / 100
   }
   const camera_lists = markers.map(mark => mark['เขต'])
   const district_lists = [...new Set(camera_lists)]
@@ -35,14 +34,17 @@ export const mainData = (markers: MarkerType[]) => {
       value: Math.floor( average * 1000)/10
     }
   })
+  const correct_percent = brief( correct/total )
+  const in_correct_percent = brief( in_correct/total )
   return {
     report_period: '1 - 22 เมย. 2564',
+    daily_report: '22 เมย. 2564',
     previous_period: '25 - 31 มีค. 2564',
     result: {
       total,
-      correct_percent: brief( correct/total ),
-      in_correct_percent: brief( in_correct/total ),
-      no_mask_percent: brief( no_mask/total ),
+      correct_percent,
+      in_correct_percent,
+      no_mask_percent: Math.round((  100 - (correct_percent + in_correct_percent)) * 100) / 100 ,
       district: district_lists.length,
       camera: camera_lists.length
     },
