@@ -1,9 +1,7 @@
 import {Navbar} from './present'
 import { useState, useEffect } from 'react'
-import Bar from '../components/chart/NivoTimeBar'
 import Line from '../components/chart/NivoLineChart'
 import { readRemoteFile } from 'react-papaparse'
-import { mainData } from '../components/static/aimask_static'
 
 type DNDatatype = {
   "วันที่": string
@@ -20,41 +18,8 @@ type DNDatatype = {
   "เย็นไม่ถูก": number
 }
 
-type MarkerType = {
-  "จุดตั้งกล้อง": string
-  "เขต": string
-  "lattitude": number
-  "longitude": number
-  "นับกล้องต่อหนึ่งสถานที่": number
-  "ใส่หน้ากาก": number
-  "ใส่ไม่ถูกต้อง": number
-  "ไม่ใส่หน้ากาก": number
-  "รวม": number
-  "ใส่หน้ากาก%": number
-  "ใส่ไม่ถูกต้อง%": number
-  "ไม่ใส่หน้ากาก%": number
-  "note": string
-}
-
 const Page = () => {
   const [DNdata, setDNdata] = useState<DNDatatype[]>([])
-  const [data, setData] = useState({
-    report_period: '',
-    previous_period: '',
-    result: {
-      total: 0,
-      correct_percent: 0,
-      in_correct_percent: 0,
-      no_mask_percent: 0,
-      district: 0,
-      camera: 0
-    },
-    sort_district:{
-      red:  [''],
-      yellow: ['']
-    }
-  })
-
   useEffect(() => {
     readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present7/AI+MASK+-+export_daynight.csv', {
       download: true,
@@ -123,76 +88,6 @@ const Page = () => {
           objects.push(response)
         })
         setDNdata(objects)
-        readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present6/AI+MASK+-+export_location.csv', {
-          download: true,
-          complete: (results: any) => {
-            const [ r, ...rows ] = results.data
-            console.log(r)
-            let objects : MarkerType[] = []
-            rows.map((row: any[]) => {
-              let response = {
-                "จุดตั้งกล้อง": '',
-                "เขต": '',
-                "lattitude": 0,
-                "longitude": 0,
-                "นับกล้องต่อหนึ่งสถานที่": 0,
-                "ใส่หน้ากาก": 0,
-                "ใส่ไม่ถูกต้อง": 0,
-                "ไม่ใส่หน้ากาก": 0,
-                "รวม": 0,
-                "ใส่หน้ากาก%": 0,
-                "ใส่ไม่ถูกต้อง%": 0,
-                "ไม่ใส่หน้ากาก%": 0,
-                "note": ''
-              }
-              row.map((property,index) => {
-                switch(index){
-                  case 0:
-                    response["จุดตั้งกล้อง"] = property
-                    break;
-                  case 1:
-                    response["เขต"] = property
-                    break;
-                  case 2:
-                    response["lattitude"] = parseFloat( property)
-                    break;
-                  case 3:
-                    response["longitude"] = parseFloat( property)
-                    break;
-                  case 4:
-                    response["นับกล้องต่อหนึ่งสถานที่"] = parseInt( property)
-                    break;
-                  case 5:
-                    response["ใส่หน้ากาก"] = parseInt( property)
-                    break;
-                  case 6:
-                    response["ใส่ไม่ถูกต้อง"] = parseInt( property)
-                    break;
-                  case 7:
-                    response["ไม่ใส่หน้ากาก"] = parseInt( property)
-                    break;
-                  case 8:
-                    response["รวม"] = parseInt( property)
-                    break;
-                  case 9:
-                    response["ใส่หน้ากาก%"] = parseFloat(property)
-                    break;
-                  case 10:
-                    response["ใส่ไม่ถูกต้อง%"] = parseFloat(property)
-                    break;
-                  case 11:
-                    response["ไม่ใส่หน้ากาก%"] = parseFloat(property)
-                    break;
-                  default:
-                    response['note'] = property
-                    break;
-                }
-              })
-              objects.push(response)
-            })
-            setData(mainData(objects))
-          }
-        })
       }
     })
   }, []);
@@ -209,32 +104,7 @@ const Page = () => {
       }
     ]
   }
-  const dayData = (data: DNDatatype[]) => {
-    // TODO: add date filter
-    return data.filter(row => row.unix > 242599 ).map(row => {
-      console.log(row)
-      return {
-        date: row['วัน'],
-        value: row['เช้า%'],
-        color:  row['weekday'] == 3 ? '#DA4D3A' : "#FF9900"
-      }
-    })
-  }
-  const nightData = (data: DNDatatype[]) => {
-    // TODO: add date filter
-    return data.filter(row => row.unix > 242599 ).map(row => {
-      return {
-        date: row['วัน'],
-        value: row['เย็น%'],
-        color: row['weekday'] == 3 ? '#DA4D3A' : "#FFFFFF"
-      }
-    })
-  }
   // const { result: { camera } ,report_period } = data
-  const mornSum = DNdata.filter(row => row.unix > 242599 ).reduce((a,b) =>  a + b.เช้าไม่ถูก  , 0)
-  const eveningSum = DNdata.filter(row => row.unix > 242599 ).reduce((a,b) =>  a + b.เย็นไม่ถูก  , 0)
-  const mornTotalSum = DNdata.filter(row => row.unix > 242599 ).reduce((a,b) =>  a + b.เช้า  , 0)
-  const eveningTotalSum = DNdata.filter(row => row.unix > 242599 ).reduce((a,b) =>  a + b.เย็น  , 0)
   return <div className="flex flex-col w-screen h-screen overflow-x-hidden overflow-y-hidden " style={{ fontFamily: 'Sukhumvit Set' }}>
     <Navbar />
     <div className="flex-grow w-full flex">

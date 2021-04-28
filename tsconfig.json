@@ -30,5 +30,5 @@
     "**/*.tsx",
     "machine/contentState.js",
     "machine/contentMachine.js"
-, "pages/_document.js", "components/strategy", "components/static", "components/chart/NivoBar.jsx"  ]
+, "pages/_document.js", "components/strategy", "components/static", "components/chart/NivoBar.jsx", "pages/api/upload.js"  ]
 }
