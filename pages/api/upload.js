@@ -13,11 +13,11 @@ const s3 = new AWS.S3({
 
 export default function handler(req, res) {
   if (req.method === 'POST') {
-    const body    = req.body
-    const csvData = csvjson.toCSV(body, { headers: 'key' });
+    const { payload , file_name } = req.body
+    const csvData = csvjson.toCSV(payload, { headers: 'key' });
     const params  = {
       Bucket: 'koh-assets',
-      Key: `superai/aimask/export_location.csv`,
+      Key: `superai/aimask/${file_name}.csv`,
       ACL: 'public-read',
       Body: csvData,
       ContentType: 'text/csv',
