@@ -63,8 +63,7 @@ const Page = () => {
     }
   })
   useEffect(() => {
-    // 'https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/dailyreport/AI+MASK+-+export_location_22042021.csv', {
-    readRemoteFile(`${CSV_PATH}/28042021/export_location.csv`,{
+    readRemoteFile(`${CSV_PATH}/export_location.csv`,{
       download: true,
       complete: (results: any) => {
         console.log(results)
@@ -158,19 +157,19 @@ const Page = () => {
         <GooglemapComponent markers={markers}/>
         {/* District Box */}
         <div className="absolute bottom-0 left-0 w-full mb-10 h-16 flex px-4">
-          <div className="h-full rounded-2xl  w-2/5 bg-red-600 p-4 flex text-white">
+          { sort_district.red.length > 0 && <div className="h-full rounded-2xl  w-2/5 bg-red-600 p-4 flex text-white">
             <div className="w-2/3 flex items-center text-xl font-semibold text-center">
               เขต{sort_district.red.map((d,index) => `${index > 0 ?', ':''}${d}`)}
             </div>
             <div className="h-full border-l-4 border-red-800 flex items-center text-3xl pl-2 font-bold">{`<90 %`}</div>
-          </div>
+          </div>}
           <div className="" style={{width: '10%'}} />
-          <div className="w-1/2 h-full rounded-2xl bg-yellow-500 p-4 flex text-gray-800">
+          {  sort_district.yellow.length > 0 && <div className="w-1/2 h-full rounded-2xl bg-yellow-500 p-4 flex text-gray-800">
             <div className="flex px-2 items-center leading-5 text-md font-semibold text-center" style={{width: '72%'}}>
               เขต{sort_district.yellow.map((d,index) => `${index > 0 ?', ':''}${d}`)}
             </div>
             <div className="h-full border-l-4 border-yellow-600 flex items-center text-3xl pl-2 font-bold">{`<95 %`}</div>
-          </div>
+          </div> }
         </div>
         <div className="bg-white absolute bottom-0 right-0 text-black font-bold mr-1 mb-1 px-1">*ประมวลผลภาพจากกล้องวงจรปิด ณ. จุดต่างๆ ตามแผนที่ผ่านระบบ AiMASK</div>
       </div>

@@ -52,8 +52,7 @@ const Page = () => {
   })
 
   useEffect(() => {
-    // readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/dailyreport/AI+MASK+-+export_district_22042021.csv', {
-    readRemoteFile(`${CSV_PATH}/28042021/export_district.csv`,{
+    readRemoteFile(`${CSV_PATH}/export_district.csv`,{
       download: true,
       complete: (results: any) => {
         console.log(results)
@@ -95,11 +94,13 @@ const Page = () => {
                 break;
             }
           })
-          objects.push(response)
+          if(row[0] != ''){
+            objects.push(response)
+          }
         })
         setDistrictData(objects)
         // readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/dailyreport/AI+MASK+-+export_location_22042021.csv', {
-        readRemoteFile(`${CSV_PATH}/28042021/export_location.csv`,{
+        readRemoteFile(`${CSV_PATH}/export_location.csv`,{
           download: true,
           complete: (results: any) => {
             const [ r, ...rows ] = results.data

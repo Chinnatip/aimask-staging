@@ -6,8 +6,8 @@ import { readRemoteFile } from 'react-papaparse'
 import { mainData } from '../components/static/aimask_static'
 
 //-- Setup date range --//
-const small_range = 242623
-const full_range = 242613
+const small_range = 242640 - 7
+const full_range  = 242640 - 30
 
 const CSV_PATH = 'https://koh-assets.s3.ap-southeast-1.amazonaws.com/superai/aimask/dailyreport'
 
@@ -65,15 +65,14 @@ const Page = () => {
   })
 
   useEffect(() => {
-    //readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present7/AI+MASK+-+export_daynight.csv', {
-    readRemoteFile(`${CSV_PATH}/28042021/export_daynight.csv`,{
+    readRemoteFile(`${CSV_PATH}/export_daynight.csv`,{
       download: true,
       complete: (results: any) => {
         const [ r, ...rows ] = results.data
         console.log(r)
         let objects : DNDatatype[] = []
         rows.map((row: any[]) => {
-          console.log(row)
+          // console.log(row)
           let response = {
             "วันที่": '',
             "unix": 0,
@@ -92,7 +91,7 @@ const Page = () => {
             "เย็นไม่ถูก": 0
           }
           row.map((property,index) => {
-            console.log(row)
+            // console.log(row)
             switch(index){
               case 0:
                 response["วันที่"] = property
@@ -147,8 +146,7 @@ const Page = () => {
           objects.push(response)
         })
         setDNdata(objects)
-        // readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present6/AI+MASK+-+export_location.csv', {
-        readRemoteFile(`${CSV_PATH}/28042021/export_location.csv`,{
+        readRemoteFile(`${CSV_PATH}/export_location.csv`,{
           download: true,
           complete: (results: any) => {
             const [ r, ...rows ] = results.data
@@ -235,7 +233,6 @@ const Page = () => {
     ]
   }
   const dayData = (data: DNDatatype[]) => {
-    // TODO: add date filter
     return data.filter(row => row.unix > small_range ).map(row => {
       return {
         date: row['วัน'],
@@ -245,7 +242,6 @@ const Page = () => {
     })
   }
   const nightData = (data: DNDatatype[]) => {
-    // TODO: add date filter
     return data.filter(row => row.unix > small_range ).map(row => {
       return {
         date: row['วัน'],

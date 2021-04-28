@@ -38,7 +38,7 @@ export const mainData = (markers: MarkerType[]) => {
   const in_correct_percent = brief( in_correct/total )
   return {
     report_period: '1 - 22 เมย. 2564',
-    daily_report: '22 เมย. 2564',
+    daily_report: '27 เมย. 2564',
     previous_period: '25 - 31 มีค. 2564',
     result: {
       total,
