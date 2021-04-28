@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk');
 const csvjson = require('csvjson');
+var dayjs = require('dayjs');
 
 const s3 = new AWS.S3({
   // accessKeyId: process.env.YOUR_AWS_ACCESS_KEY_ID,
@@ -10,6 +11,7 @@ const s3 = new AWS.S3({
   apiVersion: '2006-03-01',
 });
 
+const current_day = dayjs().format('DDMMYYYY')
 
 export default function handler(req, res) {
   if (req.method === 'POST') {
@@ -17,7 +19,7 @@ export default function handler(req, res) {
     const csvData = csvjson.toCSV(payload, { headers: 'key' });
     const params  = {
       Bucket: 'koh-assets',
-      Key: `superai/aimask/${file_name}.csv`,
+      Key: `superai/aimask/dailyreport/${current_day}/${file_name}.csv`,
       ACL: 'public-read',
       Body: csvData,
       ContentType: 'text/csv',
