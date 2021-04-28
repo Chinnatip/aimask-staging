@@ -31,10 +31,10 @@ export default function handler(req, res) {
 
     s3.upload(formParam(''), (s3Err, data) => {
       if (s3Err) { throw s3Err }
-      s3.upload(formParam(current_day), (s3Err, data) => {
-        if (s3Err) { throw s3Err }
-        return res.status(200).json({ message: `File uploaded successfully at ${data.Location}` });
-      });
+      return res.status(200).json({ message: `File uploaded successfully at ${data.Location}` });
+      // s3.upload(formParam(current_day), (s3Err, data) => {
+      //   if (s3Err) { throw s3Err }
+      // });
     });
   } else {
     // Handle any other HTTP method
