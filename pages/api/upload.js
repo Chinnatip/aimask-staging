@@ -13,28 +13,30 @@ const s3 = new AWS.S3({
 
 const current_day = dayjs().format('DDMMYYYY')
 
-const formParam = (sub_path) => {
-  const path = sub_path != '' ? `superai/aimask/dailyreport/${sub_path}` : `superai/aimask/dailyreport`
-  return {
-    Bucket: 'koh-assets',
-    Key: `${path}/${file_name}.csv`,
-    ACL: 'public-read',
-    Body: csvData,
-    ContentType: 'text/csv',
-  }
-};
-
 export default function handler(req, res) {
   if (req.method === 'POST') {
     const { payload , file_name } = req.body
     const csvData = csvjson.toCSV(payload, { headers: 'key' });
-
-    s3.upload(formParam(''), (s3Err, data) => {
+    const paramDaily  = {
+      Bucket: 'koh-assets',
+      Key: `superai/aimask/dailyreport/${file_name}.csv`,
+      ACL: 'public-read',
+      Body: csvData,
+      ContentType: 'text/csv',
+    };
+    const params  = {
+      Bucket: 'koh-assets',
+      Key: `superai/aimask/dailyreport/${current_day}/${file_name}.csv`,
+      ACL: 'public-read',
+      Body: csvData,
+      ContentType: 'text/csv',
+    };
+    s3.upload(paramDaily, (s3Err, data) => {
       if (s3Err) { throw s3Err }
-      return res.status(200).json({ message: `File uploaded successfully at ${data.Location}` });
-      // s3.upload(formParam(current_day), (s3Err, data) => {
-      //   if (s3Err) { throw s3Err }
-      // });
+      s3.upload(params, (s3Err, data) => {
+        if (s3Err) { throw s3Err }
+        return res.status(200).json({ message: `File uploaded successfully at ${data.Location}` });
+      });
     });
   } else {
     // Handle any other HTTP method
