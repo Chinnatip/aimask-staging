@@ -1,3 +1,9 @@
 export default function handler(req, res) {
-  res.status(200).json({ name: 'uploaded >>> to AWS' })
+  if (req.method === 'POST') {
+    // Process a POST request
+    res.status(200).json(req)
+  } else {
+    // Handle any other HTTP method
+    res.status(200).json({ name: 'sorry other method is disable for now' })
+  }
 }
