@@ -30,6 +30,8 @@ type MarkerType = {
   "note": string
 }
 
+const CSV_PATH = 'https://koh-assets.s3.ap-southeast-1.amazonaws.com/superai/aimask/dailyreport'
+
 const Page = () => {
   const [ district, setDistrictData ] = useState<DistrictType[]>([])
   const [data, setData] = useState({
@@ -50,7 +52,8 @@ const Page = () => {
   })
 
   useEffect(() => {
-    readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/dailyreport/AI+MASK+-+export_district_22042021.csv', {
+    // readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/dailyreport/AI+MASK+-+export_district_22042021.csv', {
+    readRemoteFile(`${CSV_PATH}/28042021/export_district.csv`,{
       download: true,
       complete: (results: any) => {
         console.log(results)
@@ -85,17 +88,18 @@ const Page = () => {
                 response["จำนวนประชากร"] = parseInt( property)
                 break;
               case 5:
-                response["ร้อยละใส่"] = parseFloat( property)
+                response["ร้อยละใส่"] = Math.floor(parseFloat( property)*10) / 10
                 break;
               default:
-                response['error'] = parseFloat( property)
+                response['error'] = Math.floor(parseFloat( property)*10) / 10
                 break;
             }
           })
           objects.push(response)
         })
         setDistrictData(objects)
-        readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/dailyreport/AI+MASK+-+export_location_22042021.csv', {
+        // readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/dailyreport/AI+MASK+-+export_location_22042021.csv', {
+        readRemoteFile(`${CSV_PATH}/28042021/export_location.csv`,{
           download: true,
           complete: (results: any) => {
             const [ r, ...rows ] = results.data

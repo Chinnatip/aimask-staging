@@ -42,6 +42,8 @@ export const Navbar = () => {
   </div>
 }
 
+const CSV_PATH = 'https://koh-assets.s3.ap-southeast-1.amazonaws.com/superai/aimask/dailyreport'
+
 const Page = () => {
   const [markers, setMarker] = useState<MarkerType[]>([])
   const [data, setData] = useState({
@@ -61,7 +63,8 @@ const Page = () => {
     }
   })
   useEffect(() => {
-    readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/dailyreport/AI+MASK+-+export_location_22042021.csv', {
+    // 'https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/dailyreport/AI+MASK+-+export_location_22042021.csv', {
+    readRemoteFile(`${CSV_PATH}/28042021/export_location.csv`,{
       download: true,
       complete: (results: any) => {
         console.log(results)

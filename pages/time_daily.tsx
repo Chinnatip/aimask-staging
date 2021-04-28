@@ -9,6 +9,7 @@ import { mainData } from '../components/static/aimask_static'
 const small_range = 242623
 const full_range = 242613
 
+const CSV_PATH = 'https://koh-assets.s3.ap-southeast-1.amazonaws.com/superai/aimask/dailyreport'
 
 type DNDatatype = {
   "วันที่": string
@@ -64,7 +65,8 @@ const Page = () => {
   })
 
   useEffect(() => {
-    readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present7/AI+MASK+-+export_daynight.csv', {
+    //readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present7/AI+MASK+-+export_daynight.csv', {
+    readRemoteFile(`${CSV_PATH}/28042021/export_daynight.csv`,{
       download: true,
       complete: (results: any) => {
         const [ r, ...rows ] = results.data
@@ -145,7 +147,8 @@ const Page = () => {
           objects.push(response)
         })
         setDNdata(objects)
-        readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present6/AI+MASK+-+export_location.csv', {
+        // readRemoteFile('https://koh-assets.s3-ap-southeast-1.amazonaws.com/superai/aimask/present6/AI+MASK+-+export_location.csv', {
+        readRemoteFile(`${CSV_PATH}/28042021/export_location.csv`,{
           download: true,
           complete: (results: any) => {
             const [ r, ...rows ] = results.data
