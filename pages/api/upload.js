@@ -11,9 +11,7 @@ const s3 = new AWS.S3({
   apiVersion: '2006-03-01',
 });
 
-// const current_day = dayjs().format('DDMMYYYY')
-
-export default async function handler(req, res) {
+export default function handler(req, res) {
   if (req.method === 'POST') {
     const { payload, set_day, file_name } = req.body
     const csvData = csvjson.toCSV(payload, { headers: 'key' });
@@ -26,17 +24,19 @@ export default async function handler(req, res) {
     };
     const params  = {
       Bucket: 'koh-assets',
-      Key: `superai/aimask/dailyreport/29042021/${file_name}.csv`,
+      Key: `superai/aimask/dailyreport/${set_day}/${file_name}.csv`,
       ACL: 'public-read',
       Body: csvData,
       ContentType: 'text/csv',
     };
-
-    const reportDaily = await s3.upload(paramDaily)
-    if(set_day != undefined){
-      const reportHistory = await s3.upload(params)
-    }
-    return res.status(200).json({ message: `File uploaded successfully at ${reportDaily.Location}` });
+    s3.upload(paramDaily, (s3Err, data) => {
+      if (s3Err) { throw s3Err }
+      if (set_day == undefined) { return res.status(200).json({ message: `File uploaded successfully at ${data.Location}` })}
+      s3.upload(params, (s3Err, historyData) => {
+        if (s3Err) { throw s3Err }
+        return res.status(200).json({ message: `File uploaded successfully at ${data.Location}` });
+      });
+    });
   } else {
     // Handle any other HTTP method
     res.status(200).json({ name: 'sorry other method is disable for now' })
