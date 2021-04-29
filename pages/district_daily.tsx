@@ -217,6 +217,8 @@ const Page = () => {
     return {
       'เขต': row['เขต'],
       'ไม่ใส่': row['error'],
+      'total': row['จำนวนประชากร'],
+      'correct': row['ใส่หน้ากาก'],
       'color':  row['error'] < 5 ? '#749E42' :
                 row['error'] < 10 ? '#F3C042' : '#FF0000',
     }

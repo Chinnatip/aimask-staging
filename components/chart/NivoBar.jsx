@@ -11,8 +11,9 @@ const lineGraphSettings = {
     },
 };
 
-const Bar = ({ data /* see data tab */ }) => (
-    <ResponsiveBar
+const Bar = ({ data }) => {
+    console.log(data)
+    return <ResponsiveBar
         fontFamily='Sukhumvit Set'
         data={data}
         keys={[ 'ไม่ใส่' ]}
@@ -38,9 +39,12 @@ const Bar = ({ data /* see data tab */ }) => (
         }}
         enableGridX={true}
         enableGridY={false}
-        label={d => `${d.value}`}
-        labelFormat={ (d) => {
-            return <tspan  font={'bold 30px italic'}>{ `${d} %` }</tspan>
+        label={d => d}
+        labelFormat={(d) => {
+            return <>
+                <tspan font={'bold 30px italic'}>{ `${d.value}%` }</tspan>
+                <tspan x={`${(d.value*10) + 4.8}%`}>{ `(${data[d.index]['correct']}/${data[d.index]['total']})` }</tspan>
+            </>
         }}
         labelSkipWidth={11}
         labelSkipHeight={12}
@@ -49,6 +53,6 @@ const Bar = ({ data /* see data tab */ }) => (
         motionStiffness={90}
         motionDamping={15}
     />
-)
+}
 
 export default Bar
