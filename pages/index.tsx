@@ -1,61 +1,100 @@
 import Layout from "@/layout/Layout"
-// import { useState } from "react"
-// import Chart from "./charts"
-// import { fetchDashboard } from "../components/strategy/fetchDDC"
-// import { useMachine } from "@xstate/react"
-// import { useContent } from "../store/machine"
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-
-// let stateParser
-
-// const Content = () => {
-//   const Router = useRouter()
-//   const DataDate = "30 มกราคม 2564"
-//   const Map = <img src="Map/Map.png" />
-//   const [current] = useMachine(useContent, {
-//     services: {
-//       fetchData: () => fetchDashboard().then((res) => res),
-//     },
-//   })
-//   switch (current.value) {
-//     case "idle":
-//       return <h1>Blank</h1>
-//     case "loading":
-//       return <h1>Loading</h1>
-//     case "success":
-//       stateParser = current.context.data
-//       const { today, timeline } = stateParser
-//       // setMarkType({ ...maskCounter })
-//       return (
-
-//       )
-//     case "failure":
-//       return <h1>Reload</h1>
-//     default:
-//       return null
-//   }
-// }
-
+import { mainData } from '../components/static/aimask_static'
+import axios from "axios"
 import Link from "next/link"
+import {
+  DistrictType, MarkerType,
+  reportParse,
+  parseDistrict,
+  parseLocation,
+  readCSV
+} from '../components/strategy/daily'
+
+type DDCData = {
+  Confirmed?: number
+  Deaths?: number
+  DevBy?: string
+  Hospitalized?: number
+  NewConfirmed?: number
+  NewDeaths?: number
+  NewHospitalized?: number
+  NewRecovered?: number
+  Recovered?: number
+  SeverBy?: string
+  Source?: string
+  UpdateDate?: string
+}
+
+const digit = (numer : number|undefined ) => {
+  return numer != undefined ? numer.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0
+}
+
 const IndexPage = () => {
-  const DataDate = "30 มกราคม 2564"
-  const Map = <img src="Map/Map.png" />
-  // const { today, timeline } = stateParser
   const Router = useRouter()
+  const [ddcData, setDDC] = useState<DDCData>({})
+  const [ district, setDistrictData ] = useState<DistrictType[]>([])
+  const [report, setReport] = useState<any>({})
+  const [data, setData] = useState({
+    daily_report: '',
+    previous_period: '',
+    result: {
+      total: 0,
+      correct_percent: 0,
+      in_correct_percent: 0,
+      no_mask_percent: 0,
+      district: 0,
+      camera: 0
+    },
+    sort_district:{
+      red:  [''],
+      yellow: ['']
+    }
+  })
+  const { result: {correct_percent, in_correct_percent, no_mask_percent} } = data
+
+  useEffect(() => {
+    (async () => {
+      // CDC report
+      const ddc_data = await axios.get('https://covid19.th-stat.com/api/open/today')
+      setDDC(ddc_data.data)
+
+      // Collect District
+      const district: any = await readCSV('export_district')
+      const [ r, ...rows ] = district.data
+      console.log(r)
+      let objects : DistrictType[] = []
+      parseDistrict( rows, objects )
+      console.log(objects)
+      setDistrictData(objects)
+
+      // Collect District
+      const location: any = await readCSV('export_location')
+      const [ lr, ...lrows ] = location.data
+      console.log(lr)
+      let locationObjects : MarkerType[] = []
+      parseLocation( lrows, locationObjects )
+      setData(mainData(locationObjects))
+
+      // Collect report
+      const report: any = await readCSV('initial')
+      setReport(reportParse(report))
+    })()
+  }, []);
   return (
-    // <p>Hi</p>
-    <Layout current="home" title="DeepCare - Covid Map">
+    <Layout current="home" title="AiMASK - ะบบปัญญาประดิษฐ์ที่ถูกพัฒนาขึ้นมาเพื่อสนับสนุนการดูแลสุขภาพประชาชน">
       <>
-        <div className="mt-32 w-full h-full justify-items-center items-center flex flex-col">
-          <div className="max-w-full md:max-w-screen-lg flex">
+        <div className="mt-32 w-full">
+          <div className="max-w-full md:max-w-screen-lg m-auto">
             <div className="mx-8 lg:w-full lg:mx-0">
               <span className="text-sm text-gray-700 mb-1 inline-block">
               สนับสนุนโดย สำนักงานการวิจัยแห่งชาติ (วช.) กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม
               </span>
               <div className="border border-gray-400 w-full bg-gray-200 shadow-xl rounded-xl p-8 xs:px-20">
-                <h1 className="text-3xl"> <span className="text-orange-600">DeepCare</span> by AI คืออะไร...</h1>
+                <h1 className="text-3xl"> <span className=" font-semibold text-orange-600">AiMASK</span> คืออะไร...</h1>
                 <div className="flex mt-4 flex-col lg:flex-row">
-                  <div className="hidden lg:block px-4 text-lg">DeepCare</div>
+                  <div className="hidden lg:block px-4 text-lg">AiMASK</div>
                   <div>
                     คือ ระบบปัญญาประดิษฐ์ที่ถูกพัฒนาขึ้นมาเพื่อสนับสนุนการดูแลสุขภาพประชาชนร่วมกัน
                     ในช่วงโควิด-19 DeepCare
@@ -65,120 +104,153 @@ const IndexPage = () => {
                 </div>
               </div>
               <>
-          <div className="text-3xl mb-4 mt-16">
-              รายงานสถานการณ์และสถิติในช่วงโควิด-19
-            </div>
-          <div className="grid lg:grid-cols-5 grid-cols-2 gap-5 pb-6">
-            <div className="shadow-lg bg-pink-300 col-span-2 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
-              <span className="text-md font-bold">ติดเชื้อสะสม</span>
-              <h1 className="text-gray-800 text-3xl">17,953</h1>
-              <p className="text-xs text-gray-600">เพิ่มขึ้น 109</p>
-            </div>
-            <div className="shadow-lg bg-green-300 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
-              <span className="text-md font-bold">หายเเล้ว</span>
-              <h1 className="text-gray-800 text-3xl">11,505</h1>
-              <p className="text-xs text-gray-600">เพิ่มขึ้น 109</p>
-            </div>
-            <div className="shadow-lg bg-yellow-300 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
-              <span className="text-md font-bold">รักษาอยู่</span>
-              <h1 className="text-gray-800 text-3xl">6,371</h1>
-              <p className="text-xs text-gray-600">เพิ่มขึ้น 820</p>
-            </div>
-            <div className="shadow-lg bg-gray-300 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
-              <span className="text-md font-bold">เสียชีวิต</span>
-              <h1 className="text-gray-800 text-3xl">77</h1>
-              <p className="text-xs text-gray-600">เพิ่มขึ้น 1</p>
+                <div className="text-3xl mb-4 mt-16"> รายงานสถานการณ์และสถิติในช่วงโควิด-19 </div>
+                <div className="grid lg:grid-cols-5 grid-cols-2 gap-5 pb-6">
+                  <div className="shadow-lg bg-pink-300 col-span-2 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
+                    <span className="text-md font-bold">ติดเชื้อสะสม</span>
+                    <h1 className="text-gray-800 text-3xl">{digit(ddcData?.Confirmed)}</h1>
+                    <p className="text-xs text-gray-600">เพิ่มขึ้น {digit(ddcData?.NewConfirmed)}</p>
+                  </div>
+                  <div className="shadow-lg bg-green-300 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
+                    <span className="text-md font-bold">หายเเล้ว</span>
+                    <h1 className="text-gray-800 text-3xl">{digit(ddcData?.Recovered)}</h1>
+                    <p className="text-xs text-gray-600">เพิ่มขึ้น {digit(ddcData?.NewRecovered)}</p>
+                  </div>
+                  <div className="shadow-lg bg-yellow-300 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
+                    <span className="text-md font-bold">รักษาอยู่</span>
+                    <h1 className="text-gray-800 text-3xl">{digit(ddcData?.Hospitalized)}</h1>
+                    <p className="text-xs text-gray-600">เพิ่มขึ้น {digit(ddcData?.NewHospitalized)}</p>
+                  </div>
+                  <div className="shadow-lg bg-gray-300 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
+                    <span className="text-md font-bold">เสียชีวิต</span>
+                    <h1 className="text-gray-800 text-3xl">{digit(ddcData?.Deaths)}</h1>
+                    <p className="text-xs text-gray-600">เพิ่มขึ้น {digit(ddcData?.NewDeaths)}</p>
+                  </div>
+                </div>
+                <p className="text-sm text-right text-gray-500">ข้อมูลอัปเดตเมื่อวันที่: {ddcData?.UpdateDate} จากกรมควบคุมโรค {ddcData?.Source}</p>
+                <div className="h-16"></div>
+
+                {/* Main Box */}
+                <div className="grid lg:grid-cols-2 lg:grid-flow-row grid-rows-1 px-5 gap-2 -mx-8">
+                  <div className="flex-grow-0 p-2 max-w-screen-sm">
+                    <div className="text-3xl">สถิติการสวมหน้ากากอนามัย </div>
+                    <div className="-mt-1 text-orange-600 font-semibold">ประจำวันที่ {report?.today?.text}</div>
+                    <div
+                      id="bordermap"
+                      className="bg-white border-gray-900 p-2 w-full"
+                      onMouseOver={() => {
+                        let a = document.getElementById("bordermap")
+                        if (a == null) return
+                        a.style.borderWidth = "thick"
+                      }}
+                      onMouseLeave={() => {
+                        let a = document.getElementById("bordermap")
+                        if (a == null) return
+                        a.style.borderWidth = ""
+                      }}
+                    >
+                      <Link href="/daily_report">
+                        <a><img src={`https://drive.google.com/uc?export=view&id=${report?.district_image}`} /></a>
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="w-full">
+                    <div className="flex-grow lg:flex-grow-0 p-2 w-full">
+                      <div className="lg:hidden block text-2xl my-3">
+                        ข้อมูลจากกล้องสำรวจ
+                      </div>
+                      <div className="grid lg:grid-cols-3 grid-cols-2 gap-4">
+                        <div className="border-2 flex-col rounded-xl h-24 flex text-center items-center justify-center">
+                          <span className="text-sm">ใส่หน้ากากถูกต้อง</span>
+                          <h1 className="-mt-2 text-green-700 font-bold text-2xl">{correct_percent}%</h1>
+                        </div>
+                        <div className="border-2 flex-col rounded-xl h-24 flex text-center items-center justify-center">
+                          <span className="text-sm">ใส่หน้ากากไม่ถูกต้อง</span>
+                          <h1 className="-mt-2 text-yellow-500 font-bold text-2xl">{in_correct_percent}%</h1>
+                        </div>
+                        <div className="border-2 flex-col rounded-xl h-24 flex text-center items-center justify-center">
+                          <span className="text-sm">ไม่ใส่หน้ากาก</span>
+                          <h1 className="-mt-2 text-red-600 font-bold text-2xl">{no_mask_percent}%</h1>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="h-4"></div>
+                    <div>คลิ๊กเพื่อดูรายงานประจำวัน</div>
+                    <button onClick={() => Router.push('/daily_report')}>
+                      <img src="report_image.png" className="w-full mt-2 shadow-xl" alt=""/>
+                    </button>
+                    <div className="w-full grid-cols-3 grid gap-4 mt-4">
+                      <a href="/present_daily" className="bg-gray-600 p-2 inline-block text-center text-white rounded-full" >ภาพรวม</a>
+                      <a href="/district_daily" className="bg-gray-600 p-2 inline-block text-center text-white rounded-full" >ข้อมูลเขต</a>
+                      <a href="/time_daily" className="bg-gray-600 p-2 inline-block text-center text-white rounded-full" >ข้อมูลเเยกเวลา</a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Statistic */}
+                <div className="mt-12 mb-4">
+                  <div className="text-3xl">สถิติเเยกรายเขต </div>
+                  <div className="-mt-1 text-orange-600 font-semibold">ในเขตพื้นที่กรุงเทพมหานคร</div>
+                </div>
+                <div className="w-full flex flex-col lg:flex-row w-full">
+                  <div className="flex-grow lg:flex-grow-0 p-2 w-full">
+                    <div className="grid lg:grid-cols-4 grid-rows-1 gap-4">
+                      <div className="border-2 flex-col rounded-xl py-4 flex text-center items-center justify-center bg-blue-600 text-white">
+                        <span className="text-md">จำนวนเขตทั้งหมด</span>
+                        <h1 className="font-bold text-4xl">{district.length} เขต</h1>
+                      </div>
+                      <div className="border-2 flex-col rounded-xl py-4 flex text-center items-center justify-center">
+                        <span className="text-md">ใส่หน้ากาก 95-100%</span>
+                        <h1 className="font-bold text-green-700 text-4xl">{district.filter(item => item['ร้อยละใส่'] > 95).length} เขต</h1>
+                      </div>
+                      <div className="border-2 flex-col rounded-xl py-4 flex text-center items-center justify-center">
+                        <span className="text-md">ใส่หน้ากาก 90-95%</span>
+                        <h1 className="font-bold text-yellow-500 text-4xl">{district.filter(item => item['ร้อยละใส่'] >= 90 && item['ร้อยละใส่'] <= 95).length} เขต</h1>
+                      </div>
+                      <div className="border-2 flex-col rounded-xl py-4 flex text-center items-center justify-center">
+                        <span className="text-md">ใส่หน้ากากน้อยกว่า 90%</span>
+                        <h1 className="font-bold text-red-600 text-4xl">{district.filter(item => item['ร้อยละใส่'] < 90).length} เขต</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <img src="total_time.png" className="mt-4 shadow-lg"/>
+                <div className="text-center italic text-sm mt-5 text-gray-700">สถิติข้อมูลทั้งหมดตั้งเเต่เริ่มเก็บข้อมูล</div>
+              </>
             </div>
           </div>
-          <p className="text-sm text-right text-gray-500">ข้อมูลอัปเดตเมื่อ: {DataDate} จากกรมควบคุมโรคhttps://covid19.th-stat.com/</p>
-          <div className="h-16"></div>
-          <div className="grid lg:grid-cols-2 lg:grid-flow-col grid-rows-4 grid-cols-1 lg:grid-rows-2 px-5 gap-2 -mx-8">
-
-            {/* Map area */}
-            <div className="flex-grow-0 p-2 max-w-screen-sm">
-              <div className="text-3xl">สถิติการสวมหน้ากากอนามัย</div>
-              <div
-                id="bordermap"
-                className="bg-white border-gray-900 p-2 w-full"
-                onMouseOver={() => {
-                  let a = document.getElementById("bordermap")
-                  if (a == null) return
-                  a.style.borderWidth = "thick"
-                }}
-                onMouseLeave={() => {
-                  let a = document.getElementById("bordermap")
-                  if (a == null) return
-                  a.style.borderWidth = ""
-                }}
-              >
-                <Link href="/map">
-                  <a>{Map}</a>
-                </Link>
-              </div>
-            </div>
-
-            {/* Statistic */}
-            <div className="lg:mt-12 -mt-32 w-full flex flex-col lg:flex-row w-full">
-              {/* 2x2 Grid */}
-              <div className="flex-grow lg:flex-grow-0 p-2 w-full">
-                <div className="grid lg:grid-cols-2 lg:grid-rows-2 grid-rows-2 gap-4">
-                  <div className="border-2 flex-col rounded-xl py-6 flex text-center items-center justify-center">
-                    <span className="text-sm">จำนวนเขตทั้งหมด</span>
-                    {/* <h1 className="font-bold text-4xl">{maskTodaySummary.no_correct_wear_mask + maskTodaySummary.no_incorrect_wear_mask +maskTodaySummary.no_not_wear_mask}</h1> */}
-                    {/* <h1 className="font-bold text-4xl">{maskCounter.green + maskCounter.yellow + maskCounter.red}</h1> */}
-                    <h1 className="font-bold text-4xl">15</h1>
-                  </div>
-                  <div className="border-2 flex-col rounded-xl py-6 flex text-center items-center justify-center">
-                    <span className="text-sm">ใส่หน้ากาก 95-100%</span>
-                    {/* <h1 className="font-bold text-green-700 text-4xl">{maskCounter.green}</h1> */}
-                    <h1 className="font-bold text-green-700 text-4xl">13</h1>
-                  </div>
-                  <div className="border-2 flex-col rounded-xl py-6 flex text-center items-center justify-center">
-                    <span className="text-sm">ใส่หน้ากาก 90-95%</span>
-                    {/* <h1 className="font-bold text-yellow-500 text-4xl">{maskCounter.yellow}</h1> */}
-                    <h1 className="font-bold text-yellow-500 text-4xl">1</h1>
-                  </div>
-                  <div className="border-2 flex-col rounded-xl py-6 flex text-center items-center justify-center">
-                    <span className="text-sm">ใส่หน้ากากน้อยกว่า 90%</span>
-                    {/* <h1 className="font-bold text-red-600 text-4xl">{maskCounter.red}</h1> */}
-                    <h1 className="font-bold text-red-600 text-4xl">1</h1>
-                  </div>
+        </div>
+        <div className="mt-12 py-6 pb-24 bg-gray-400">
+          <div className="max-w-full md:max-w-screen-lg m-auto">
+            <p className="text-3xl text-gray-600">Open source</p>
+            <div className="-mt-1 text-gray-900 font-semibold">ฐานข้อมูลเเละโมเดลที่เปิดให้นักพัฒนานำไปใช้งาน</div>
+            <div className="grid lg:grid-cols-4 grid-rows-1 gap-4 mt-5">
+              <a href="">
+                <div className="border-2 border-gray-500 h-48 flex-col rounded-xl py-4 flex text-center items-center justify-center">
+                  <img src="colab.png" className="h-24 -mt-4 mb-2"/>
+                  <div className="font-bold text-xl">Google Colab</div>
                 </div>
-              </div>
-            </div>
-
-            <div className="lg:mt-12 w-full -mb-64">
-              {/* 2x2 Grid */}
-              <div className="flex-grow lg:flex-grow-0 p-2 w-full">
-                <div className="lg:hidden block text-2xl my-3">
-                  ข้อมูลจากกล้องสำรวจ
+              </a>
+              <a href="https://drive.google.com/file/d/1U45YibRMgLSfjC65AIy8es08dYDsmR6g/view?usp=sharing">
+                <div className="border-2 border-gray-500 h-48 flex-col rounded-xl py-4 flex text-center items-center justify-center">
+                  <img src="dataset.png" className="h-24 -mt-2 mb-2"/>
+                  Facemark Dataset
+                  <div className="font-bold -mt-2">จำนวน 12,000 รูป</div>
                 </div>
-                <div className="grid lg:grid-cols-3 grid-cols-2 gap-4">
-                  <div className="border-2 flex-col rounded-xl h-24 flex text-center items-center justify-center">
-                    <span className="text-sm">ใส่หน้ากากถูกต้อง</span>
-                    <h1 className="-mt-2 text-green-700 font-bold text-3xl">49,816</h1>
-                  </div>
-                  <div className="border-2 flex-col rounded-xl h-24 flex text-center items-center justify-center">
-                    <span className="text-sm">ใส่หน้ากากไม่ถูกต้อง</span>
-                    <h1 className="-mt-2 text-yellow-500 font-bold text-3xl">722</h1>
-                  </div>
-                  <div className="border-2 flex-col rounded-xl h-24 flex text-center items-center justify-center">
-                    <span className="text-sm">ไม่ใส่หน้ากาก</span>
-                    <h1 className="-mt-2 text-red-600 font-bold text-3xl">537</h1>
-                  </div>
+              </a>
+              <a href="https://github.com/CMU-Perceptual-Computing-Lab/openpose">
+                <div className="border-2 border-gray-500 h-48 flex-col rounded-xl py-4 flex text-center items-center justify-center">
+                  Object tracking
+                  <div className="font-bold text-2xl">OpenPose</div>
                 </div>
-              </div>
-              <div className="h-4"></div>
-              <div>คลิ๊กเพื่อเปิดแผนที่</div>
-              <button onClick={() => Router.push('/map')}>
-                <img src="zoom_map.png" className="w-full" alt=""/>
-              </button>
-            </div>
-            {/* <div className="hidden lg:flex flex p-2 max-w-full " style={{ width: "48rem", height: "24rem" }}>
-              <Chart timeline={timeline} />
-            </div> */}
-          </div>
-        </>
+              </a>
+              <a href="https://github.com/lucidrains/vit-pytorch">
+                <div className="border-2 border-gray-500 h-48 flex-col rounded-xl py-4 flex text-center items-center justify-center">
+                  Image classification
+                  <div className="font-bold text-xl">Vision Transformer</div>
+                </div>
+              </a>
             </div>
           </div>
         </div>

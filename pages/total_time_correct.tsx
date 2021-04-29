@@ -122,7 +122,7 @@ const Page = () => {
       }
     ]
   }
-  return <div className="flex flex-col w-screen h-screen overflow-x-hidden overflow-y-hidden " style={{ fontFamily: 'Sukhumvit Set' }}>
+  return <div className="flex flex-col w-screen h-screen overflow-x-hidden overflow-y-hidden" style={{ fontFamily: 'Sukhumvit Set' }}>
     <Navbar />
     <div className="flex-grow w-full flex">
       <div className="flex-grow flex flex-col">

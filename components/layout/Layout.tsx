@@ -33,7 +33,7 @@ const Layout = ({
       <header>
         <Navbar maskType={maskType} current={current} />
       </header>
-      <div className={`fixed top-0 w-screen h-screen overflow-auto`}>
+      <div className={`${current != 'home' ? 'fixed top-0 w-screen h-screen overflow-auto': '' } overflow-x-hidden `} style={{ fontFamily: 'Sukhumvit Set' }}>
         {children}
       </div>
       {!nofooter && <Footer current={current} />}
