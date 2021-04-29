@@ -44,8 +44,105 @@ export const Navbar = () => {
 
 const CSV_PATH = 'https://koh-assets.s3.ap-southeast-1.amazonaws.com/superai/aimask/dailyreport'
 
+const readCSV = async (file_name: string) => {
+  let response = await new Promise((resolve, _) => {
+    readRemoteFile(`${CSV_PATH}/${file_name}.csv`, {
+      download: true,
+      complete: (results: any) => {
+        resolve(results)
+      }}
+    )
+  })
+  return response
+}
+
+const reportParse = (report: any) => {
+  let reportDetail : any = {}
+  report.data.map((row: string[], index: number) => {
+    switch (index){
+      case 0: break
+      case 4:
+        reportDetail['district_image'] = row[1]
+        break
+      default:
+        reportDetail[row[0]] = {
+          date: parseInt(row[1]),
+          unix: parseInt(row[2]),
+          text: row[3]
+        }
+        break
+    }
+  })
+  return reportDetail
+}
+
+const parseLocation = (rows: any[], objects: MarkerType[]) => {
+  rows.map((row: any[]) => {
+    let response = {
+      "จุดตั้งกล้อง": '',
+      "เขต": '',
+      "lattitude": 0,
+      "longitude": 0,
+      "นับกล้องต่อหนึ่งสถานที่": 0,
+      "ใส่หน้ากาก": 0,
+      "ใส่ไม่ถูกต้อง": 0,
+      "ไม่ใส่หน้ากาก": 0,
+      "รวม": 0,
+      "ใส่หน้ากาก%": 0,
+      "ใส่ไม่ถูกต้อง%": 0,
+      "ไม่ใส่หน้ากาก%": 0,
+      "note": ''
+    }
+    row.map((property,index) => {
+      switch(index){
+        case 0:
+          response["จุดตั้งกล้อง"] = property
+          break;
+        case 1:
+          response["เขต"] = property
+          break;
+        case 2:
+          response["lattitude"] = parseFloat( property)
+          break;
+        case 3:
+          response["longitude"] = parseFloat( property)
+          break;
+        case 4:
+          response["นับกล้องต่อหนึ่งสถานที่"] = parseInt( property)
+          break;
+        case 5:
+          response["ใส่หน้ากาก"] = parseInt( property)
+          break;
+        case 6:
+          response["ใส่ไม่ถูกต้อง"] = parseInt( property)
+          break;
+        case 7:
+          response["ไม่ใส่หน้ากาก"] = parseInt( property)
+          break;
+        case 8:
+          response["รวม"] = parseInt( property)
+          break;
+        case 9:
+          response["ใส่หน้ากาก%"] = parseFloat(property)
+          break;
+        case 10:
+          response["ใส่ไม่ถูกต้อง%"] = parseFloat(property)
+          break;
+        case 11:
+          response["ไม่ใส่หน้ากาก%"] = parseFloat(property)
+          break;
+        default:
+          response['note'] = property
+          break;
+      }
+    })
+    objects.push(response)
+  })
+}
+
 const Page = () => {
   const [markers, setMarker] = useState<MarkerType[]>([])
+  const [report, setReport] = useState<any>({})
   const [data, setData] = useState({
     daily_report: '',
     previous_period: '',
@@ -63,80 +160,23 @@ const Page = () => {
     }
   })
   useEffect(() => {
-    readRemoteFile(`${CSV_PATH}/export_location.csv`,{
-      download: true,
-      complete: (results: any) => {
-        console.log(results)
-        const [ r, ...rows ] = results.data
-        console.log(r)
-        let objects : MarkerType[] = []
-        rows.map((row: any[]) => {
-          let response = {
-            "จุดตั้งกล้อง": '',
-            "เขต": '',
-            "lattitude": 0,
-            "longitude": 0,
-            "นับกล้องต่อหนึ่งสถานที่": 0,
-            "ใส่หน้ากาก": 0,
-            "ใส่ไม่ถูกต้อง": 0,
-            "ไม่ใส่หน้ากาก": 0,
-            "รวม": 0,
-            "ใส่หน้ากาก%": 0,
-            "ใส่ไม่ถูกต้อง%": 0,
-            "ไม่ใส่หน้ากาก%": 0,
-            "note": ''
-          }
-          row.map((property,index) => {
-            switch(index){
-              case 0:
-                response["จุดตั้งกล้อง"] = property
-                break;
-              case 1:
-                response["เขต"] = property
-                break;
-              case 2:
-                response["lattitude"] = parseFloat( property)
-                break;
-              case 3:
-                response["longitude"] = parseFloat( property)
-                break;
-              case 4:
-                response["นับกล้องต่อหนึ่งสถานที่"] = parseInt( property)
-                break;
-              case 5:
-                response["ใส่หน้ากาก"] = parseInt( property)
-                break;
-              case 6:
-                response["ใส่ไม่ถูกต้อง"] = parseInt( property)
-                break;
-              case 7:
-                response["ไม่ใส่หน้ากาก"] = parseInt( property)
-                break;
-              case 8:
-                response["รวม"] = parseInt( property)
-                break;
-              case 9:
-                response["ใส่หน้ากาก%"] = parseFloat(property)
-                break;
-              case 10:
-                response["ใส่ไม่ถูกต้อง%"] = parseFloat(property)
-                break;
-              case 11:
-                response["ไม่ใส่หน้ากาก%"] = parseFloat(property)
-                break;
-              default:
-                response['note'] = property
-                break;
-            }
-          })
-          objects.push(response)
-        })
-        setMarker(objects)
-        setData(mainData(objects))
-      }
-    })
+    (async () => {
+      //
+      const location: any = await readCSV('export_location')
+      const [ r, ...rows ] = location.data
+      console.log(r)
+      let objects : MarkerType[] = []
+      parseLocation( rows, objects )
+      setMarker(objects)
+      setData(mainData(objects))
+      //
+      // Collect report
+      const report: any = await readCSV('initial')
+      setReport(reportParse(report))
+    })()
+    return () => {};
   }, []);
-  const { sort_district,daily_report, result: {
+  const { sort_district, result: {
     total,
     district,
     camera,
@@ -177,7 +217,7 @@ const Page = () => {
         {/* report title */}
         <div>
           <p>รายงานประจำวันที่</p>
-          <p className="ml-6 font-bold text-5xl -mt-3">{daily_report}</p>
+          <p className="ml-6 font-bold text-5xl -mt-3">{report?.today?.text}</p>
         </div>
         {/* labelling */}
         <div className="h-12 flex relative">

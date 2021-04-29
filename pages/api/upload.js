@@ -36,7 +36,7 @@ export default function handler(req, res) {
       }else{
         s3.upload(params, (s3Err, historyData) => {
           if (s3Err) { throw s3Err }
-          return res.status(200).json({ message: `File uploaded successfully at ${data.Location}` });
+          return res.status(200).json({ message: `File uploaded successfully at ${historyData.Location}` });
         })
       }
     });

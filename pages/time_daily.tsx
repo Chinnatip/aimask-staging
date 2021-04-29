@@ -5,10 +5,6 @@ import Line from '../components/chart/NivoLineChart'
 import { readRemoteFile } from 'react-papaparse'
 import { mainData } from '../components/static/aimask_static'
 
-//-- Setup date range --//
-const small_range = 242640 - 7
-const full_range  = 242640 - 30
-
 const CSV_PATH = 'https://koh-assets.s3.ap-southeast-1.amazonaws.com/superai/aimask/dailyreport'
 
 type DNDatatype = {
@@ -45,8 +41,185 @@ type MarkerType = {
   "note": string
 }
 
+const parseLocation = (rows: any[], objects: MarkerType[]) => {
+  rows.map((row: any[]) => {
+    let response = {
+      "จุดตั้งกล้อง": '',
+      "เขต": '',
+      "lattitude": 0,
+      "longitude": 0,
+      "นับกล้องต่อหนึ่งสถานที่": 0,
+      "ใส่หน้ากาก": 0,
+      "ใส่ไม่ถูกต้อง": 0,
+      "ไม่ใส่หน้ากาก": 0,
+      "รวม": 0,
+      "ใส่หน้ากาก%": 0,
+      "ใส่ไม่ถูกต้อง%": 0,
+      "ไม่ใส่หน้ากาก%": 0,
+      "note": ''
+    }
+    row.map((property,index) => {
+      switch(index){
+        case 0:
+          response["จุดตั้งกล้อง"] = property
+          break;
+        case 1:
+          response["เขต"] = property
+          break;
+        case 2:
+          response["lattitude"] = parseFloat( property)
+          break;
+        case 3:
+          response["longitude"] = parseFloat( property)
+          break;
+        case 4:
+          response["นับกล้องต่อหนึ่งสถานที่"] = parseInt( property)
+          break;
+        case 5:
+          response["ใส่หน้ากาก"] = parseInt( property)
+          break;
+        case 6:
+          response["ใส่ไม่ถูกต้อง"] = parseInt( property)
+          break;
+        case 7:
+          response["ไม่ใส่หน้ากาก"] = parseInt( property)
+          break;
+        case 8:
+          response["รวม"] = parseInt( property)
+          break;
+        case 9:
+          response["ใส่หน้ากาก%"] = parseFloat(property)
+          break;
+        case 10:
+          response["ใส่ไม่ถูกต้อง%"] = parseFloat(property)
+          break;
+        case 11:
+          response["ไม่ใส่หน้ากาก%"] = parseFloat(property)
+          break;
+        default:
+          response['note'] = property
+          break;
+      }
+    })
+    objects.push(response)
+  })
+}
+
+const parseDayNight = (rows: any[], objects: DNDatatype[]) => {
+  rows.map((row: any[]) => {
+    // console.log(row)
+    let response = {
+      "วันที่": '',
+      "unix": 0,
+      "weekday": 0,
+      "วัน": '',
+      "เช้า": 0,
+      "เย็น": 0,
+      "รวม": 0,
+      "เช้า%": 0,
+      "เย็น%": 0,
+      "รวม%": 0,
+      "เช้าถูก%": 0,
+      "เย็นถูก%": 0,
+      "รวมถูก%": 0,
+      "เช้าไม่ถูก": 0,
+      "เย็นไม่ถูก": 0
+    }
+    row.map((property,index) => {
+      // console.log(row)
+      switch(index){
+        case 0:
+          response["วันที่"] = property
+          break;
+        case 1:
+          response["unix"] = parseInt( property)
+          break;
+        case 2:
+          response["weekday"] = parseInt( property)
+          break;
+        case 3:
+          response["วัน"] = property
+          break;
+        case 4:
+          response["เช้าถูก%"] = parseFloat( property)
+          break;
+        case 5:
+          response["เช้า%"] = parseFloat( property)
+          break;
+        case 6:
+          response["เย็นถูก%"] = parseFloat( property)
+          break;
+        case 7:
+          response["เย็น%"] = parseFloat( property)
+          break;
+        case 8:
+          response["รวมถูก%"] = parseFloat( property)
+          break;
+        case 9:
+          response["รวม%"] = parseFloat( property)
+          break;
+        case 10:
+          response["เช้าไม่ถูก"] = parseInt( property)
+          break;
+        case 11:
+          response["เย็นไม่ถูก"] = parseInt( property)
+          break;
+        case 12:
+          response["เช้า"] = parseInt( property)
+          break;
+        case 13:
+          response["เย็น"] = parseInt( property)
+          break;
+        case 14:
+          response["รวม"] = parseInt( property)
+          break;
+        default:
+          response['รวม'] = parseInt( property)
+          break;
+      }
+    })
+    objects.push(response)
+  })
+}
+
+const readCSV = async (file_name: string) => {
+  let response = await new Promise((resolve, _) => {
+    readRemoteFile(`${CSV_PATH}/${file_name}.csv`, {
+      download: true,
+      complete: (results: any) => {
+        resolve(results)
+      }}
+    )
+  })
+  return response
+}
+
+const reportParse = (report: any) => {
+  let reportDetail : any = {}
+  report.data.map((row: string[], index: number) => {
+    switch (index){
+      case 0: break
+      case 4:
+        reportDetail['district_image'] = row[1]
+        break
+      default:
+        reportDetail[row[0]] = {
+          date: parseInt(row[1]),
+          unix: parseInt(row[2]),
+          text: row[3]
+        }
+        break
+    }
+  })
+  return reportDetail
+}
+
 const Page = () => {
   const [DNdata, setDNdata] = useState<DNDatatype[]>([])
+  const [report, setReport] = useState<any>({})
+  const [smallRange, setSmallRange] = useState(242640 - 7)
+  const [fullRange, setFullRange] = useState(242640 - 30)
+
   const [data, setData] = useState({
     daily_report: '',
     previous_period: '',
@@ -65,165 +238,36 @@ const Page = () => {
   })
 
   useEffect(() => {
-    readRemoteFile(`${CSV_PATH}/export_daynight.csv`,{
-      download: true,
-      complete: (results: any) => {
-        const [ r, ...rows ] = results.data
-        console.log(r)
-        let objects : DNDatatype[] = []
-        rows.map((row: any[]) => {
-          // console.log(row)
-          let response = {
-            "วันที่": '',
-            "unix": 0,
-            "weekday": 0,
-            "วัน": '',
-            "เช้า": 0,
-            "เย็น": 0,
-            "รวม": 0,
-            "เช้า%": 0,
-            "เย็น%": 0,
-            "รวม%": 0,
-            "เช้าถูก%": 0,
-            "เย็นถูก%": 0,
-            "รวมถูก%": 0,
-            "เช้าไม่ถูก": 0,
-            "เย็นไม่ถูก": 0
-          }
-          row.map((property,index) => {
-            // console.log(row)
-            switch(index){
-              case 0:
-                response["วันที่"] = property
-                break;
-              case 1:
-                response["unix"] = parseInt( property)
-                break;
-              case 2:
-                response["weekday"] = parseInt( property)
-                break;
-              case 3:
-                response["วัน"] = property
-                break;
-              case 4:
-                response["เช้าถูก%"] = parseFloat( property)
-                break;
-              case 5:
-                response["เช้า%"] = parseFloat( property)
-                break;
-              case 6:
-                response["เย็นถูก%"] = parseFloat( property)
-                break;
-              case 7:
-                response["เย็น%"] = parseFloat( property)
-                break;
-              case 8:
-                response["รวมถูก%"] = parseFloat( property)
-                break;
-              case 9:
-                response["รวม%"] = parseFloat( property)
-                break;
-              case 10:
-                response["เช้าไม่ถูก"] = parseInt( property)
-                break;
-              case 11:
-                response["เย็นไม่ถูก"] = parseInt( property)
-                break;
-              case 12:
-                response["เช้า"] = parseInt( property)
-                break;
-              case 13:
-                response["เย็น"] = parseInt( property)
-                break;
-              case 14:
-                response["รวม"] = parseInt( property)
-                break;
-              default:
-                response['รวม'] = parseInt( property)
-                break;
-            }
-          })
-          objects.push(response)
-        })
-        setDNdata(objects)
-        readRemoteFile(`${CSV_PATH}/export_location.csv`,{
-          download: true,
-          complete: (results: any) => {
-            const [ r, ...rows ] = results.data
-            console.log(r)
-            let objects : MarkerType[] = []
-            rows.map((row: any[]) => {
-              let response = {
-                "จุดตั้งกล้อง": '',
-                "เขต": '',
-                "lattitude": 0,
-                "longitude": 0,
-                "นับกล้องต่อหนึ่งสถานที่": 0,
-                "ใส่หน้ากาก": 0,
-                "ใส่ไม่ถูกต้อง": 0,
-                "ไม่ใส่หน้ากาก": 0,
-                "รวม": 0,
-                "ใส่หน้ากาก%": 0,
-                "ใส่ไม่ถูกต้อง%": 0,
-                "ไม่ใส่หน้ากาก%": 0,
-                "note": ''
-              }
-              row.map((property,index) => {
-                switch(index){
-                  case 0:
-                    response["จุดตั้งกล้อง"] = property
-                    break;
-                  case 1:
-                    response["เขต"] = property
-                    break;
-                  case 2:
-                    response["lattitude"] = parseFloat( property)
-                    break;
-                  case 3:
-                    response["longitude"] = parseFloat( property)
-                    break;
-                  case 4:
-                    response["นับกล้องต่อหนึ่งสถานที่"] = parseInt( property)
-                    break;
-                  case 5:
-                    response["ใส่หน้ากาก"] = parseInt( property)
-                    break;
-                  case 6:
-                    response["ใส่ไม่ถูกต้อง"] = parseInt( property)
-                    break;
-                  case 7:
-                    response["ไม่ใส่หน้ากาก"] = parseInt( property)
-                    break;
-                  case 8:
-                    response["รวม"] = parseInt( property)
-                    break;
-                  case 9:
-                    response["ใส่หน้ากาก%"] = parseFloat(property)
-                    break;
-                  case 10:
-                    response["ใส่ไม่ถูกต้อง%"] = parseFloat(property)
-                    break;
-                  case 11:
-                    response["ไม่ใส่หน้ากาก%"] = parseFloat(property)
-                    break;
-                  default:
-                    response['note'] = property
-                    break;
-                }
-              })
-              objects.push(response)
-            })
-            setData(mainData(objects))
-          }
-        })
-      }
-    })
+    (async () => {
+      // Collect DayNight
+      const daynight: any = await readCSV('export_daynight')
+      const [ r, ...rows ] = daynight.data
+      console.log(r)
+      let objects : DNDatatype[] = []
+      parseDayNight(rows, objects)
+      setDNdata(objects)
+
+      // Collect District
+      const location: any = await readCSV('export_location')
+      const [ lr, ...lrows ] = location.data
+      console.log(lr)
+      let locationObjects : MarkerType[] = []
+      parseLocation( lrows, locationObjects )
+      setData(mainData(locationObjects))
+
+      // Collect report
+      const report: any = await readCSV('initial')
+      const reportDetail = reportParse(report)
+      setReport(reportDetail)
+      setSmallRange(reportDetail.today?.unix - 6)
+      setFullRange(reportDetail.today?.unix - 30)
+    })()
   }, []);
   const lineData = (data: DNDatatype[]) => {
     return [
       {
         "id": "daily",
-        "data": data.filter(row => row['unix'] > full_range ).map(row => {
+        "data": data.filter(row => row['unix'] > fullRange ).map(row => {
           return {
             x: row['วัน'],
             y: row['รวมถูก%']
@@ -233,7 +277,7 @@ const Page = () => {
     ]
   }
   const dayData = (data: DNDatatype[]) => {
-    return data.filter(row => row.unix > small_range ).map(row => {
+    return data.filter(row => row.unix > smallRange ).map(row => {
       return {
         date: row['วัน'],
         value: row['เช้าถูก%'],
@@ -242,7 +286,7 @@ const Page = () => {
     })
   }
   const nightData = (data: DNDatatype[]) => {
-    return data.filter(row => row.unix > small_range ).map(row => {
+    return data.filter(row => row.unix > smallRange ).map(row => {
       return {
         date: row['วัน'],
         value: row['เย็นถูก%'],
@@ -250,11 +294,11 @@ const Page = () => {
       }
     })
   }
-  const { result: { camera } ,daily_report } = data
-  const mornSum = DNdata.filter(row => row.unix > small_range ).reduce((a,b) =>  a + (b.เช้า - b.เช้าไม่ถูก)  , 0)
-  const eveningSum = DNdata.filter(row => row.unix > small_range ).reduce((a,b) =>  a + (b.เย็น - b.เย็นไม่ถูก)  , 0)
-  const mornTotalSum = DNdata.filter(row => row.unix > small_range ).reduce((a,b) =>  a + b.เช้า  , 0)
-  const eveningTotalSum = DNdata.filter(row => row.unix > small_range ).reduce((a,b) =>  a + b.เย็น  , 0)
+  const { result: { camera } } = data
+  const mornSum = DNdata.filter(row => row.unix > smallRange ).reduce((a,b) =>  a + (b.เช้า - b.เช้าไม่ถูก)  , 0)
+  const eveningSum = DNdata.filter(row => row.unix > smallRange ).reduce((a,b) =>  a + (b.เย็น - b.เย็นไม่ถูก)  , 0)
+  const mornTotalSum = DNdata.filter(row => row.unix > smallRange ).reduce((a,b) =>  a + b.เช้า  , 0)
+  const eveningTotalSum = DNdata.filter(row => row.unix > smallRange ).reduce((a,b) =>  a + b.เย็น  , 0)
   // console.log(mornSum, mornTotalSum)
   return <div className="flex flex-col w-screen h-screen overflow-x-hidden overflow-y-hidden " style={{ fontFamily: 'Sukhumvit Set' }}>
     <Navbar />
@@ -305,7 +349,7 @@ const Page = () => {
         {/* report title */}
         <div className="p-4 pb-0">
           <p>รายงานประจำวันที่</p>
-          <p className="ml-6 font-bold text-4xl -mt-2">{daily_report}</p>
+          <p className="ml-6 font-bold text-4xl -mt-2">{report?.today?.text}</p>
         </div>
         {/*  */}
         <div className="h-20 bg-gray-300 w-full flex items-center px-8">
