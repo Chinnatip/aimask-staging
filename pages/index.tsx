@@ -226,7 +226,7 @@ const IndexPage = () => {
             <p className="text-3xl text-gray-600">Open source</p>
             <div className="-mt-1 text-gray-900 font-semibold">ฐานข้อมูลเเละโมเดลที่เปิดให้นักพัฒนานำไปใช้งาน</div>
             <div className="grid lg:grid-cols-4 grid-rows-1 gap-4 mt-5">
-              <a href="">
+              <a href="https://colab.research.google.com/drive/19fZG-72es1qYcLdc9gh_D909nrVGd9kY?usp=sharing">
                 <div className="border-2 border-gray-500 h-48 flex-col rounded-xl py-4 flex text-center items-center justify-center">
                   <img src="colab.png" className="h-24 -mt-4 mb-2"/>
                   <div className="font-bold text-xl">Google Colab</div>
