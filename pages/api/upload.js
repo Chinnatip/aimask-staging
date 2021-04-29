@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     };
     const params  = {
       Bucket: 'koh-assets',
-      Key: `superai/aimask/dailyreport/${set_day}/${file_name}.csv`,
+      Key: `superai/aimask/dailyreport/29042021/${file_name}.csv`,
       ACL: 'public-read',
       Body: csvData,
       ContentType: 'text/csv',
