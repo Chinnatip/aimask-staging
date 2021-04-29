@@ -31,7 +31,7 @@ export default function handler(req, res) {
     };
     s3.upload(paramDaily, (s3Err, data) => {
       if (s3Err) { throw s3Err }
-      if (set_day == undefined) { return res.status(200).json({ message: `File uploaded successfully at ${data.Location}` })}
+      if (set_day == undefined) { throw res.status(200).json({ message: `File uploaded successfully at ${data.Location}` })}
       s3.upload(params, (s3Err, historyData) => {
         if (s3Err) { throw s3Err }
         return res.status(200).json({ message: `File uploaded successfully at ${data.Location}` });
