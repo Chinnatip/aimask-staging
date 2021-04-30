@@ -183,7 +183,7 @@ const IndexPage = () => {
                     <div className="w-full grid-cols-3 grid gap-4 mt-4">
                       <a href="/present_daily" className="bg-gray-600 p-2 inline-block text-center text-white rounded-full" >ภาพรวม</a>
                       <a href="/district_daily" className="bg-gray-600 p-2 inline-block text-center text-white rounded-full" >ข้อมูลเขต</a>
-                      <a href="/time_daily" className="bg-gray-600 p-2 inline-block text-center text-white rounded-full" >ข้อมูลเเยกเวลา</a>
+                      <a href="/total_time_correct" className="bg-gray-600 p-2 inline-block text-center text-white rounded-full" >ข้อมูลเเยกเวลา</a>
                     </div>
                   </div>
                 </div>
