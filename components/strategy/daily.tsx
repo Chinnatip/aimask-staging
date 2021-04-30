@@ -10,6 +10,24 @@ export interface DistrictType  {
   "error": number
 }
 
+export interface DNDatatype {
+  "วันที่": string
+  "unix": number
+  "weekday": number
+  "วัน": string
+  "เช้า": number
+  "เย็น": number
+  "เช้า%": number
+  "เย็น%": number
+  "เช้าถูก%": number
+  "เย็นถูก%": number
+  "รวม": number
+  "รวม%": number
+  "รวมถูก%": number
+  "เช้าไม่ถูก": number
+  "เย็นไม่ถูก": number
+}
+
 export interface MarkerType  {
   "จุดตั้งกล้อง": string
   "เขต": string
@@ -45,7 +63,7 @@ export const reportParse = (report: any) => {
   report.data.map((row: string[], index: number) => {
     switch (index){
       case 0: break
-      case 4:
+      case 5:
         reportDetail['district_image'] = row[1]
         break
       default:
@@ -58,6 +76,85 @@ export const reportParse = (report: any) => {
     }
   })
   return reportDetail
+}
+
+export const parseDaynight = (rows: any[], objects: DNDatatype[]) => {
+  rows.map((row: any[]) => {
+    console.log(row)
+    let response = {
+      "วันที่": '',
+      "unix": 0,
+      "weekday": 0,
+      "วัน": '',
+      "เช้า": 0,
+      "เย็น": 0,
+      "รวม": 0,
+      "เช้า%": 0,
+      "เย็น%": 0,
+      "รวม%": 0,
+      "เช้าถูก%": 0,
+      "เย็นถูก%": 0,
+      "รวมถูก%": 0,
+      "เช้าไม่ถูก": 0,
+      "เย็นไม่ถูก": 0
+    }
+    row.map((property,index) => {
+      console.log(row)
+      switch(index){
+        case 0:
+          response["วันที่"] = property
+          break;
+        case 1:
+          response["unix"] = parseInt( property)
+          break;
+        case 2:
+          response["weekday"] = parseInt( property)
+          break;
+        case 3:
+          response["วัน"] = property
+          break;
+        case 4:
+          response["เช้าถูก%"] = parseFloat( property)
+          break;
+        case 5:
+          response["เช้า%"] = parseFloat( property)
+          break;
+        case 6:
+          response["เย็นถูก%"] = parseFloat( property)
+          break;
+        case 7:
+          response["เย็น%"] = parseFloat( property)
+          break;
+        case 8:
+          response["รวมถูก%"] = parseFloat( property)
+          break;
+        case 9:
+          response["รวม%"] = parseFloat( property)
+          break;
+        case 10:
+          response["เช้าไม่ถูก"] = parseInt( property)
+          break;
+        case 11:
+          response["เย็นไม่ถูก"] = parseInt( property)
+          break;
+        case 12:
+          response["เช้า"] = parseInt( property)
+          break;
+        case 13:
+          response["เย็น"] = parseInt( property)
+          break;
+        case 14:
+          response["รวม"] = parseInt( property)
+          break;
+        default:
+          response['รวม'] = parseInt( property)
+          break;
+      }
+    })
+    console.log(response)
+    objects.push(response)
+  })
+
 }
 
 export const parseDistrict = (rows: any[], objects: DistrictType[]) => {
