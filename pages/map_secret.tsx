@@ -42,7 +42,7 @@ const handleGoogleMapApi = (google: any) => {
 }
 
 export const GooglemapComponent = ({ markers }: { markers: MarkerType[] }) => {
-  const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
+  const keyString: string = process.env.GOOGLE_MAP_API_KEY != undefined ? process.env.GOOGLE_MAP_API_KEY : ''
   const [mapStyle] = useState<any>(localeStyle)
   const [center] = useState([13.756457,100.515556])
   return <GoogleMapReact
