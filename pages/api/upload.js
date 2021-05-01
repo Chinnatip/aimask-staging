@@ -1,9 +1,10 @@
 const AWS = require('aws-sdk');
 const csvjson = require('csvjson');
+// var dayjs = require('dayjs');
 
 const s3 = new AWS.S3({
-  accessKeyId: process.env.S3_ACCESS,
-  secretAccessKey: process.env.S3_SECRET,
+  accessKeyId: 'AKIAIDEWLR3ZDWO265DQ',
+  secretAccessKey: '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',
   region: 'ap-southeast-1',
   apiVersion: '2006-03-01',
 });
