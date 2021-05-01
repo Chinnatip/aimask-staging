@@ -43,7 +43,7 @@ const Bar = ({ data }) => {
         labelFormat={(d) => {
             return <>
                 <tspan font={'bold 30px italic'}>{ `${d.value}%` }</tspan>
-                <tspan x={`${(d.value*12) + 5.5}%`}>{ `(${data[d.index]['correct']}/${data[d.index]['total']})` }</tspan>
+                <tspan x={`${(d.value*12) + 10.5}%`}>{ `(${data[d.index]['correct']}/${data[d.index]['total']})` }</tspan>
             </>
         }}
         labelSkipWidth={11}
