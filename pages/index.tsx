@@ -89,7 +89,7 @@ const IndexPage = () => {
           <div className="max-w-full md:max-w-screen-lg m-auto">
             <div className="mx-8 lg:w-full lg:mx-0">
               <span className="text-sm text-gray-700 mb-1 inline-block">
-              สนับสนุนโดยย สำนักงานการวิจัยแห่งชาติ (วช.) กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม
+              สนับสนุนโดย สำนักงานการวิจัยแห่งชาติ (วช.) กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม
               </span>
               <div className="border border-gray-400 w-full bg-gray-200 shadow-xl rounded-xl p-8 xs:px-20">
                 <h1 className="text-3xl"> <span className=" font-semibold text-orange-600">AiMASK</span> คืออะไร...</h1>
