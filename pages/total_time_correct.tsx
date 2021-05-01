@@ -29,7 +29,7 @@ const Page = () => {
     return [
       {
         "id": "daily",
-        "data": data.filter(row => row['unix'] > report.today?.unix - 30).map(row => {
+        "data": data.filter(row => row['weekday'] == 3).map(row => {
           return {
             x: row['วัน'],
             y: row['รวมถูก%']
