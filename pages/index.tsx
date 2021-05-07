@@ -83,7 +83,7 @@ const IndexPage = () => {
     })()
   }, []);
   return (
-    <Layout current="home" title="AiMASK - ะบบปัญญาประดิษฐ์ที่ถูกพัฒนาขึ้นมาเพื่อสนับสนุนการดูแลสุขภาพประชาชน">
+    <Layout current="home" title="AiMASK - ระบบปัญญาประดิษฐ์ที่ถูกพัฒนาขึ้นมาเพื่อสนับสนุนการดูแลสุขภาพประชาชน">
       <>
         <div className="mt-32 w-full">
           <div className="max-w-full md:max-w-screen-lg m-auto">

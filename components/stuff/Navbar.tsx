@@ -51,7 +51,7 @@ export default function Navbar({current, maskType}: Props) {
               </span>
               <span className="flex ml-4">
                 <TableIcon fill={current == 'report' ? 'black' : 'white'} />
-                <a target='_blank' href="https://drive.google.com/drive/folders/1g2mROoe0xFdiu1VvQjyGBsErVD7p6Bct" className={`mx-2 ${current == 'brief' ? 'font-bold text-black' : 'text-gray-100'} `}>รายงานย้อนหลัง</a>
+                <a target='_blank' href="https://drive.google.com/drive/folders/1e-M0vOeR_4oTOQiANq9ok-2DUP4zcqBz?usp=sharing" className={`mx-2 ${current == 'brief' ? 'font-bold text-black' : 'text-gray-100'} `}>รายงานย้อนหลัง</a>
               </span>
               {/* <span className="flex ml-4">
                 <span className={` text-${current == 'report' ? 'black' : 'white'} `}  ><Icon fill={faChartLine} noMargin></Icon></span>
