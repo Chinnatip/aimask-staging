@@ -232,13 +232,13 @@ const IndexPage = () => {
                   <div className="font-bold text-xl">Google Colab</div>
                 </div>
               </a>
-              <a href="https://drive.google.com/file/d/1U45YibRMgLSfjC65AIy8es08dYDsmR6g/view?usp=sharing">
+              {/* <a href="https://drive.google.com/file/d/1U45YibRMgLSfjC65AIy8es08dYDsmR6g/view?usp=sharing">
                 <div className="border-2 border-gray-500 h-48 flex-col rounded-xl py-4 flex text-center items-center justify-center">
                   <img src="dataset.png" className="h-24 -mt-2 mb-2"/>
                   Facemark Dataset
                   <div className="font-bold -mt-2">จำนวน 12,000 รูป</div>
                 </div>
-              </a>
+              </a> */}
               <a href="https://github.com/CMU-Perceptual-Computing-Lab/openpose">
                 <div className="border-2 border-gray-500 h-48 flex-col rounded-xl py-4 flex text-center items-center justify-center">
                   Object tracking
