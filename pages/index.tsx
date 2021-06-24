@@ -57,7 +57,7 @@ const IndexPage = () => {
   useEffect(() => {
     (async () => {
       // CDC report
-      const ddc_data = await axios.get('https://covid19.th-stat.com/api/open/today')
+      const ddc_data = await axios.get('https://covid19.th-stat.com/json/covid19v2/getTodayCases.json')  //'https://covid19.th-stat.com/api/open/today')
       setDDC(ddc_data.data)
 
       // Collect District
