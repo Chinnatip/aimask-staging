@@ -9,7 +9,8 @@ import {
   reportParse,
   parseDistrict,
   parseLocation,
-  readCSV
+  readCSV,
+  readDohCSV
 } from '../components/strategy/daily'
 
 type DDCData = {
@@ -52,14 +53,39 @@ const IndexPage = () => {
       yellow: ['']
     }
   })
+  // const [ _, setDOHDistrictData ] = useState<DistrictType[]>([])
+  const [dohReport, setDOHReport] = useState<any>({})
+  const [dohData, setDOHData] = useState({
+    daily_report: '',
+    previous_period: '',
+    result: {
+      total: 0,
+      correct_percent: 0,
+      in_correct_percent: 0,
+      no_mask_percent: 0,
+      district: 0,
+      camera: 0
+    },
+    sort_district:{
+      red:  [''],
+      yellow: ['']
+    }
+  })
   const { result: {correct_percent, in_correct_percent, no_mask_percent} } = data
+  const { result: {
+    total: dohTotal,
+    correct_percent: dohCorrect,
+    in_correct_percent: dohIncorrect,
+    no_mask_percent: dohNoMask
+  }} = dohData
 
   useEffect(() => {
     (async () => {
       // CDC report
-      const ddc_data = await axios.get('https://covid19.th-stat.com/json/covid19v2/getTodayCases.json')  //'https://covid19.th-stat.com/api/open/today')
+      const ddc_data = await axios.get('https://covid19.th-stat.com/json/covid19v2/getTodayCases.json')
       setDDC(ddc_data.data)
 
+      // Bangkok Report
       // Collect District
       const district: any = await readCSV('export_district')
       const [ r, ...rows ] = district.data
@@ -80,6 +106,28 @@ const IndexPage = () => {
       // Collect report
       const report: any = await readCSV('initial')
       setReport(reportParse(report))
+
+      // DOH country report
+      // Collect District
+      // const doh_district: any = await readDohCSV('export_district')
+      // const [ dr, ...drows ] = doh_district.data
+      // console.log(dr)
+      // let doh_objects : DistrictType[] = []
+      // parseDistrict( drows, doh_objects )
+      // console.log(doh_objects)
+      // setDOHDistrictData(doh_objects)
+
+      // Collect District
+      const doh_location: any = await readDohCSV('export_location')
+      const [ dlr, ...dlrows ] = doh_location.data
+      console.log(dlr)
+      let dohLocationObjects : MarkerType[] = []
+      parseLocation( dlrows, dohLocationObjects )
+      setDOHData(mainData(dohLocationObjects))
+
+      // Collect report
+      const doh_report: any = await readDohCSV('initial')
+      setDOHReport(reportParse(doh_report))
     })()
   }, []);
   return (
@@ -217,6 +265,53 @@ const IndexPage = () => {
                 </div>
                 <img src="total_time.png" className="mt-4 shadow-lg"/>
                 <div className="text-center italic text-sm mt-5 text-gray-700">สถิติข้อมูลทั้งหมดตั้งเเต่เริ่มเก็บข้อมูล</div>
+
+                <br /><br />
+
+                {/* Main Box */}
+                <div className="grid lg:grid-cols-2 lg:grid-flow-row grid-rows-1 px-5 gap-2 -mx-8 py-8 bg-orange-100 border border-orange-300 rounded-xl">
+                  <div className="flex-grow-0 p-2 max-w-screen-sm">
+                    <div className="text-3xl">
+                      สถิติการสวมหน้ากากอนามัย
+                    </div>
+                    <div className="text-lg -mt-1 mb-2">โดย กรมอนามัย ตามจุดต่างๆทั่วประเภท</div>
+                    <div className="-mt-1 text-orange-600 font-semibold">ประจำวันที่ {dohReport?.today?.text}</div>
+                    <div className="flex items-end mt-10" style={{maxWidth: '340px' }}>
+                      <div className="flex-grow">จำนวนสำรวจ</div>
+                      <div className="text-3xl">{dohTotal} ราย</div>
+                    </div>
+
+                  </div>
+
+                  <div className="w-full">
+                    <div className="flex-grow lg:flex-grow-0 p-2 w-full">
+                      <div className="lg:hidden block text-2xl my-3">
+                        ข้อมูลจากกล้องสำรวจ
+                      </div>
+                      <div className="grid lg:grid-cols-3 grid-cols-2 gap-4">
+                        <div className="border-2 border-orange-300 flex-col rounded-xl h-24 flex text-center items-center justify-center">
+                          <span className="text-sm">ใส่หน้ากากถูกต้อง</span>
+                          <h1 className="-mt-2 text-green-700 font-bold text-2xl">{dohCorrect}%</h1>
+                        </div>
+                        <div className="border-2 border-orange-300 flex-col rounded-xl h-24 flex text-center items-center justify-center">
+                          <span className="text-sm">ใส่หน้ากากไม่ถูกต้อง</span>
+                          <h1 className="-mt-2 text-yellow-500 font-bold text-2xl">{dohIncorrect}%</h1>
+                        </div>
+                        <div className="border-2 border-orange-300 flex-col rounded-xl h-24 flex text-center items-center justify-center">
+                          <span className="text-sm">ไม่ใส่หน้ากาก</span>
+                          <h1 className="-mt-2 text-red-600 font-bold text-2xl">{dohNoMask}%</h1>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="h-4"></div>
+                    {/* <div>คลิ๊กเพื่อดูรายงานประจำวัน</div> */}
+                    <div className="w-full grid-cols-3 grid gap-4 mt-4">
+                      <a href="/doh_present_daily" className="bg-orange-500 p-2 inline-block text-center text-white rounded-full" >ภาพรวม</a>
+                      <a href="/doh_district_daily" className="bg-orange-500 p-2 inline-block text-center text-white rounded-full" >ข้อมูลเขต</a>
+                      <a href="/doh_total_time_correct" className="bg-orange-500 p-2 inline-block text-center text-white rounded-full" >ข้อมูลเเยกเวลา</a>
+                    </div>
+                  </div>
+                </div>
               </>
             </div>
           </div>

@@ -41,16 +41,16 @@ const handleGoogleMapApi = (google: any) => {
   flightPath.setMap(google.map)
 }
 
-export const GooglemapComponent = ({ markers }: { markers: MarkerType[] }) => {
+export const GooglemapComponent = ({ markers ,zoom=11, useStyle=true }: { markers: MarkerType[], zoom?: number ,useStyle?: boolean}) => {
   const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
   const [mapStyle] = useState<any>(localeStyle)
   const [center] = useState([13.756457,100.515556])
   return <GoogleMapReact
     bootstrapURLKeys={{ key: keyString}}
-    options={{ styles: mapStyle.style , minZoom: 5,scaleControl: false,scrollwheel: false,fullscreenControl: false,zoomControl: false,minZoomOverride: false }}
+    options={{ styles: useStyle ? mapStyle.style : false , minZoom: 5,scaleControl: false,scrollwheel: false,fullscreenControl: false,zoomControl: false,minZoomOverride: false }}
     defaultCenter={{ lat: center[0], lng: center[1] }}
     center={{ lat: center[0], lng: center[1] }}
-    defaultZoom={11}
+    defaultZoom={zoom}
     onGoogleApiLoaded={handleGoogleMapApi}
   >
     {markers.map((data, index) => {
