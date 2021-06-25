@@ -307,7 +307,7 @@ const IndexPage = () => {
                     {/* <div>คลิ๊กเพื่อดูรายงานประจำวัน</div> */}
                     <div className="w-full grid-cols-3 grid gap-4 mt-4">
                       <a target="_blank" href="/doh_present_daily" className="bg-orange-500 p-2 inline-block text-center text-white rounded-full" >ภาพรวม</a>
-                      <a target="_blank" href="/doh_district_daily" className="bg-orange-500 p-2 inline-block text-center text-white rounded-full" >ข้อมูลเขต</a>
+                      <a target="_blank" href="/doh_district_daily" className="bg-orange-500 p-2 inline-block text-center text-white rounded-full" >ข้อมูลจังหวัด</a>
                       <a target="_blank" href="/doh_total_time_correct" className="bg-orange-500 p-2 inline-block text-center text-white rounded-full" >ข้อมูลเเยกเวลา</a>
                     </div>
                   </div>
