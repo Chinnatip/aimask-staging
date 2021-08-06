@@ -54,6 +54,7 @@ const IndexPage = () => {
     }
   })
   // const [ _, setDOHDistrictData ] = useState<DistrictType[]>([])
+  const [reportState, setReportStat ] = useState(false)
   const [dohReport, setDOHReport] = useState<any>({})
   const [dohData, setDOHData] = useState({
     daily_report: '',
@@ -82,8 +83,12 @@ const IndexPage = () => {
   useEffect(() => {
     (async () => {
       // CDC report
-      const ddc_data = await axios.get('https://covid19.th-stat.com/json/covid19v2/getTodayCases.json')
-      setDDC(ddc_data.data)
+      axios.get('https://covid19.th-stat.com/json/covid19v2/getTodayCases.json').then(ddc_data => {
+        setDDC(ddc_data.data)
+        setReportStat(true)
+      }).catch(e => {
+        console.log(e)
+      })
 
       // Bangkok Report
       // Collect District
@@ -152,6 +157,7 @@ const IndexPage = () => {
                 </div>
               </div>
               <>
+                { reportState && <>
                 <div className="text-3xl mb-4 mt-16"> รายงานสถานการณ์และสถิติในช่วงโควิด-19 </div>
                 <div className="grid lg:grid-cols-5 grid-cols-2 gap-5 pb-6">
                   <div className="shadow-lg bg-pink-300 col-span-2 flex-col rounded-xl flex text-center items-center justify-center py-6 block">
@@ -176,6 +182,8 @@ const IndexPage = () => {
                   </div>
                 </div>
                 <p className="text-sm text-right text-gray-500">ข้อมูลอัปเดตเมื่อวันที่: {ddcData?.UpdateDate} จากกรมควบคุมโรค {ddcData?.Source}</p>
+                </>}
+
                 <div className="h-16"></div>
 
                 {/* Main Box */}
