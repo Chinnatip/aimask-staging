@@ -73,7 +73,8 @@ export interface MarkerType  {
 }
 
 const CSV_PATH = 'https://koh-assets.s3.ap-southeast-1.amazonaws.com/superai/aimask/dailyreport'
-const DOH_CEV_PATH = 'https://koh-assets.s3.ap-southeast-1.amazonaws.com/superai/aimask/doh_report'
+const DOH_CSV_PATH = 'https://koh-assets.s3.ap-southeast-1.amazonaws.com/superai/aimask/doh_report'
+const TCEL_CSV_PATH = 'https://koh-assets.s3.ap-southeast-1.amazonaws.com/superai/tcels/dailyreport'
 
 export const readCSV = async (file_name: string) => {
   let response = await new Promise((resolve, _) => {
@@ -89,7 +90,19 @@ export const readCSV = async (file_name: string) => {
 
 export const readDohCSV = async (file_name: string) => {
   let response = await new Promise((resolve, _) => {
-    readRemoteFile(`${DOH_CEV_PATH}/${file_name}.csv`, {
+    readRemoteFile(`${DOH_CSV_PATH}/${file_name}.csv`, {
+      download: true,
+      complete: (results: any) => {
+        resolve(results)
+      }}
+    )
+  })
+  return response
+}
+
+export const readTCELCSV = async (file_name: string) => {
+  let response = await new Promise((resolve, _) => {
+    readRemoteFile(`${TCEL_CSV_PATH}/${file_name}.csv`, {
       download: true,
       complete: (results: any) => {
         resolve(results)
@@ -121,7 +134,7 @@ export const reportParse = (report: any) => {
 
 export const parseDaynight = (rows: any[], objects: DNDatatype[]) => {
   rows.map((row: any[]) => {
-    console.log(row)
+    // console.log(row)
     let response = {
       "วันที่": '',
       "unix": 0,
@@ -140,7 +153,7 @@ export const parseDaynight = (rows: any[], objects: DNDatatype[]) => {
       "เย็นไม่ถูก": 0
     }
     row.map((property,index) => {
-      console.log(row)
+      // console.log(row)
       switch(index){
         case 0:
           response["วันที่"] = property
@@ -192,7 +205,7 @@ export const parseDaynight = (rows: any[], objects: DNDatatype[]) => {
           break;
       }
     })
-    console.log(response)
+    // console.log(response)
     objects.push(response)
   })
 

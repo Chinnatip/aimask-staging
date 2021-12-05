@@ -10,7 +10,8 @@ import {
   parseDistrict,
   parseLocation,
   readCSV,
-  readDohCSV
+  readDohCSV,
+  readTCELCSV
 } from '../components/strategy/daily'
 
 type DDCData = {
@@ -72,6 +73,23 @@ const IndexPage = () => {
       yellow: ['']
     }
   })
+  const [tcelReport, setTCELReport] = useState<any>({})
+  const [tcelData, setTCELData] = useState({
+    daily_report: '',
+    previous_period: '',
+    result: {
+      total: 0,
+      correct_percent: 0,
+      in_correct_percent: 0,
+      no_mask_percent: 0,
+      district: 0,
+      camera: 0
+    },
+    sort_district:{
+      red:  [''],
+      yellow: ['']
+    }
+  })
   const { result: {correct_percent, in_correct_percent, no_mask_percent} } = data
   const { result: {
     total: dohTotal,
@@ -79,6 +97,12 @@ const IndexPage = () => {
     in_correct_percent: dohIncorrect,
     no_mask_percent: dohNoMask
   }} = dohData
+  const { result: {
+    total: tcelTotal,
+    correct_percent: tcelCorrect,
+    in_correct_percent: tcelIncorrect,
+    no_mask_percent: tcelNoMask
+  }} = tcelData
 
   useEffect(() => {
     (async () => {
@@ -112,16 +136,7 @@ const IndexPage = () => {
       const report: any = await readCSV('initial')
       setReport(reportParse(report))
 
-      // DOH country report
-      // Collect District
-      // const doh_district: any = await readDohCSV('export_district')
-      // const [ dr, ...drows ] = doh_district.data
-      // console.log(dr)
-      // let doh_objects : DistrictType[] = []
-      // parseDistrict( drows, doh_objects )
-      // console.log(doh_objects)
-      // setDOHDistrictData(doh_objects)
-
+      // DOH country report`
       // Collect District
       const doh_location: any = await readDohCSV('export_location')
       const [ dlr, ...dlrows ] = doh_location.data
@@ -133,6 +148,19 @@ const IndexPage = () => {
       // Collect report
       const doh_report: any = await readDohCSV('initial')
       setDOHReport(reportParse(doh_report))
+
+      // TCELS country report`
+      // Collect District
+      const tcel_location: any = await readTCELCSV('export_location')
+      const [ tlr, ...tlrows ] = tcel_location.data
+      console.log(tlr)
+      let tcelLocationObjects : MarkerType[] = []
+      parseLocation( tlrows, tcelLocationObjects )
+      setTCELData(mainData(tcelLocationObjects))
+
+      // Collect report
+      const tcel_report: any = await readTCELCSV('initial')
+      setTCELReport(reportParse(tcel_report))
     })()
   }, []);
   return (
@@ -288,9 +316,7 @@ const IndexPage = () => {
                       <div className="flex-grow">จำนวนสำรวจ</div>
                       <div className="text-3xl">{dohTotal} ราย</div>
                     </div>
-
                   </div>
-
                   <div className="w-full">
                     <div className="flex-grow lg:flex-grow-0 p-2 w-full">
                       <div className="lg:hidden block text-2xl my-3">
@@ -320,6 +346,50 @@ const IndexPage = () => {
                     </div>
                   </div>
                 </div>
+
+                <br /><br />
+                {/* Main Box */}
+                <div className="grid lg:grid-cols-2 lg:grid-flow-row grid-rows-1 px-5 gap-2 -mx-8 py-8 bg-blue-100 border border-blue-300 rounded-xl">
+                  <div className="flex-grow-0 p-2 max-w-screen-sm">
+                    <div className="text-3xl">
+                      สถิติการสวมหน้ากากอนามัย
+                    </div>
+                    <div className="text-lg -mt-1 mb-2">โดย TCELS ตามจุดต่างๆทั่วประเภท</div>
+                    <div className="-mt-1 text-blue-600 font-semibold">ประจำวันที่ {tcelReport?.today?.text}</div>
+                    <div className="flex items-end mt-10" style={{maxWidth: '340px' }}>
+                      <div className="flex-grow">จำนวนสำรวจ</div>
+                      <div className="text-3xl">{tcelTotal} ราย</div>
+                    </div>
+                  </div>
+                  <div className="w-full">
+                    <div className="flex-grow lg:flex-grow-0 p-2 w-full">
+                      <div className="lg:hidden block text-2xl my-3">
+                        ข้อมูลจากกล้องสำรวจ
+                      </div>
+                      <div className="grid lg:grid-cols-3 grid-cols-2 gap-4">
+                        <div className="border-2 border-blue-300 flex-col rounded-xl h-24 flex text-center items-center justify-center">
+                          <span className="text-sm">ใส่หน้ากากถูกต้อง</span>
+                          <h1 className="-mt-2 text-green-700 font-bold text-2xl">{tcelCorrect}%</h1>
+                        </div>
+                        <div className="border-2 border-blue-300 flex-col rounded-xl h-24 flex text-center items-center justify-center">
+                          <span className="text-sm">ใส่หน้ากากไม่ถูกต้อง</span>
+                          <h1 className="-mt-2 text-yellow-500 font-bold text-2xl">{tcelIncorrect}%</h1>
+                        </div>
+                        <div className="border-2 border-blue-300 flex-col rounded-xl h-24 flex text-center items-center justify-center">
+                          <span className="text-sm">ไม่ใส่หน้ากาก</span>
+                          <h1 className="-mt-2 text-red-600 font-bold text-2xl">{tcelNoMask}%</h1>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="h-4"></div>
+                    {/* <div>คลิ๊กเพื่อดูรายงานประจำวัน</div> */}
+                    <div className="w-full grid-cols-3 grid gap-4 mt-4">
+                      <a target="_blank" href="/tcel_present_daily" className="bg-blue-500 p-2 inline-block text-center text-white rounded-full" >ภาพรวม</a>
+                      <a target="_blank" href="/tcel_total_time_correct" className="bg-blue-500 p-2 inline-block text-center text-white rounded-full" >ข้อมูลเเยกเวลา</a>
+                    </div>
+                  </div>
+                </div>
+
               </>
             </div>
           </div>

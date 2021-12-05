@@ -44,10 +44,17 @@ const handleGoogleMapApi = (google: any) => {
 export const GooglemapComponent = ({ markers ,zoom=11, useStyle=true }: { markers: MarkerType[], zoom?: number ,useStyle?: boolean}) => {
   const keyString: string = 'AIzaSyABQ_VlKDqdqHUcOKKRIkMvNljwWDUIzMc'
   const [mapStyle] = useState<any>(localeStyle)
-  const [center] = useState([13.756457,100.515556])
+  const [center] = useState([13.766988, 100.534426])
   return <GoogleMapReact
     bootstrapURLKeys={{ key: keyString}}
-    options={{ styles: useStyle ? mapStyle.style : false , minZoom: 5,scaleControl: false,scrollwheel: false,fullscreenControl: false,zoomControl: false,minZoomOverride: false }}
+    options={{ 
+      styles: useStyle ? mapStyle.style : false , 
+      minZoom: 5,
+      scaleControl: false,
+      scrollwheel: false,
+      fullscreenControl: false,
+      zoomControl: false,
+      minZoomOverride: false }}
     defaultCenter={{ lat: center[0], lng: center[1] }}
     center={{ lat: center[0], lng: center[1] }}
     defaultZoom={zoom}
